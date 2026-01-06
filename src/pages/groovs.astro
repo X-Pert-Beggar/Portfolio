@@ -1,0 +1,185 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectIndex from '../components/ProjectIndex.astro';
+import { Image } from 'astro:assets';
+
+// Import images
+import introGroovsImg from '../assets/Groovs/introGroovs_.webp';
+import mockuphoneImg from '../assets/Groovs/Mockuphone.webp';
+import mockuphonesideImg from '../assets/Groovs/Mockuphoneside.webp';
+import ctaImg from '../assets/Groovs/Cta.webp';
+import cta2Img from '../assets/Groovs/Cta2.webp';
+import mockupdesktopImg from '../assets/Groovs/Mockupdesktop.webp';
+import cta3Img from '../assets/Groovs/Cta3.webp';
+import cta4Img from '../assets/Groovs/Cta4.webp';
+import mockupfullmobileImg from '../assets/Groovs/Mockupfullmobile.webp';
+---
+
+<BaseLayout 
+    title="Groovs | Frédéric Vanhoolant" 
+    isProjectPage={true}
+    description="Groovs : Web application de seconde main et troc spécialisée dans les instruments à cordes. Étude de cas et design system."
+    ogImage="/Asset/Groovs/introGroovs_.webp"
+>
+    <div class="main-layout-wrapper">
+        <!-- Flux CENTRAL: CONTENU CASE STUDY -->
+        <main class="center-flow-project">
+            <div class="case-study-content">
+                <a href="/" class="back-link scramble-text">← Retour</a>
+                <!-- Title & Hero -->
+                <h1 class="project-large-title">Groovs</h1>
+                <span class="dot-separator">•</span>
+                
+                <div class="project-hero-media">
+                    <div class="placeholder-img" style="height: 100%;">
+                        <Image 
+                            src={introGroovsImg} 
+                            alt="Image de présentation du projet Groovs - plateforme de seconde main pour instruments" 
+                            class="project-image" 
+                            loading="eager" 
+                            decoding="async" 
+                            fetchpriority="high"
+                            width={1600}
+                            quality={80}
+                        />
+                    </div>
+                </div>
+
+                <!-- Case Description Section -->
+                <section id="description" class="case-description-section">
+                    <div class="case-grid">
+                        <div class="case-label">
+                            <h3 class="section-title">Description du projet</h3>
+                        </div>
+                        <div class="case-text">
+                            <p>Groovs est une web application dédiée à la seconde main, à l'achat et au troc, spécialisée dans les instruments à cordes.</p>
+                            <p>Ce projet a été l'occasion de concevoir un MVP performant, tout en mettant en place et en enrichissant un design system pensé selon une approche mobile first.
+                                Il vise à offrir une expérience utilisateur simple, cohérente et optimisée, aussi bien pour les musiciens amateurs que professionnels.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Gallery Section following the screenshot structure -->
+                <section id="gallery" class="gallery-section">
+                    <div class="media-stack">
+                        <div class="media-grid-2">
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={mockuphoneImg} alt="Mockup de l'application Groovs sur mobile" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={mockuphonesideImg} alt="Interface utilisateur montrant la liste des instruments sur Groovs" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="media-grid-2">
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={ctaImg} alt="Détail des Call to Action et des composants UI de Groovs" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={cta2Img} alt="Design du formulaire de mise en vente sur Groovs" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Full width Image (Phone 1) -->
+                        <div class="media-item">
+                            <Image src={mockupdesktopImg} alt="Version desktop de la plateforme Groovs" class="project-image" loading="lazy" decoding="async" />
+                        </div>
+
+                        <!-- 2-column Image Grid -->
+                        <div class="media-grid-2">
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={cta3Img} alt="Système de filtres de recherche pour instruments à cordes" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={cta4Img} alt="Mockup de l'espace personnel utilisateur sur Groovs" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Flow row -->
+                        <div class="media-item">
+                            <Image src={mockupfullmobileImg} alt="Parcours utilisateur complet sur l'application mobile Groovs" class="project-image" loading="lazy" decoding="async" />
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Colonne Droite: LISTE & CONTACT -->
+        <aside class="side-panel right">
+            <div class="side-content">
+                <ProjectIndex />
+
+                <div class="section-group mt-xl">
+                    <h4 class="small-title">Groovs c'est quoi ?</h4>
+                    <p class="service-intro">Groovs est une WebApp de seconde mains, d'achat et de trocs spécialisé dans le domaine des instruments à cordes.</p>
+                    <ul class="check-list">
+                        <li>Offrir aux clients un vaste assortiment d'articles à des prix abordables.</li>
+                        <li>Proposer le troc entre utilisateurs.</li>
+                        <li>Permettre aux passionnés d'explorer de nouvelles opportunités dans leurs recherches.</li>
+                    </ul>
+                </div>
+
+                <div class="section-group mt-xl">
+                    <h4 class="small-title">Analyse du marché : Public cible</h4>
+                    <p class="service-intro">Cette analyse a pour but de determiner les cibles potentielles ainsi que la concurrence.</p>
+                    <ul class="check-list">
+                        <li>Les Débutants : Ils sont généralement à la recherche d'un bon rapport qualité-prix pour acquérir leur première ou deuxième guitare. Ils seront considérés comme la majorité des utilisateurs au début de l'apparition de la WebApp.</li>
+                        <li>Les Confirmés : Ces clients ont déjà une idée précise de leurs futurs achats et sont plus enclins à utiliser les différentes fonctionnalités que Groovs pourrait proposer pour une meilleure vente ou recherche.</li>
+                        <li>Les Collectionneurs : Tout comme les confirmés, ces clients recherchent des guitares ayant des caractéristiques bien spécifiques telles que le modèle, la date de création, etc.</li>
+                    </ul>
+                </div>
+
+                <div class="section-group mt-xl">
+                    <h4 class="small-title">Analyse du marché : Les concurrents</h4>
+                    <p class="service-intro">Via des plateformes de téléchargement d'applications et des recherches web, j'ai pu établir une liste de concurrents potentiels :</p>
+                    <ul class="check-list">
+                        <li>Zikinf : Zikinf est une plateforme de vente d'instruments de musique d'occasion, représentant ainsi notre principal concurrent. Heureusement, notre avantage réside dans le fait que Zikinf présente des lacunes en termes d'ergonomie et n'a pas de présence sur le marché des applications. De plus, Groovs se distingue en se spécialisant exclusivement dans les instruments à corde, ce qui lui permet de développer un système de recherche plus performant pour ces produits.</li>
+                        <li>Facebook marketplace & 2ememain : Il sont également des concurrents importants, étant donné qu'ils englobent, avec 2ememain, le plus vaste marché de ventes d'occasions en ligne. Leur inconvénient réside dans le fait que ces deux concurrents proposent une grande variété d'articles, ce qui signifie qu'ils ne sont spécialisés dans aucun domaine spécifique.</li>
+                        <li>Ricardo : Ricardo.ch est une plateforme suisse de vente en ligne qui propose un large éventail de produits neufs et d'occasion. Elle offre également une fonctionnalité d'enchères, ce qui pourrait être une caractéristique intéressante pour Groovs dans le futur.</li>
+                    </ul>
+                </div>
+
+                <div class="section-group mt-xl">
+                    <h4 class="small-title">Parlons de nos premières fonctionnalités</h4>
+                    <p class="service-intro">Pour son mvp groovs propose une liste de fonctionnalité primordiale dans le monde de la seconde mains.</p>
+                    <ul class="check-list">
+                        <li>Un large choix de filtre : Comme indiqué, cette fonctionnalité serait le cœur de notre projet, visant à simplifier en quelques clics la complexité du choix d'instruments. Prenons l'exemple de la guitare : outre le fait que nous pouvons proposer des guitares électriques ou acoustiques, celles-ci possèdent également différents styles, tels que le style ST pour les guitares électriques et le style Jumbo pour les acoustiques, et bien d'autres. De plus, nos filtres pourraient inclure des accessoires liés à nos instruments, tels que des amplificateurs, des cordes, des médiators, des sangles, etc.</li>
+                        <li>Un espace de contact : Celui-ci vise à ressembler autant que possible aux interfaces de nos réseaux sociaux les plus utilisés, dans le but de simplifier l'expérience utilisateur et de permettre aux clients de rester dans leurs habitudes, améliorant ainsi la communication entre les utilisateurs.</li>
+                        <li>La possibilité d'enregistrer ces coups de coeur : Cette fonctionnalité vise à améliorer l'ergonomie de l'application. Grâce à celle-ci, l'expérience utilisateur ne sera pas compromise par des allers-retours incessants. La création d'un espace d'enregistrement offre à l'utilisateur la possibilité d'approfondir sa sélection, lui permettant de trier les éléments par ordre d'intérêt.</li>
+                        <li>Son propre espace de vente : Bien évidemment, chaque utilisateur disposera de son propre espace de vente où il trouvera le formulaire de vente permettant d'encoder son article. Ce formulaire a pour objectif de guider l'utilisateur afin d'optimiser la vente de son produit, en fournissant des conseils et des cases à remplir afin de donner un maximum d'informations. C'est également à cet endroit que l'utilisateur pourra définir son mode de paiement et de livraison selon ses préférences.s</li>
+                    </ul>
+                </div>
+
+                <div class="section-group mt-xl">
+                    <h4 class="small-title">Et pour le futur</h4>
+                    <p class="service-intro">Après le lancement du projet, il serait intéressant d'intégrer de nouvelles fonctionnalités en tenant compte des besoins spécifiques du public cible principal.</p>
+                    <ul class="check-list">
+                        <li>Un système d'enchère : Si la communauté de collectionneurs est présente sur notre application web, il serait intéressant d'élaborer un système d'enchères permettant d'ajouter une dimension d'excitation et de rareté aux produits proposés. Un tel système pourrait alors contribuer à accroître la réputation du projet auprès de ce type de clientèle.</li>
+                        <li>Rajouter des points de fidélité : Afin de maintenir l'engagement et l'investissement des clients dans notre projet, il serait intéressant de les récompenser par l'attribution de points mettant en valeur leurs profils et leurs produits.</li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+    </div>
+</BaseLayout>
+
+<style>
+    .small-title {
+        font-size: 12px;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+</style>

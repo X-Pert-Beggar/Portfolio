@@ -1,0 +1,127 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectIndex from '../components/ProjectIndex.astro';
+import { Image } from 'astro:assets';
+
+// Import images
+import affichebImg from '../assets/Others/afficheb.jpg';
+import clavierImg from '../assets/Others/clavier.jpg';
+import clavier2Img from '../assets/Others/clavier2.jpg';
+import iolcemobileImg from '../assets/Others/iolcemobile.jpg';
+import iolcepreImg from '../assets/Others/iolcepre.jpg';
+import goblinImg from '../assets/Others/goblin.jpg';
+import pikeImg from '../assets/Others/pike.jpg';
+import bookImg from '../assets/Others/book.jpg';
+---
+
+<BaseLayout 
+    title="Others | Frédéric Vanhoolant" 
+    isProjectPage={true}
+    description="Sélection de projets secondaires et explorations graphiques réalisés par Frédéric Vanhoolant."
+    ogImage="/Asset/Others/afficheb.jpg"
+>
+    <div class="main-layout-wrapper">
+        <!-- Flux CENTRAL: CONTENU CASE STUDY -->
+        <main class="center-flow-project">
+            <div class="case-study-content">
+                <a href="/" class="back-link scramble-text">← Retour</a>
+                <!-- Title & Hero -->
+                <h1 class="project-large-title">Autres</h1>
+                <span class="dot-separator">•</span>
+                
+                <div class="project-hero-media">
+                    <div class="placeholder-img" style="height: 100%;">
+                        <Image 
+                            src={affichebImg} 
+                            alt="Affiche de design graphique - Sélection de projets secondaires" 
+                            class="project-image" 
+                            loading="eager" 
+                            decoding="async" 
+                            fetchpriority="high"
+                            width={1600}
+                            quality={80}
+                        />
+                    </div>
+                </div>
+
+                <!-- Case Description Section -->
+                <section id="description" class="case-description-section">
+                    <div class="case-grid">
+                        <div class="case-label">
+                            <h3 class="section-title">Description des projets</h3>
+                        </div>
+                        <div class="case-text">
+                            <p>Voici quelques projets secondaires sur lesquels j'ai travaillé au cours des deux dernières années.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Gallery Section following the screenshot structure -->
+                <section id="gallery" class="gallery-section">
+                    <div class="media-stack">
+                        <div class="media-grid-2">
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={clavierImg} alt="Design d'un clavier personnalisé - Projet de modélisation" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={clavier2Img} alt="Rendu 3D d'un clavier minimaliste" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="media-grid-2">
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={iolcemobileImg} alt="Interface mobile de l'application Iolce" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={iolcepreImg} alt="Présentation visuelle du projet Iolce" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Full width Image (Phone 1) -->
+                        <div class="media-item">
+                            <Image src={goblinImg} alt="Illustration graphique Goblin - Art numérique" class="project-image" loading="lazy" decoding="async" />
+                        </div>
+
+                        <!-- 2-column Image Grid -->
+                        <div class="media-grid-2">
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={pikeImg} alt="Design graphique Pike - Exploration visuelle" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={bookImg} alt="Maquette de livre - Edition et mise en page" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Colonne Droite: LISTE & CONTACT -->
+        <aside class="side-panel right">
+            <div class="side-content">
+                <ProjectIndex />
+            </div>
+        </aside>
+    </div>
+</BaseLayout>
+
+<style>
+    .small-title {
+        font-size: 12px;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+</style>

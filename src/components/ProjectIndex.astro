@@ -1,0 +1,43 @@
+---
+interface Project {
+    href: string;
+    name: string;
+    type: string;
+}
+
+const projects: Project[] = [
+    { href: '/project-camera', name: 'Caméra XYZ-5000', type: 'UX/UI 🔗' },
+    { href: '/groovs', name: 'Groovs', type: 'Design System 🔗' },
+    { href: '/iolce', name: 'Kosta mitoussis', type: 'Frontend 🔗' },
+    { href: '/movento', name: 'Movento', type: 'UX Design 🔗' },
+    { href: '/musicplz', name: 'Music Please', type: 'Frontend 🔗' },
+    { href: '/rqr', name: 'RQR', type: 'UX/UI 🔗' },
+    { href: '/sarah', name: 'Sarah Prémont', type: 'UX/UI 🔗' },
+    { href: '/others', name: 'Others', type: 'Graphic design 🔗' },
+];
+---
+
+<div class="section-group">
+    <h4 class="small-title">Index</h4>
+    <div class="data-row header-row">
+        <span>Projet</span>
+        <span class="align-right">Type</span>
+    </div>
+    <div class="data-list compact">
+        {projects.map((project) => (
+            <div class="data-row" onclick={`window.location.href='${project.href}'`}>
+                <span class="scramble-text">{project.name}</span>
+                <span class="align-right">{project.type}</span>
+            </div>
+        ))}
+    </div>
+</div>
+
+<style>
+    .small-title {
+        font-size: 12px;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+</style>

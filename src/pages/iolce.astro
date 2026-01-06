@@ -1,0 +1,152 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectIndex from '../components/ProjectIndex.astro';
+import { Image } from 'astro:assets';
+
+// Import images
+import introImg from '../assets/Kosta/Intro.webp';
+import pcImg from '../assets/Kosta/pc.webp';
+import pc2Img from '../assets/Kosta/pc2.webp';
+import screenPcImg from '../assets/Kosta/sreen-pc.webp';
+import avisImg from '../assets/Kosta/avis.webp';
+import mobileFullImg from '../assets/Kosta/mobile-full_.webp';
+import doublescreenImg from '../assets/Kosta/doublescreen.webp';
+import mobileImg from '../assets/Kosta/mobile.webp';
+---
+
+<BaseLayout 
+    title="Kosta mitoussis | Frédéric Vanhoolant" 
+    isProjectPage={true}
+    description="Case study du site vitrine Kosta Mitoussis : conception et développement d'une plateforme moderne pour un kinésithérapeute."
+    ogImage="/Asset/Kosta/Intro.webp"
+>
+    <div class="main-layout-wrapper">
+        <!-- Flux CENTRAL: CONTENU CASE STUDY -->
+        <main class="center-flow-project">
+            <div class="case-study-content">
+                <a href="/" class="back-link scramble-text">← Retour</a>
+                <!-- Title & Hero -->
+                <h1 class="project-large-title">Kosta mitoussis</h1>
+                <a href="/" class="project-site-link scramble-text">
+                    <span class="dot-separator dot-separator--sarah">Lien vers le site</span>
+                </a>
+                
+                <div class="project-hero-media">
+                    <div class="placeholder-img" style="height: 100%;">
+                        <Image 
+                            src={introImg} 
+                            alt="Capture d'écran pleine largeur du site vitrine Kosta Mitoussis" 
+                            class="project-image" 
+                            loading="eager" 
+                            decoding="async" 
+                            fetchpriority="high"
+                            width={1600}
+                            height={900}
+                            quality={80}
+                        />
+                    </div>
+                </div>
+
+                <!-- Case Description Section -->
+                <section id="description" class="case-description-section">
+                    <div class="case-grid">
+                        <div class="case-label">
+                            <h3 class="section-title">Description du projet</h3>
+                        </div>
+                        <div class="case-text">
+                            <p>J'ai été missionné pour la conception et le développement d'un site vitrine pour un kinésithérapeute, avec pour objectif de renforcer sa présence en ligne et de valoriser son activité professionnelle.</p>
+                            <p>L'objectif principal était de proposer une présence en ligne moderne, claire et dynamique, tout en garantissant une mise en production rapide.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Gallery Section following the screenshot structure -->
+                <section id="gallery" class="gallery-section">
+                    <div class="media-stack">
+                        <div class="media-grid-2">
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={pcImg} alt="Aperçu des composants UI du site Kosta Mitoussis sur desktop" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={pc2Img} alt="Mockup de l'interface utilisateur sur un écran d'ordinateur" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="media-grid-2">
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={screenPcImg} alt="Interface du site Kosta Mitoussis affichée sur un écran PC" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={avisImg} alt="Section des avis clients sur le site vitrine" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Full width Image (Phone 1) -->
+                        <div class="media-item">
+                            <Image src={mobileFullImg} alt="Version mobile complète du site Kosta Mitoussis" class="project-image" loading="lazy" decoding="async" />
+                        </div>
+
+                        <!-- 2-column Image Grid -->
+                        <div class="media-grid-2">
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={doublescreenImg} alt="Mockup double écran montrant la réactivité du site" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={mobileImg} alt="Aperçu de la version mobile sur smartphone" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Colonne Droite: LISTE & CONTACT -->
+        <aside class="side-panel right">
+            <div class="side-content">
+                <ProjectIndex />
+
+                <div class="section-group mt-xl">
+                    <h4 class="small-title">L'objectif</h4>
+                    <p class="service-intro">Le projet visait à livrer un site moderne, épuré et dynamique, tout en respectant un délai de production court. L'enjeu principal était de proposer une interface simple, accessible et efficace, permettant aux visiteurs d'obtenir rapidement les informations essentielles.</p>
+                </div>
+
+                <div class="section-group mt-xl">
+                    <h4 class="small-title">Expérience utilisateur (UX/UI)</h4>
+                    <p class="service-intro">J'ai assuré la création d'une identité visuelle cohérente, incluant le design du site et la conception du logo. L'ensemble a été pensé pour transmettre une image professionnelle, rassurante et contemporaine, en adéquation avec le secteur médical.</p>
+                    <p class="service-intro">L'interface a été conçue autour d'une navigation intuitive et d'une hiérarchisation claire des contenus. Le design privilégie la lisibilité, l'accessibilité et la fluidité, avec des animations discrètes apportant du dynamisme sans compromettre l'expérience utilisateur.</p>
+                </div>
+
+                <div class="section-group mt-xl">
+                    <h4 class="small-title">Développement front-end</h4>
+                    <p class="service-intro">Ce projet m'a permis de mettre en œuvre des pratiques front-end modernes, en portant une attention particulière à la performance, à la maintenabilité du code et à la qualité de l'intégration. Le développement a été réalisé dans une logique d'efficacité et de rapidité, tout en garantissant un rendu professionnel.</p>
+                </div>
+
+                <div class="section-group mt-xl">
+                    <h4 class="small-title">Résultats</h4>
+                    <p class="service-intro">Le projet a abouti à la livraison d'un site vitrine fonctionnel, cohérent et performant, répondant aux attentes du client tant sur le plan visuel que technique, et offrant une base solide pour sa communication digitale.</p>
+                </div>
+            </div>
+        </aside>
+    </div>
+</BaseLayout>
+
+<style>
+    .small-title {
+        font-size: 12px;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+</style>

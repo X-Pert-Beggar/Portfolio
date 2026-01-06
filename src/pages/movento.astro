@@ -1,0 +1,175 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectIndex from '../components/ProjectIndex.astro';
+import { Image } from 'astro:assets';
+
+// Import gallery images
+import introImg from '../assets/Movento/intro.webp';
+import number2Img from '../assets/Movento/number2.webp';
+import number3Img from '../assets/Movento/number3.webp';
+import number4Img from '../assets/Movento/number4.webp';
+import number5Img from '../assets/Movento/number5.webp';
+import mobileImg from '../assets/Movento/mobile.jpg';
+
+// Import research and process images
+import capture1Img from '../assets/Movento/caputre-1.jpg';
+---
+
+<BaseLayout 
+    title="Movento | Frédéric Vanhoolant" 
+    isProjectPage={true}
+    description="Movento : application mobile de sensibilisation à la kinésithérapie et à la prévention des blessures sportives."
+    ogImage="/Asset/Movento/intro.webp"
+>
+    <div class="main-layout-wrapper">
+        <!-- Flux CENTRAL: CONTENU CASE STUDY -->
+        <main class="center-flow-project">
+            <div class="case-study-content">
+                <a href="/" class="back-link scramble-text">← Retour</a>
+                <!-- Title & Hero -->
+                <h1 class="project-large-title">Movento</h1>
+                <span class="dot-separator">•</span>
+                
+                <div class="project-hero-media">
+                    <div class="placeholder-img" style="height: 100%;">
+                        <video autoplay muted loop playsinline class="project-video">
+                            <source src="/Asset/Movento/65e8d6584d53eccf2f6e161d_movento.mp4" type="video/mp4">
+                            Votre navigateur ne supporte pas la lecture de vidéos.
+                        </video>
+                    </div>
+                </div>
+
+                <!-- Case Description Section -->
+                <section id="description" class="case-description-section">
+                    <div class="case-grid">
+                        <div class="case-label">
+                            <h3 class="section-title">Description du projet</h3>
+                        </div>
+                        <div class="case-text">
+                            <p>Movento est une application mobile qui se consacre à la sensibilisation de la population au bon fonctionnement du corps. Elle propose une vulgarisation de la kinésithérapie.</p>
+                            <p>Elle n'a pas un objectif curatif, mais vise plutôt l'auto-évaluation afin de déterminer si l'on présente ou non un trouble musculo-squelettique lors d'une activité sportive. L'objectif est donc de prévenir l'utilisateur avant l'aggravation d'un trouble, en sensibilisant à la kinésithérapie.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Gallery Section following the screenshot structure -->
+                <section id="gallery" class="gallery-section">
+                    <div class="media-stack">
+                        <div class="media-grid-2">
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={introImg} alt="Écran d'accueil de l'application mobile Movento" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={number2Img} alt="Interface de l'application Movento montrant les exercices de kinésithérapie" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="media-grid-2">
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={number3Img} alt="Détail d'une fiche exercice dans l'application Movento" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={number4Img} alt="Mockup de l'application Movento sur iPhone" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="media-grid-2">
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={number5Img} alt="Interface de suivi de progression dans Movento" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={capture1Img} alt="Capture d'écran du processus de conception de Movento" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Full width Image (Phone 1) -->
+                        <div class="media-item">
+                            <Image src={mobileImg} alt="Aperçu global des écrans de l'application mobile Movento" class="project-image" loading="lazy" decoding="async" />
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Colonne Droite: LISTE & CONTACT -->
+        <aside class="side-panel right">
+            <div class="side-content">
+                <ProjectIndex />
+
+                <div class="section-group mt-xl">
+                    <h4 class="small-title">Le but de Movento</h4>
+                    <p class="service-intro">L'application Movento a pour objectif de sensibiliser les sportifs à l'importance de s'échauffer correctement et de mieux comprendre la douleur qui peut survenir en cas de mauvaise réalisation d'un exercice sportif. Son but est d'aider les utilisateurs à comprendre les origines de cette douleur et les risques potentiels qui y sont associés.</p>
+                    <p class="service-intro">Pourquoi avoir choisi ce sujet ? En tant que sportif amateur, j'ai malheureusement subi plusieurs blessures lors de séances de sport. Suite à ces blessures, j'ai cherché à comprendre leurs causes en visionnant des vidéos, en consultant les avis d'autres sportifs plus expérimentés que moi, en échangeant avec mon coach, ainsi qu'en recourant aux conseils de kinésithérapeutes et d'ostéopathes.</p>
+                    <p class="service-intro">C'est ainsi, après ces riches conversations, que j'ai pris conscience de l'importance d'écouter son corps, et donc de ne plus adopter l'approche "no pain, no gain" qui est assez répandue dans certains milieux sportifs. Il est évident que j'aurais aimé disposer de tous ces précieux conseils avant le début de ma pratique sportive, c'est pourquoi j'ai tenu à développer cette application.</p>
+                </div>
+
+                <div class="section-group mt-xl">
+                    <h4 class="small-title">Mes recherches</h4>
+                    <p class="service-intro">Le public ciblé, sont les sportifs débutants de tous âges.</p>
+                    <p class="service-intro">En effet, ceux qui ont le plus de chances de se blesser sont généralement les débutants en raison de leur manque d'expérience et de technique dans les mouvements.</p>
+                    <p class="service-intro">J'ai pu dès lors interviewer différents profils de débutants sportifs, ce qui m'a permis de constater que 60 % du public cible est prêt à effectuer préventivement des exercices plutôt que de traiter une douleur chez un professionnel. Comme dis précédement j'ai pu déja parlé avec quelques kinésitérapeute qui on pu affirmé que les jeunes et les hommes comptent parmi les groupes les plus à risque de se blesser. Le taux global de blessés est significativement plus élevé chez les hommes que chez les femmes.</p>
+                </div>
+
+                <div class="section-group mt-xl">
+                    <h4 class="small-title">Création de fonctionnalité et ces différentes problematiques.</h4>
+                    <p class="service-intro">Suite a ces recherches il est temps d'imaginer quelques fonctionalités ainsi que des croquis et les mettres à l'épreuve par l'utlisation de persona.</p>
+                    <ul class="check-list">
+                        <li>Filtres d'activitées et exercices</li>
+                        <li>Pages parlant de la technique de l'exercice</li>
+                        <li>Dropdown parlant des douleurs et blessures potentielles</li>
+                        <li>Dropdown présentant une liste d'étirements</li>
+                        <li>Dropdown présentant une liste d'échauffement</li>
+                    </ul>
+
+                    <p class="service-intro">Après analyse, j'ai pu constater plusieurs problématiques qui m'ont amenée à remettre en question l'avancement de mon projet. Celui-ci manquait principalement de clarté. De plus, le sujet des douleurs, qui devrait normalement être notre problématique principale, est trop reléguée en annexe, et l'attention se concentre d'avantage sur la technique, ce qui est certes une bonne chose, mais il y a clairement un manque d'explication sur pourquoi cette technique peut être douloureuse.</p>
+                    <p class="service-intro">Pour résoudre ce problème, j'ai continué mes recherches et mes entretiens avec différents kinésithérapeutes. J'ai trouvé une solution en développant un questionnaire intelligent similaire à un QSM. Grâce à des séries de tests, il peut déterminer les éventuelles lacunes biomécaniques du corps de l'utilisateur. De ce fait par cette modification je me devais de modifier mes suivantes que voici :</p>
+                    <ul class="check-list">
+                        <li>Questionnaire sur l'exercice problématique</li>
+                        <li>Questionnaire sur la douleurs recentie</li>
+                        <li>Système d'épingle et création de programmes personnels</li>
+                        <li>Dropdown présentant des programmes d'étirements, de mobilités et d'échauffements</li>
+                        <li>Explication des causes potentielles</li>
+                    </ul>
+                </div>
+
+                <div class="section-group mt-xl">
+                    <h4 class="small-title">Parlons de nos premières fonctionnalités</h4>
+                    <p class="service-intro">Pour son mvp groovs propose une liste de fonctionnalité primordiale dans le monde de la seconde mains.</p>
+                    <ul class="check-list">
+                        <li>Un large choix de filtre : Comme indiqué, cette fonctionnalité serait le cœur de notre projet, visant à simplifier en quelques clics la complexité du choix d'instruments. Prenons l'exemple de la guitare : outre le fait que nous pouvons proposer des guitares électriques ou acoustiques, celles-ci possèdent également différents styles, tels que le style ST pour les guitares électriques et le style Jumbo pour les acoustiques, et bien d'autres. De plus, nos filtres pourraient inclure des accessoires liés à nos instruments, tels que des amplificateurs, des cordes, des médiators, des sangles, etc.</li>
+                        <li>Un espace de contact : Celui-ci vise à ressembler autant que possible aux interfaces de nos réseaux sociaux les plus utilisés, dans le but de simplifier l'expérience utilisateur et de permettre aux clients de rester dans leurs habitudes, améliorant ainsi la communication entre les utilisateurs.</li>
+                        <li>La possibilité d'enregistrer ces coups de coeur : Cette fonctionnalité vise à améliorer l'ergonomie de l'application. Grâce à celle-ci, l'expérience utilisateur ne sera pas compromise par des allers-retours incessants. La création d'un espace d'enregistrement offre à l'utilisateur la possibilité d'approfondir sa sélection, lui permettant de trier les éléments par ordre d'intérêt.</li>
+                        <li>Son propre espace de vente : Bien évidemment, chaque utilisateur disposera de son propre espace de vente où il trouvera le formulaire de vente permettant d'encoder son article. Ce formulaire a pour objectif de guider l'utilisateur afin d'optimiser la vente de son produit, en fournissant des conseils et des cases à remplir afin de donner un maximum d'informations. C'est également à cet endroit que l'utilisateur pourra définir son mode de paiement et de livraison selon ses préférences.s</li>
+                    </ul>
+                </div>
+
+                <div class="section-group mt-xl">
+                    <h4 class="small-title">Ma conclusion</h4>
+                    <p class="service-intro">J'ai trouvé l'expérience du TFA enrichissante, car elle m'a mis en contact avec un public et m'a permis de comprendre leurs attentes. Recevoir des retours de ce public cible m'a aidé à concevoir une application plus pertinente tout en économisant des efforts. L'obtention de ces retours permet également une meilleure évaluation de la pertinence de nos fonctionnalités proposées.</p>
+                    <p class="service-intro">Ce projet m'a également permis de me familiariser avec Figma, un outil qui était nouveau pour moi à l'époque. J'y ai découvert les bases des composants, des groupes, ainsi que quelques notions de prototypage, que j'ai ensuite pu développer davantage.</p>
+                </div>
+            </div>
+        </aside>
+    </div>
+</BaseLayout>
+
+<style>
+    .small-title {
+        font-size: 12px;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+</style>

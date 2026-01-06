@@ -1,0 +1,173 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectIndex from '../components/ProjectIndex.astro';
+import { Image } from 'astro:assets';
+
+// Import images
+import mockup0Img from '../assets/camera/mockup0.webp';
+import composantImg from '../assets/camera/Composant.webp';
+import animImg from '../assets/camera/anim.jpg';
+import mockup1Img from '../assets/camera/mockup1.webp';
+import window1Img from '../assets/camera/Window1.jpg';
+import window2Img from '../assets/camera/Window2.jpg';
+import claImg from '../assets/camera/Cla.webp';
+---
+
+<BaseLayout 
+    title="Camera XYZ-5000 | Frédéric Vanhoolant" 
+    isProjectPage={true}
+    description="Exploration de l'interface utilisateur pour une caméra professionnelle de nouvelle génération - Camera XYZ-5000."
+    ogImage="/Asset/camera/mockup0.webp"
+>
+    <div class="main-layout-wrapper">
+        <!-- Flux CENTRAL: CONTENU CASE STUDY -->
+        <main class="center-flow-project">
+            <div class="case-study-content">
+                <a href="/" class="back-link scramble-text">← Retour</a>
+                <!-- Title & Hero -->
+                <h1 class="project-large-title">CAMERA XYZ-5000</h1>
+                <span class="dot-separator">•</span>
+                
+                <div class="project-hero-media">
+                    <div class="placeholder-img" style="height: 100%;">
+                        <video autoplay muted loop playsinline class="project-video">
+                            <source src="/Asset/camera/VidCamera.mp4" type="video/mp4">
+                            Votre navigateur ne supporte pas la lecture de vidéos.
+                        </video>
+                    </div>
+                </div>
+
+                <!-- Case Description Section -->
+                <section id="description" class="case-description-section">
+                    <div class="case-grid">
+                        <div class="case-label">
+                            <h3 class="section-title">Description du projet</h3>
+                        </div>
+                        <div class="case-text">
+                            <p>Le projet Camera XYZ-5000 explore l'interface utilisateur des caméras professionnelles de nouvelle génération. L'objectif était de simplifier les contrôles complexes tout en conservant une précision chirurgicale pour les vidéastes.</p>
+                            <p>Nous avons travaillé sur une hiérarchie visuelle stricte, utilisant des contrastes élevés et une typographie monospace pour une lisibilité maximale en conditions de tournage difficiles. Chaque interaction a été pensée pour être accessible même avec des gants, privilégiant des zones de contact larges et des retours visuels instantanés.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Gallery Section following the screenshot structure -->
+                <section id="gallery" class="gallery-section">
+                    <div class="media-stack">
+                        <!-- Full width Image (Phone 1) -->
+                        <div class="media-item">
+                            <div class="placeholder-img" style="height: auto;">
+                                <Image 
+                                    src={mockup0Img} 
+                                    alt="Mockup principal de l'interface Camera XYZ-5000 sur écran professionnel" 
+                                    class="project-image" 
+                                    loading="eager" 
+                                    decoding="async" 
+                                    fetchpriority="high"
+                                    width={1600}
+                                    quality={80}
+                                />
+                            </div>
+                        </div>
+
+                        <!-- 2-column Image Grid -->
+                        <div class="media-grid-2">
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={composantImg} alt="Détail des composants de contrôle et réglages de la caméra" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={animImg} alt="Interface utilisateur montrant l'animation des réglages de focus" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Flow row -->
+                        <div class="media-item">
+                            <div class="placeholder-img" style="height: auto;">
+                                <Image src={mockup1Img} alt="Flux de navigation complet de l'interface utilisateur XYZ-5000" class="project-image" loading="lazy" decoding="async" />
+                            </div>
+                        </div>
+
+                        <div class="media-grid-2">
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={claImg} alt="Clavier de contrôle et interface de saisie de la caméra" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={window1Img} alt="Fenêtre de configuration avancée de l'interface caméra" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="media-item">
+                            <div class="placeholder-img" style="height: 400px;">
+                                <Image src={window2Img} alt="Mockup des contrôles d'exposition et de colorimétrie" class="project-image" loading="lazy" decoding="async" />
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Colonne Droite: LISTE & CONTACT -->
+        <aside class="side-panel right">
+            <div class="side-content">
+                <ProjectIndex />
+
+                <div class="section-group mt-xl">
+                    <h4 class="small-title">Le but du projet</h4>
+                    <p class="service-intro">Cette étude de cas a pour but d'expérimenter ces différents point afin de créer des projets de plus en plus ambitieux :</p>
+                    <ul class="check-list">
+                        <li>Animation 3D sur Figma : Intégrer une animation 3D en frame by frame sur Figma pour enrichir le processus de conception.</li>
+                        <li>Landing Page Caméra Imaginaire : Créer une page illustrative pour un produit fictif de caméra, mettant en avant les fonctionnalités 3D.</li>
+                        <li>Acquisition Compétences 3D : Se familiariser avec les logiciels de modélisation et d'animation 3D pour renforcer les compétences pratiques.</li>
+                    </ul>
+                </div>
+
+                <div class="section-group mt-xl">
+                    <h4 class="small-title">Transformer une Animation Blender en Composant Figma</h4>
+                    <div class="contact-box">
+                        <p>Après avoir sélectionné un modèle 3D et appliqué sa texture, j'ai entamé la phase d'animation. Une fois fini, l'étape suivante consistait à importer cette animation sur Figma, dans le but de réaliser une animation similaire à celle des AirPods d'Apple.</p>
+                        <p>Après avoir sélectionné un modèle 3D et appliqué sa texture, j'ai entamé la phase d'animation. Une fois fini, l'étape suivante consistait à importer cette animation sur Figma, dans le but de réaliser une animation similaire à celle des AirPods d'Apple.</p>
+                    </div>
+                </div>
+
+                <div class="section-group mt-xl">
+                    <h4 class="small-title">On passe au reste du design ?</h4>
+                    <div class="contact-box">
+                        <p>L'objectif premier est d'établir une hiérarchie claire et lisible pour une expérience utilisateur (UX) optimale. Rendre le scroll dynamique par l'intermédiaire de micro animations.</p>
+                        <p>Afin d'ajouter d'avantage de personnalité à ce projet, j'ai décidé d'incorporer la couleur mauve. Celle-ci est notamment  liée à la créativité et aux rêves tout en fournissant un contraste supplémentaire. L'utilisation du noir et blanc souligne l'aspect professionnel du produit.</p>
+                        <p>Afin d'ajouter d'avantage de personnalité à ce projet, j'ai décidé d'incorporer la couleur mauve. Celle-ci est notamment  liée à la créativité et aux rêves tout en fournissant un contraste supplémentaire. L'utilisation du noir et blanc souligne l'aspect professionnel du produit.</p>
+                    </div>
+                </div>
+
+                <div class="section-group mt-xl">
+                    <h4 class="small-title">Crédits</h4>
+                    <ul class="check-list">
+                        <li>Oladimeji Odunsi</li>
+                        <li>Aleksandr Popov</li>
+                        <li>Dylann Hendricks</li>
+                        <li>Jose Figueroa</li>
+                        <li>Maria Orlova</li>
+                        <li>Octavian Rosca</li>
+                        <li>Parrish Freeman</li>
+                        <li>Tetiana Kobzeva</li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+    </div>
+</BaseLayout>
+
+<style>
+    .small-title {
+        font-size: 12px;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+</style>

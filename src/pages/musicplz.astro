@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectIndex from '../components/ProjectIndex.astro';
+import { Image } from 'astro:assets';
+
+// Import images
+import musicMainImg from '../assets/Music plz/music.jpg';
+import mockupImg from '../assets/Music plz/Mockup.jpg';
+import mockup2Img from '../assets/Music plz/Mockup2.jpg';
+import mockup3Img from '../assets/Music plz/Mockup3.jpg';
+---
+
+<BaseLayout 
+    title="Music Please | Frédéric Vanhoolant" 
+    isProjectPage={true}
+    description="Projet Music Please : conception d'un site web brutaliste pour le groupe rock expérimental The Garden."
+    ogImage="/Asset/Music plz/music.jpg"
+>
+    <div class="main-layout-wrapper">
+        <!-- Flux CENTRAL: CONTENU CASE STUDY -->
+        <main class="center-flow-project">
+            <div class="case-study-content">
+                <a href="/" class="back-link scramble-text">← Retour</a>
+                <!-- Title & Hero -->
+                <h1 class="project-large-title">Music Please</h1>
+                <span class="dot-separator">•</span>
+                
+                <div class="project-hero-media">
+                    <div class="placeholder-img" style="height: 100%;">
+                        <Image 
+                            src={musicMainImg} 
+                            alt="Design brutaliste pour le site du groupe The Garden" 
+                            class="project-image" 
+                            loading="eager" 
+                            decoding="async" 
+                            fetchpriority="high"
+                            width={1600}
+                            quality={80}
+                        />
+                    </div>
+                </div>
+
+                <!-- Case Description Section -->
+                <section id="description" class="case-description-section">
+                    <div class="case-grid">
+                        <div class="case-label">
+                            <h3 class="section-title">Description du projet</h3>
+                        </div>
+                        <div class="case-text">
+                            <p>Le projet visait à créer un site web dédié à un artiste de notre choix. J'ai opté pour le groupe "The Garden" afin d'explorer une approche de design brutaliste en harmonie avec leur esthétique chaotique, tout en rappelant le style de pochettes emblématique du punk.</p>
+                            <p>"The Garden" est un groupe de rock expérimental américain formé en 2011 par les frères jumeaux Wyatt et Fletcher Shears. Leur premier album, "The Life and Times of a Paperclip", est sorti en 2013, suivi de plusieurs singles.</p>
+                            <p>Récemment, ils ont publié un nouvel album intitulé "Horseshit on Route 66", où transparaît nettement une esthétique punk, que ce soit à travers leurs affiches ou leurs tenues. De plus, leur maquillage scénique évoque des influences de divers genres tels que l'industrial metal et le black metal.C'est ainsi que le brutalisme trouve sa légitimité au sein du groupe "The Garden", en parfait accord avec leur quête d'une esthétique brute et excentrique. J'ai donc pu redessiner une pochette d'album et créer un site ephemere qui reflète leur identité visuelle.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Gallery Section following the screenshot structure -->
+                <section id="gallery" class="gallery-section">
+                    <div class="media-stack">
+                        <div class="media-grid-2">
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={mockupImg} alt="Mockup desktop du site Music Please avec esthétique punk" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={mockup2Img} alt="Détail de la typographie et du design brut du site" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="media-grid-2">
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={mockup3Img} alt="Mockup montrant les visuels d'albums sur Music Please" class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <video autoplay muted loop playsinline class="project-video">
+                                        <source src="/Asset/Music plz/Composition.mp4" type="video/mp4">
+                                        Votre navigateur ne supporte pas la lecture de vidéos.
+                                    </video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Colonne Droite: LISTE & CONTACT -->
+        <aside class="side-panel right">
+            <div class="side-content">
+                <ProjectIndex />
+            </div>
+        </aside>
+    </div>
+</BaseLayout>
+
+<style>
+    .small-title {
+        font-size: 12px;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+</style>

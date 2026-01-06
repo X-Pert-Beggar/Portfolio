@@ -1,0 +1,178 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectIndex from '../components/ProjectIndex.astro';
+import { Image } from 'astro:assets';
+
+// Import project images
+import groovsImg from '../assets/Groovs/introGroovs_.webp';
+import rqrImg from '../assets/RQR/main.jpg';
+---
+
+<BaseLayout 
+    title="Frédéric Vanhoolant | Portfolio"
+    description="Découvrez les projets et le savoir-faire de Frédéric Vanhoolant, UX/UI Designer et Développeur Web spécialisé dans la création d'expériences numériques mémorables."
+>
+    <div class="main-layout-wrapper">
+        <!-- Colonne Gauche: IDENTITÉ & INFOS -->
+        <aside class="side-panel left">
+            <div class="side-content">
+                <section class="hero-sidebar">
+                    <h1>Hello, i'm Frédéric</h1>
+                    <h2 class="hero-subtitle">Ma mission</h2>
+                    <p class="bio-text">
+                        Créer des marques inspirantes et concevoir des produits si inoubliables qu'ils resteront gravés dans votre mémoire. Nous croyons en la création non seulement de beaux produits, mais aussi à une d'expériences  qui stimulent l'imagination et laissent une impression durable.</p>
+                </section>
+
+                <div class="info-sections">
+                    <!-- Capabilities -->
+                    <section class="section-group info-block">
+                        <h3 class="section-title">Compétences</h3>
+                        <div class="data-list">
+                            <div class="data-row"><span class="scramble-text">UX UI Design</span><span class="align-right scramble-text">Figma</span></div>
+                            <div class="data-row"><span class="scramble-text">Design Systems</span><span class="align-right scramble-text">Adobe Suite</span></div>
+                            <div class="data-row"><span class="scramble-text">Web Development</span><span class="align-right scramble-text">HTML/CSS</span></div>
+                            <div class="data-row"><span class="scramble-text">Prototyping</span><span class="align-right scramble-text">Notion</span></div>
+                            <div class="data-row"><span class="scramble-text">Branding</span><span class="align-right scramble-text">Javascript</span></div>
+                        </div>
+                    </section>
+
+                    <!-- Education -->
+                    <section class="section-group info-block mt-xl">
+                        <h3 class="section-title">Formation</h3>
+                        <div class="data-list">
+                            <div class="data-row"><span class="scramble-text">INRACI</span><span class="align-right scramble-text">Secondaire</span></div>
+                            <div class="data-row"><span class="scramble-text">HEAJ</span><span class="align-right scramble-text">Enseignement Supérieur</span></div>
+                        </div>
+                    </section>
+
+                    <!-- Experience -->
+                    <section class="section-group info-block mt-xl">
+                        <h3 class="section-title">Expérience</h3>
+                        <div class="data-list">
+                            <div class="accordion-item">
+                                <div class="data-row accordion-header">
+                                    <span class="scramble-text">2023</span>
+                                    <span class="align-right scramble-text">IO Digital <span class="icon-plus"></span></span>
+                                </div>
+                                <div class="accordion-content">
+                                    <p>Lors de ma scolarité, j'ai réalisé un stage de trois mois en tant que stagiaire en UX Design au sein de l'entreprise Io digital.</p>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <div class="data-row accordion-header">
+                                    <span class="scramble-text">2024</span>
+                                    <span class="align-right scramble-text">Proxiad Nord <span class="icon-plus"></span></span>
+                                </div>
+                                <div class="accordion-content">
+                                    <p>J'ai pu travailler chez Proxiade en tant qu'UX/UI designer sur un projet d'envergure, présentant de nombreux défis stimulants.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Flux CENTRAL: PROJETS -->
+        <main class="center-flow">
+            <div class="projects-main-content">
+                <h2 class="col-title">Quelques projets</h2>
+                <div class="orange-pill">Curieux de connaître mon processus ? Explorez les projets ci-dessous.</div>
+                
+                <div class="project-stack">
+                    <a href="/project-camera" class="project-link">
+                        <div class="project-video-card">
+                            <video autoplay muted loop playsinline class="project-video">
+                                <source src="/Asset/camera/VidCamera.mp4" type="video/mp4">
+                                Votre navigateur ne supporte pas la lecture de vidéos.
+                            </video>
+                            <div class="video-overlay">
+                                <span class="badge badge-alpha">Camera XYZ-5000</span>
+                            </div>
+                        </div>
+                    </a>
+                 
+                    <a href="/groovs" class="project-link">
+                      <div class="project-video-card">
+                        <Image 
+                            src={groovsImg} 
+                            alt="Vignette du projet Groovs - Design System et Web App" 
+                            class="project-image" 
+                            loading="lazy" 
+                            decoding="async" 
+                            width={800}
+                            quality={70}
+                        />
+                        <div class="video-overlay">
+                            <span class="badge badge-alpha">Groovs</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="/movento" class="project-link">
+                    <div class="project-video-card">
+                        <video autoplay muted loop playsinline class="project-video">
+                            <source src="/Asset/Movento/65e8d6584d53eccf2f6e161d_movento.mp4" type="video/mp4">
+                            Votre navigateur ne supporte pas la lecture de vidéos.
+                        </video>
+                        <div class="video-overlay">
+                            <span class="badge badge-alpha">Movento</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="/rqr" class="project-link">
+                    <div class="project-video-card">
+                        <Image 
+                            src={rqrImg} 
+                            alt="Vignette du projet RQR - Développement Fullstack et UI Design" 
+                            class="project-image" 
+                            loading="lazy" 
+                            decoding="async" 
+                            width={800}
+                            quality={70}
+                        />
+                        <div class="video-overlay">
+                            <span class="badge badge-alpha">RQR</span>
+                        </div>
+                    </div>
+                </a>
+                </div>
+            </div>
+        </main>
+
+        <!-- Colonne Droite: LISTE & CONTACT -->
+        <aside class="side-panel right">
+            <div class="side-content">
+                <ProjectIndex />
+
+                <div class="section-group mt-xl">
+                    <h4 class="small-title">Services</h4>
+                    <p class="service-intro">J'accompagne les marques dans la définition de leur identité numérique.</p>
+                    <ul class="check-list">
+                        <li>Design d'Expérience Utilisateur</li>
+                        <li>Prototypage Numérique</li>
+                        <li>Stratégie de Marque</li>
+                    </ul>
+                </div>
+
+                <div class="section-group mt-xl">
+                    <h4 class="small-title">Contact</h4>
+                    <div class="contact-box">
+                        <a href="mailto:vanhoolantfrederic@hotmail.com" class="contact-link">Email</a>
+                        <a href="#" class="contact-link">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+</BaseLayout>
+
+<style>
+    .small-title {
+        font-size: 12px;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+</style>

@@ -1,0 +1,340 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+import SEO from '../components/SEO.astro';
+
+interface Props {
+    title: string;
+    description?: string;
+    ogImage?: string;
+    isProjectPage?: boolean;
+}
+
+const { 
+    title, 
+    description = "Portfolio de Frédéric Vanhoolant, UX/UI Designer et Développeur Web.", 
+    ogImage = "/Asset/Logo/macd.jpg",
+    isProjectPage = false 
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <SEO title={title} description={description} ogImage={ogImage} />
+    <!-- Preload fonts critiques -->
+    <link rel="preload" href="/fonts/jetbrains-mono-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/poppins-600.woff2" as="font" type="font/woff2" crossorigin>
+    <ViewTransitions />
+    <script is:inline>
+        // Script bloquant - s'exécute AVANT le rendu pour éviter le flash
+        (function() {
+            function getTheme() {
+                const stored = localStorage.getItem('theme');
+                if (stored) return stored === 'dark';
+                return window.matchMedia('(prefers-color-scheme: dark)').matches;
+            }
+            if (getTheme()) {
+                document.documentElement.classList.add('dark-mode');
+            }
+        })();
+
+        // Préserver le thème ET préparer les animations lors des ViewTransitions
+        document.addEventListener('astro:before-swap', (e) => {
+            // Préserver le thème
+            const isDark = document.documentElement.classList.contains('dark-mode');
+            e.newDocument.documentElement.classList.toggle('dark-mode', isDark);
+
+            // S'assurer que les colonnes de la nouvelle page sont prêtes pour l'animation
+            e.newDocument.querySelectorAll('.side-panel, .center-flow, .center-flow-project').forEach(el => {
+                el.classList.remove('animated');
+            });
+        });
+    </script>
+</head>
+<body class="portfolio-layout">
+    <header class="main-header fixed-top">
+        <div class="container navbar">
+            <div class="logo">
+                {isProjectPage ? (
+                    <a href="/" style="text-decoration: none; display: flex; align-items: center; gap: 10px; color: inherit;">
+                        <div class="logo-box">
+                            <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="32" height="32" fill="black"/>
+                                <circle cx="16" cy="16" r="6" fill="white"/>
+                            </svg>
+                        </div>
+                        <span class="logo-text scramble-text">Frédéric Vanhoolant</span>
+                    </a>
+                ) : (
+                    <>
+                        <div class="logo-box">
+                            <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="32" height="32" fill="black"/>
+                                <circle cx="16" cy="16" r="6" fill="white"/>
+                            </svg>
+                        </div>
+                        <span class="logo-text scramble-text">Frédéric Vanhoolant</span>
+                    </>
+                )}
+            </div>
+            <div class="header-right">
+                <div class="toggle-switch">
+                    <div class="toggle-knob"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <slot />
+
+    <footer class="main-footer">
+        <div class="container footer-content">
+            <span class="copy">© 2026 Frédéric V.</span>
+            <div class="footer-nav">
+                {isProjectPage ? (
+                    <>
+                        <a href="/" class="btn-footer scramble-text">Accueil</a>
+                        <a href="#" class="btn-footer scramble-text">Haut ↑</a>
+                    </>
+                ) : (
+                    <>
+                        <a href="#" class="btn-footer scramble-text">Archives</a>
+                        <a href="#" class="btn-footer scramble-text">Confidentialité</a>
+                    </>
+                )}
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // === INITIALISATIONS UNIQUES (une seule fois) ===
+
+        // Theme toggle - écoute système
+        const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        darkModeMediaQuery.addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                document.documentElement.classList.toggle('dark-mode', e.matches);
+            }
+        });
+
+        // Custom cursor (créé une seule fois)
+        let cursor: HTMLElement;
+        let mousePosX = 0;
+        let mousePosY = 0;
+        let cursorPosX = 0;
+        let cursorPosY = 0;
+
+        function initCursor() {
+            if (document.querySelector('.custom-cursor')) return;
+
+            cursor = document.createElement('div');
+            cursor.className = 'custom-cursor';
+            cursor.innerHTML = `
+                <div class="cursor-cross"></div>
+                <div class="cursor-text">explorer</div>
+            `;
+            document.body.appendChild(cursor);
+
+            function animateCursor() {
+                const lerp = 0.1;
+                cursorPosX += (mousePosX - cursorPosX) * lerp;
+                cursorPosY += (mousePosY - cursorPosY) * lerp;
+                cursor.style.transform = `translate(${cursorPosX - 10}px, ${cursorPosY - 10}px)`;
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+        }
+
+        window.addEventListener('mousemove', (e) => {
+            mousePosX = e.clientX;
+            mousePosY = e.clientY;
+        });
+
+        // === INITIALISATIONS À CHAQUE PAGE ===
+
+        function initPage() {
+
+            // Theme toggle button
+            const toggle = document.querySelector('.toggle-switch');
+            if (toggle && !toggle.hasAttribute('data-init')) {
+                toggle.setAttribute('data-init', 'true');
+                toggle.addEventListener('click', () => {
+                    const isDark = document.documentElement.classList.contains('dark-mode');
+                    document.documentElement.classList.toggle('dark-mode', !isDark);
+                    localStorage.setItem('theme', !isDark ? 'dark' : 'light');
+                });
+            }
+
+            // Logo Eye Animation
+            const logoBox = document.querySelector('.logo-box');
+            const eyeBall = document.querySelector('.logo-box svg circle') as SVGCircleElement | null;
+
+            if (logoBox && eyeBall && !logoBox.hasAttribute('data-init')) {
+                logoBox.setAttribute('data-init', 'true');
+                eyeBall.style.transition = "transform 0.1s ease-out";
+
+                window.addEventListener('mousemove', (e: MouseEvent) => {
+                    const rect = logoBox.getBoundingClientRect();
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+                    const dx = e.clientX - centerX;
+                    const dy = e.clientY - centerY;
+                    const distance = Math.hypot(dx, dy);
+                    const maxMove = 4;
+                    const pull = Math.min(maxMove, distance / 20);
+                    const angle = Math.atan2(dy, dx);
+                    const ball = document.querySelector('.logo-box svg circle') as SVGCircleElement | null;
+                    if (ball) {
+                        ball.style.transform = `translate(${Math.cos(angle) * pull}px, ${Math.sin(angle) * pull}px)`;
+                    }
+                });
+            }
+
+            // Fade-in columns - ANIMATION D'ENTRÉE
+            const columns = document.querySelectorAll('.side-panel, .center-flow, .center-flow-project');
+            columns.forEach((col, index) => {
+                const element = col as HTMLElement;
+                // Reset - retire la classe animée
+                element.classList.remove('animated');
+
+                // Applique la transition avec délai
+                element.style.transition = `opacity 0.6s ease ${index * 0.15}s, transform 0.6s ease ${index * 0.15}s`;
+
+                // Déclenche l'animation au prochain frame
+                requestAnimationFrame(() => {
+                    element.classList.add('animated');
+                });
+            });
+
+            // Cursor + card hover
+            initCursor();
+            document.querySelectorAll('.project-video-card').forEach(card => {
+                if (!card.hasAttribute('data-cursor-init')) {
+                    card.setAttribute('data-cursor-init', 'true');
+                    card.addEventListener('mouseenter', () => cursor?.classList.add('on-card'));
+                    card.addEventListener('mouseleave', () => cursor?.classList.remove('on-card'));
+                }
+            });
+
+            // Accordion
+            document.querySelectorAll('.accordion-header').forEach(header => {
+                if (!header.hasAttribute('data-init')) {
+                    header.setAttribute('data-init', 'true');
+                    header.addEventListener('click', () => {
+                        const item = header.parentElement;
+                        const icon = header.querySelector('.icon-plus, .icon-minus');
+                        if (item) {
+                            item.classList.toggle('active');
+                            if (icon) {
+                                icon.classList.toggle('icon-plus');
+                                icon.classList.toggle('icon-minus');
+                            }
+                        }
+                    });
+                }
+            });
+
+            // Text Scramble
+            class TextScramble {
+                el: HTMLElement;
+                chars = '!<>-_\\/[]{}—=+*^?#________';
+                queue: Array<{from: string, to: string, start: number, end: number, char?: string}> = [];
+                frame = 0;
+                frameRequest = 0;
+                resolve: () => void = () => {};
+
+                constructor(el: HTMLElement) {
+                    this.el = el;
+                    this.update = this.update.bind(this);
+                }
+
+                setText(newText: string) {
+                    const oldText = this.el.innerText;
+                    const length = Math.max(oldText.length, newText.length);
+                    const promise = new Promise<void>((resolve) => this.resolve = resolve);
+                    this.queue = [];
+                    for (let i = 0; i < length; i++) {
+                        const from = oldText[i] || '';
+                        const to = newText[i] || '';
+                        const start = Math.floor(Math.random() * 40);
+                        const end = start + Math.floor(Math.random() * 40);
+                        this.queue.push({ from, to, start, end });
+                    }
+                    cancelAnimationFrame(this.frameRequest);
+                    this.frame = 0;
+                    this.update();
+                    return promise;
+                }
+
+                update() {
+                    let output = '';
+                    let complete = 0;
+                    for (let i = 0, n = this.queue.length; i < n; i++) {
+                        let { from, to, start, end, char } = this.queue[i];
+                        if (this.frame >= end) {
+                            complete++;
+                            output += to;
+                        } else if (this.frame >= start) {
+                            if (!char || Math.random() < 0.28) {
+                                char = this.chars[Math.floor(Math.random() * this.chars.length)];
+                                this.queue[i].char = char;
+                            }
+                            output += `<span class="dud">${char}</span>`;
+                        } else {
+                            output += from;
+                        }
+                    }
+                    this.el.innerHTML = output;
+                    if (complete === this.queue.length) {
+                        this.resolve();
+                    } else {
+                        this.frameRequest = requestAnimationFrame(this.update);
+                        this.frame++;
+                    }
+                }
+            }
+
+            document.querySelectorAll('.scramble-text').forEach(el => {
+                if (!el.hasAttribute('data-scramble-init')) {
+                    el.setAttribute('data-scramble-init', 'true');
+                    const element = el as HTMLElement;
+                    const fx = new TextScramble(element);
+                    const originalText = element.innerText;
+                    element.addEventListener('mouseenter', () => fx.setText(originalText));
+                }
+            });
+
+            // Fade-in reveal for images/videos
+            const fadeObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        fadeObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.project-image, .project-video').forEach(el => {
+                if (!el.classList.contains('reveal-fade')) {
+                    el.classList.add('reveal-fade');
+                    fadeObserver.observe(el);
+                }
+            });
+        }
+
+        // Exécuter au premier chargement ET à chaque navigation
+        document.addEventListener('astro:page-load', initPage);
+
+        // Fallback si astro:page-load ne se déclenche pas
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initPage);
+        } else {
+            initPage();
+        }
+    </script>
+</body>
+</html>
+
+<style is:global>
+    @import '../styles/global.css';
+</style>
