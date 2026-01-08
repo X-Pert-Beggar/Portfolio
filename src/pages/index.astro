@@ -5,11 +5,11 @@ import { Image } from 'astro:assets';
 
 // Import project images
 import groovsImg from '../assets/Groovs/introGroovs_.webp';
-import rqrImg from '../assets/RQR/main.jpg';
+import sarahImg from '../assets/Sarah Premz/Sarah2.jpg';
 ---
 
 <BaseLayout 
-    title="Frédéric Vanhoolant | Portfolio"
+    title="Portfolio"
     description="Découvrez les projets et le savoir-faire de Frédéric Vanhoolant, UX/UI Designer et Développeur Web spécialisé dans la création d'expériences numériques mémorables."
 >
     <div class="main-layout-wrapper">
@@ -80,6 +80,27 @@ import rqrImg from '../assets/RQR/main.jpg';
                 <div class="orange-pill">Curieux de connaître mon processus ? Explorez les projets ci-dessous.</div>
                 
                 <div class="project-stack">
+
+
+                        <a href="/sarah" class="project-link">
+                             <div class="project-video-card">
+                         <Image 
+                            src={sarahImg} 
+                            alt="Vignette du projet Sarah Prémont - Développement UI Design" 
+                            class="project-image" 
+                            loading="lazy" 
+                            decoding="async" 
+                            width={1900}
+                            quality={70}
+                        />
+                            <div class="video-overlay">
+                            <span class="badge badge-alpha">Sarah Prémont</span>
+                        </div>
+                    </div>
+                     </a>
+
+
+
                     <a href="/project-camera" class="project-link">
                         <div class="project-video-card">
                             <video autoplay muted loop playsinline class="project-video">
@@ -100,7 +121,7 @@ import rqrImg from '../assets/RQR/main.jpg';
                             class="project-image" 
                             loading="lazy" 
                             decoding="async" 
-                            width={800}
+                            width={1500}
                             quality={70}
                         />
                         <div class="video-overlay">
@@ -121,22 +142,7 @@ import rqrImg from '../assets/RQR/main.jpg';
                     </div>
                 </a>
 
-                <a href="/rqr" class="project-link">
-                    <div class="project-video-card">
-                        <Image 
-                            src={rqrImg} 
-                            alt="Vignette du projet RQR - Développement Fullstack et UI Design" 
-                            class="project-image" 
-                            loading="lazy" 
-                            decoding="async" 
-                            width={800}
-                            quality={70}
-                        />
-                        <div class="video-overlay">
-                            <span class="badge badge-alpha">RQR</span>
-                        </div>
-                    </div>
-                </a>
+               
                 </div>
             </div>
         </main>
