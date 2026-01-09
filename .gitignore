@@ -12,7 +12,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-.vercel
+.vercel/
 
 # environment variables
 .env
