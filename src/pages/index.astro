@@ -6,6 +6,7 @@ import { Image } from 'astro:assets';
 // Import project images
 import groovsImg from '../assets/Groovs/introGroovs_.webp';
 import sarahImg from '../assets/Sarah Premz/Sarah2.jpg';
+import mrCleanImg from '../assets/Mr Clean/1.webp';
 ---
 
 <BaseLayout 
@@ -146,6 +147,23 @@ import sarahImg from '../assets/Sarah Premz/Sarah2.jpg';
                         </video>
                         <div class="video-overlay">
                             <span class="badge badge-alpha">Movento</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="/mr-clean" class="project-link">
+                    <div class="project-video-card">
+                        <Image
+                            src={mrCleanImg}
+                            alt="Vignette du projet Mr Clean - Application mobile de réservation en laverie"
+                            class="project-image"
+                            loading="lazy"
+                            decoding="async"
+                            width={1500}
+                            quality={70}
+                        />
+                        <div class="video-overlay">
+                            <span class="badge badge-alpha">Mr Clean</span>
                         </div>
                     </div>
                 </a>

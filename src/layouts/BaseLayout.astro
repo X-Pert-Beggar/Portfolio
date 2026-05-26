@@ -1,5 +1,5 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 import SEO from '../components/SEO.astro';
 
 interface Props {
@@ -24,7 +24,7 @@ const {
     <!-- Preload fonts critiques -->
     <link rel="preload" href="/fonts/jetbrains-mono-regular.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/poppins-600.woff2" as="font" type="font/woff2" crossorigin>
-    <ViewTransitions />
+    <ClientRouter />
     <script is:inline>
         // Script bloquant - s'exécute AVANT le rendu pour éviter le flash
         (function() {
