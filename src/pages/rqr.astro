@@ -10,19 +10,78 @@ import tabletterqrImg from '../assets/RQR/tabletterqr.jpg';
 import mascotePotaImg from '../assets/RQR/mascote-pota.jpg';
 import copainsImg from '../assets/RQR/copains.jpg';
 import rqrcImg from '../assets/RQR/Rqrc.jpg';
+
+import { getLang, localizePath, ui } from '../i18n';
+
+// --- Textes de la page, en français et en anglais ---
+const lang = getLang(Astro.url);
+const common = ui[lang];
+const homeHref = localizePath('/', lang);
+const t = {
+    fr: {
+        metaDescription: `Projet RQR : création d'une base de données ludique et interactive pour comparer le rapport qualité-prix des bières dans différents bars.`,
+        alt1: `Interface principale de l'application RQR - Comparateur de bières`,
+        p1: `Ce projet scolaire collectif avait pour but de créer une base de données et de la rendre ludique et interactive.`,
+        alt2: `Mockup de l'application RQR sur smartphone`,
+        alt3: `Affichage de la base de données RQR sur tablette`,
+        alt4: `Illustration de la mascotte Pota pour le projet RQR`,
+        alt5: `Interface conviviale montrant le score RQR des bières`,
+        alt6: `Vue d'ensemble du catalogue de bières RQR`,
+        h4_1: `Création de l'équipe et rôle`,
+        p2: `Cette analyse a pour but de determiner les cibles potentielles ainsi que la concurrence.`,
+        li1: `Rechercher une méthode pour exploiter nos données et ainsi que développer ces dernières.`,
+        li2: `Développer la partie front end du projet.`,
+        li3: `Dévelopement graphique UI se chargant du design du site et la mascote.`,
+        li4: `Dévelopement UX se focalisant au maximum sur l'agencement du site et de son contenu`,
+        p3: `Etant quatres nous avons décidés de faire deux équipes une premiere orientée dev et l'autre design, je étais dans l'équipe design avec Alexandre Potakowski, pour l'équipe dev nous retrouvions Nicolas Prémont et Diego Tellier`,
+        h4_2: `Création catalogue de biere`,
+        p4: `Avec l'un des membres de notre groupe, nous avons décidés de nous concentrer sur la conception graphique et la création du contenu du site. L'objectif principal de notre site est de comparer les différentes bières proposées par plusieurs bars, afin de présenter aux clients celles offrant la meilleure qualité-prix pour une soirée bien arrosée par la formule RQR plus le score est élevé, plus il est probable que vous soyez ivre en payant le moins possible.`,
+        p5: `Pour atteindre cet objectif, nous avons envisagés de créer un catalogue de bières, classant celles-ci de la moins intéressante à la plus intéressante. Nous avons également imaginé la mise en place d'un système de filtres permettant de choisir plus précisément une catégorie de bières (pils, blondes, rouges, etc.) ainsi qu'un filtre pour tous les bars répertoriés.`,
+        p6: `Ce système est certes intéressant, mais il ne permet pas d'être utile pour tout bar ou alcool ne figurant pas sur notre liste. Pour remédier à ce problème, nous avons eu l'idée de proposer directement une formule à appliquer si vous ne trouvez pas votre bière. De plus, avec cette même formule, nous nous sommes amusés à créer une moyenne des bars présents, permettant ainsi aux plus économes parmi nous de savoir quel bar privilégier.`,
+        h4_3: `En conclusion`,
+        p7: `Ce projet a été une expérience de groupe enrichissante. En effet, il a permit à notre équipe de prendre la liberté de travailler sur les domaines où chacun se sentait le plus à l'aise. Il était motivant de constater l'investissement de chacun dans ce projet réalisé en un laps de temps assez court. Travailler en groupe a également amélioré notre esprit critique et renforcé notre capacité à accepter nos erreurs, que nous avons corrigées collectivement.`,
+        p8: `Il est clair que ce projet a eu un impact positif sur la suite de mes projets, et il m'a permis de réellement apprécier les travaux collectifs.`,
+        p9: `Mes remerciements à`,
+    },
+    en: {
+        metaDescription: `RQR project: creation of a fun, interactive database to compare the value for money of beers in different bars.`,
+        alt1: `Main interface of the RQR application - Beer comparison tool`,
+        p1: `The aim of this group school project was to create a database and make it fun and interactive.`,
+        alt2: `Mockup of the RQR application on a smartphone`,
+        alt3: `RQR database displayed on a tablet`,
+        alt4: `Illustration of the Pota mascot for the RQR project`,
+        alt5: `Friendly interface showing the RQR score of the beers`,
+        alt6: `Overview of the RQR beer catalogue`,
+        h4_1: `Building the team and roles`,
+        p2: `This analysis aims to identify the potential target audiences as well as the competition.`,
+        li1: `Find a method to make use of our data and to develop it further.`,
+        li2: `Develop the front-end part of the project.`,
+        li3: `UI graphic development, in charge of the design of the website and the mascot.`,
+        li4: `UX development, focusing as much as possible on the layout of the website and its content`,
+        p3: `As there were four of us, we decided to form two teams, one focused on development and the other on design. I was in the design team with Alexandre Potakowski, while the dev team was made up of Nicolas Prémont and Diego Tellier`,
+        h4_2: `Creating the beer catalogue`,
+        p4: `With one of the members of our group, we decided to focus on the graphic design and on creating the website's content. The main purpose of our website is to compare the different beers offered by several bars, in order to show customers the ones offering the best value for money for a well-lubricated night out using the RQR formula: the higher the score, the more likely you are to get drunk while paying as little as possible.`,
+        p5: `To achieve this goal, we planned to create a beer catalogue, ranking the beers from the least to the most worthwhile. We also imagined a filter system for choosing a more specific category of beer (pils, blonde, red, etc.) as well as a filter for all the bars listed.`,
+        p6: `This system is certainly interesting, but it is of no use for any bar or drink that is not on our list. To solve this problem, we came up with the idea of directly providing a formula to apply if you cannot find your beer. In addition, using the same formula, we had fun calculating an average for the bars listed, so that the thriftiest among us know which bar to choose.`,
+        h4_3: `In conclusion`,
+        p7: `This project was a rewarding group experience. It gave our team the freedom to work in the areas where each of us felt most comfortable. It was motivating to see everyone's commitment to this project, carried out in a fairly short period of time. Working as a group also sharpened our critical thinking and strengthened our ability to accept our mistakes, which we corrected together.`,
+        p8: `This project clearly had a positive impact on my later work, and it made me truly appreciate collaborative projects.`,
+        p9: `My thanks to`,
+    },
+}[lang];
 ---
 
 <BaseLayout 
     title="RQR" 
     isProjectPage={true}
-    description="Projet RQR : création d'une base de données ludique et interactive pour comparer le rapport qualité-prix des bières dans différents bars."
+    description={t.metaDescription}
     ogImage="/Asset/RQR/webrqr.jpg"
 >
     <div class="main-layout-wrapper">
         <!-- Flux CENTRAL: CONTENU CASE STUDY -->
         <main class="center-flow-project">
             <div class="case-study-content">
-                <a href="/" class="back-link scramble-text">← Retour</a>
+                <a href={homeHref} class="back-link scramble-text">{common.back}</a>
                 <!-- Title & Hero -->
                 <h1 class="project-large-title">RQR</h1>
                 <span class="dot-separator">•</span>
@@ -31,7 +90,7 @@ import rqrcImg from '../assets/RQR/Rqrc.jpg';
                     <div class="placeholder-img" style="height: 100%;">
                         <Image 
                             src={webrqrImg} 
-                            alt="Interface principale de l'application RQR - Comparateur de bières" 
+                            alt={t.alt1} 
                             class="project-image" 
                             loading="eager" 
                             decoding="async" 
@@ -46,10 +105,10 @@ import rqrcImg from '../assets/RQR/Rqrc.jpg';
                 <section id="description" class="case-description-section">
                     <div class="case-grid">
                         <div class="case-label">
-                            <h3 class="section-title">Description du projet</h3>
+                            <h3 class="section-title">{common.projectDescription}</h3>
                         </div>
                         <div class="case-text">
-                            <p>Ce projet scolaire collectif avait pour but de créer une base de données et de la rendre ludique et interactive.</p>
+                            <p>{t.p1}</p>
                         </div>
                     </div>
                 </section>
@@ -60,12 +119,12 @@ import rqrcImg from '../assets/RQR/Rqrc.jpg';
                         <div class="media-grid-2">
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={mobileImg} alt="Mockup de l'application RQR sur smartphone" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={mobileImg} alt={t.alt2} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={tabletterqrImg} alt="Affichage de la base de données RQR sur tablette" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={tabletterqrImg} alt={t.alt3} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </div>
@@ -73,19 +132,19 @@ import rqrcImg from '../assets/RQR/Rqrc.jpg';
                         <div class="media-grid-2">
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={mascotePotaImg} alt="Illustration de la mascotte Pota pour le projet RQR" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={mascotePotaImg} alt={t.alt4} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={copainsImg} alt="Interface conviviale montrant le score RQR des bières" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={copainsImg} alt={t.alt5} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </div>
 
                         <!-- Full width Image (Phone 1) -->
                         <div class="media-item">
-                            <Image src={rqrcImg} alt="Vue d'ensemble du catalogue de bières RQR" class="project-image" loading="lazy" decoding="async" />
+                            <Image src={rqrcImg} alt={t.alt6} class="project-image" loading="lazy" decoding="async" />
                         </div>
                     </div>
                 </section>
@@ -98,34 +157,34 @@ import rqrcImg from '../assets/RQR/Rqrc.jpg';
                 <ProjectIndex />
 
                 <div class="section-group mt-xl">
-                    <h4 class="small-title">Création de l'équipe et rôle</h4>
-                    <p class="service-intro">Cette analyse a pour but de determiner les cibles potentielles ainsi que la concurrence.</p>
+                    <h4 class="small-title">{t.h4_1}</h4>
+                    <p class="service-intro">{t.p2}</p>
                     <ul class="check-list">
-                        <li>Rechercher une méthode pour exploiter nos données et ainsi que développer ces dernières.</li>
-                        <li>Développer la partie front end du projet.</li>
-                        <li>Dévelopement graphique UI se chargant du design du site et la mascote.</li>
-                        <li>Dévelopement  UX se focalisant au maximum sur l'agencement du site et de son contenu</li>
+                        <li>{t.li1}</li>
+                        <li>{t.li2}</li>
+                        <li>{t.li3}</li>
+                        <li>{t.li4}</li>
                     </ul>
-                    <p class="service-intro">Etant quatres nous avons décidés de faire deux équipes une premiere orientée dev et l'autre design, je étais dans l'équipe design avec Alexandre Potakowski, pour l'équipe dev nous retrouvions Nicolas Prémont et Diego Tellier</p>
+                    <p class="service-intro">{t.p3}</p>
                 </div>
 
                 <div class="section-group mt-xl">
-                    <h4 class="small-title">Création catalogue de biere</h4>
-                    <p class="service-intro">Avec l'un des membres de notre groupe, nous avons décidés de nous concentrer sur la conception graphique et la création du contenu du site. L'objectif principal de notre site est de comparer les différentes bières proposées par plusieurs bars, afin de présenter aux clients celles offrant la meilleure qualité-prix pour une soirée bien arrosée par la formule RQR plus le score est élevé, plus il est probable que vous soyez ivre en payant le moins possible.</p>
-                    <p class="service-intro">Pour atteindre cet objectif, nous avons envisagés de créer un catalogue de bières, classant celles-ci de la moins intéressante à la plus intéressante. Nous avons également imaginé la mise en place d'un système de filtres permettant de choisir plus précisément une catégorie de bières (pils, blondes, rouges, etc.) ainsi qu'un filtre pour tous les bars répertoriés.</p>
-                    <p class="service-intro">Ce système est certes intéressant, mais il ne permet pas d'être utile pour tout bar ou alcool ne figurant pas sur notre liste. Pour remédier à ce problème, nous avons eu l'idée de proposer directement une formule à appliquer si vous ne trouvez pas votre bière. De plus, avec cette même formule, nous nous sommes amusés à créer une moyenne des bars présents, permettant ainsi aux plus économes parmi nous de savoir quel bar privilégier.</p>
+                    <h4 class="small-title">{t.h4_2}</h4>
+                    <p class="service-intro">{t.p4}</p>
+                    <p class="service-intro">{t.p5}</p>
+                    <p class="service-intro">{t.p6}</p>
                 </div>
 
                 <div class="section-group mt-xl">
-                    <h4 class="small-title">En conclusion</h4>
-                    <p class="service-intro">Ce projet a été une expérience de groupe enrichissante. En effet, il a permit à notre équipe de prendre la liberté de travailler sur les domaines où chacun se sentait le plus à l'aise. Il était motivant de constater l'investissement de chacun dans ce projet réalisé en un laps de temps assez court. Travailler en groupe a également amélioré notre esprit critique et renforcé notre capacité à accepter nos erreurs, que nous avons corrigées collectivement.</p>
-                    <p class="service-intro">Il est clair que ce projet a eu un impact positif sur la suite de mes projets, et il m'a permis de réellement apprécier les travaux collectifs.</p>
+                    <h4 class="small-title">{t.h4_3}</h4>
+                    <p class="service-intro">{t.p7}</p>
+                    <p class="service-intro">{t.p8}</p>
                 </div>
 
                 <div class="section-group mt-xl">
-                    <h4 class="small-title">Crédits</h4>
+                    <h4 class="small-title">{common.credits}</h4>
                     <ul class="check-list">
-                        <p class="service-intro">Mes remerciements à</p>
+                        <p class="service-intro">{t.p9}</p>
                         <li>Alexandre Potakowski / UI Designer</li>
                         <li>Nicolas Premont / Developer</li>
                         <li>Diego Tellier / Developer</li>

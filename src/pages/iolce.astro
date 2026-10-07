@@ -12,30 +12,83 @@ import avisImg from '../assets/Kosta/avis.webp';
 import mobileFullImg from '../assets/Kosta/mobile-full_.webp';
 import doublescreenImg from '../assets/Kosta/doublescreen.webp';
 import mobileImg from '../assets/Kosta/mobile.webp';
+
+import { getLang, localizePath, ui } from '../i18n';
+
+// --- Textes de la page, en français et en anglais ---
+const lang = getLang(Astro.url);
+const common = ui[lang];
+const homeHref = localizePath('/', lang);
+const t = {
+    fr: {
+        metaDescription: `Case study du site vitrine Kosta Mitoussis : conception et développement d'une plateforme moderne pour un kinésithérapeute.`,
+        alt1: `Capture d'écran pleine largeur du site vitrine Kosta Mitoussis`,
+        p1: `J'ai été missionné pour la conception et le développement d'un site vitrine pour un kinésithérapeute, avec pour objectif de renforcer sa présence en ligne et de valoriser son activité professionnelle.`,
+        p2: `L'objectif principal était de proposer une présence en ligne moderne, claire et dynamique, tout en garantissant une mise en production rapide.`,
+        alt2: `Aperçu des composants UI du site Kosta Mitoussis sur desktop`,
+        alt3: `Mockup de l'interface utilisateur sur un écran d'ordinateur`,
+        alt4: `Interface du site Kosta Mitoussis affichée sur un écran PC`,
+        alt5: `Section des avis clients sur le site vitrine`,
+        alt6: `Version mobile complète du site Kosta Mitoussis`,
+        alt7: `Mockup double écran montrant la réactivité du site`,
+        alt8: `Aperçu de la version mobile sur smartphone`,
+        h4_1: `L'objectif`,
+        p3: `Le projet visait à livrer un site moderne, épuré et dynamique, tout en respectant un délai de production court. L'enjeu principal était de proposer une interface simple, accessible et efficace, permettant aux visiteurs d'obtenir rapidement les informations essentielles.`,
+        h4_2: `Expérience utilisateur (UX/UI)`,
+        p4: `J'ai assuré la création d'une identité visuelle cohérente, incluant le design du site et la conception du logo. L'ensemble a été pensé pour transmettre une image professionnelle, rassurante et contemporaine, en adéquation avec le secteur médical.`,
+        p5: `L'interface a été conçue autour d'une navigation intuitive et d'une hiérarchisation claire des contenus. Le design privilégie la lisibilité, l'accessibilité et la fluidité, avec des animations discrètes apportant du dynamisme sans compromettre l'expérience utilisateur.`,
+        h4_3: `Développement front-end`,
+        p6: `Ce projet m'a permis de mettre en œuvre des pratiques front-end modernes, en portant une attention particulière à la performance, à la maintenabilité du code et à la qualité de l'intégration. Le développement a été réalisé dans une logique d'efficacité et de rapidité, tout en garantissant un rendu professionnel.`,
+        h4_4: `Résultats`,
+        p7: `Le projet a abouti à la livraison d'un site vitrine fonctionnel, cohérent et performant, répondant aux attentes du client tant sur le plan visuel que technique, et offrant une base solide pour sa communication digitale.`,
+    },
+    en: {
+        metaDescription: `Case study of the Kosta Mitoussis showcase website: design and development of a modern platform for a physiotherapist.`,
+        alt1: `Full-width screenshot of the Kosta Mitoussis showcase website`,
+        p1: `I was commissioned to design and develop a showcase website for a physiotherapist, with the aim of strengthening his online presence and promoting his professional activity.`,
+        p2: `The main goal was to deliver a modern, clear and dynamic online presence, while ensuring a fast go-live.`,
+        alt2: `Overview of the UI components of the Kosta Mitoussis website on desktop`,
+        alt3: `Mockup of the user interface on a computer screen`,
+        alt4: `Kosta Mitoussis website interface displayed on a PC screen`,
+        alt5: `Customer reviews section of the showcase website`,
+        alt6: `Complete mobile version of the Kosta Mitoussis website`,
+        alt7: `Dual-screen mockup showing the responsiveness of the website`,
+        alt8: `Preview of the mobile version on a smartphone`,
+        h4_1: `The goal`,
+        p3: `The project aimed to deliver a modern, clean and dynamic website while meeting a short production deadline. The main challenge was to offer a simple, accessible and effective interface that lets visitors quickly find the essential information.`,
+        h4_2: `User experience (UX/UI)`,
+        p4: `I created a consistent visual identity, including the design of the website and the logo. The whole was designed to convey a professional, reassuring and contemporary image, in keeping with the medical sector.`,
+        p5: `The interface was designed around intuitive navigation and a clear content hierarchy. The design favours legibility, accessibility and fluidity, with subtle animations that add dynamism without compromising the user experience.`,
+        h4_3: `Front-end development`,
+        p6: `This project allowed me to apply modern front-end practices, paying particular attention to performance, code maintainability and the quality of the integration. The development was carried out with efficiency and speed in mind, while ensuring a professional result.`,
+        h4_4: `Results`,
+        p7: `The project resulted in the delivery of a functional, consistent and high-performing showcase website that meets the client's expectations both visually and technically, and provides a solid foundation for his digital communication.`,
+    },
+}[lang];
 ---
 
 <BaseLayout 
     title="Kosta mitoussis" 
     isProjectPage={true}
-    description="Case study du site vitrine Kosta Mitoussis : conception et développement d'une plateforme moderne pour un kinésithérapeute."
+    description={t.metaDescription}
     ogImage="/Asset/Kosta/Intro.webp"
 >
     <div class="main-layout-wrapper">
         <!-- Flux CENTRAL: CONTENU CASE STUDY -->
         <main class="center-flow-project">
             <div class="case-study-content">
-                <a href="/" class="back-link scramble-text">← Retour</a>
+                <a href={homeHref} class="back-link scramble-text">{common.back}</a>
                 <!-- Title & Hero -->
                 <h1 class="project-large-title">Kosta mitoussis</h1>
-                <a href="/" class="project-site-link scramble-text">
-                    <span class="dot-separator dot-separator--sarah">Lien vers le site</span>
+                <a href={homeHref} class="project-site-link scramble-text">
+                    <span class="dot-separator dot-separator--sarah">{common.visitSite}</span>
                 </a>
                 
                 <div class="project-hero-media">
                     <div class="placeholder-img" style="height: 100%;">
                         <Image 
                             src={introImg} 
-                            alt="Capture d'écran pleine largeur du site vitrine Kosta Mitoussis" 
+                            alt={t.alt1} 
                             class="project-image" 
                             loading="eager" 
                             decoding="async" 
@@ -51,11 +104,11 @@ import mobileImg from '../assets/Kosta/mobile.webp';
                 <section id="description" class="case-description-section">
                     <div class="case-grid">
                         <div class="case-label">
-                            <h3 class="section-title">Description du projet</h3>
+                            <h3 class="section-title">{common.projectDescription}</h3>
                         </div>
                         <div class="case-text">
-                            <p>J'ai été missionné pour la conception et le développement d'un site vitrine pour un kinésithérapeute, avec pour objectif de renforcer sa présence en ligne et de valoriser son activité professionnelle.</p>
-                            <p>L'objectif principal était de proposer une présence en ligne moderne, claire et dynamique, tout en garantissant une mise en production rapide.</p>
+                            <p>{t.p1}</p>
+                            <p>{t.p2}</p>
                         </div>
                     </div>
                 </section>
@@ -66,12 +119,12 @@ import mobileImg from '../assets/Kosta/mobile.webp';
                         <div class="media-grid-2">
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={pcImg} alt="Aperçu des composants UI du site Kosta Mitoussis sur desktop" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={pcImg} alt={t.alt2} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={pc2Img} alt="Mockup de l'interface utilisateur sur un écran d'ordinateur" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={pc2Img} alt={t.alt3} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </div>
@@ -79,31 +132,31 @@ import mobileImg from '../assets/Kosta/mobile.webp';
                         <div class="media-grid-2">
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={screenPcImg} alt="Interface du site Kosta Mitoussis affichée sur un écran PC" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={screenPcImg} alt={t.alt4} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={avisImg} alt="Section des avis clients sur le site vitrine" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={avisImg} alt={t.alt5} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </div>
 
                         <!-- Full width Image (Phone 1) -->
                         <div class="media-item">
-                            <Image src={mobileFullImg} alt="Version mobile complète du site Kosta Mitoussis" class="project-image" loading="lazy" decoding="async" />
+                            <Image src={mobileFullImg} alt={t.alt6} class="project-image" loading="lazy" decoding="async" />
                         </div>
 
                         <!-- 2-column Image Grid -->
                         <div class="media-grid-2">
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={doublescreenImg} alt="Mockup double écran montrant la réactivité du site" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={doublescreenImg} alt={t.alt7} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={mobileImg} alt="Aperçu de la version mobile sur smartphone" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={mobileImg} alt={t.alt8} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </div>
@@ -118,24 +171,24 @@ import mobileImg from '../assets/Kosta/mobile.webp';
                 <ProjectIndex />
 
                 <div class="section-group mt-xl">
-                    <h4 class="small-title">L'objectif</h4>
-                    <p class="service-intro">Le projet visait à livrer un site moderne, épuré et dynamique, tout en respectant un délai de production court. L'enjeu principal était de proposer une interface simple, accessible et efficace, permettant aux visiteurs d'obtenir rapidement les informations essentielles.</p>
+                    <h4 class="small-title">{t.h4_1}</h4>
+                    <p class="service-intro">{t.p3}</p>
                 </div>
 
                 <div class="section-group mt-xl">
-                    <h4 class="small-title">Expérience utilisateur (UX/UI)</h4>
-                    <p class="service-intro">J'ai assuré la création d'une identité visuelle cohérente, incluant le design du site et la conception du logo. L'ensemble a été pensé pour transmettre une image professionnelle, rassurante et contemporaine, en adéquation avec le secteur médical.</p>
-                    <p class="service-intro">L'interface a été conçue autour d'une navigation intuitive et d'une hiérarchisation claire des contenus. Le design privilégie la lisibilité, l'accessibilité et la fluidité, avec des animations discrètes apportant du dynamisme sans compromettre l'expérience utilisateur.</p>
+                    <h4 class="small-title">{t.h4_2}</h4>
+                    <p class="service-intro">{t.p4}</p>
+                    <p class="service-intro">{t.p5}</p>
                 </div>
 
                 <div class="section-group mt-xl">
-                    <h4 class="small-title">Développement front-end</h4>
-                    <p class="service-intro">Ce projet m'a permis de mettre en œuvre des pratiques front-end modernes, en portant une attention particulière à la performance, à la maintenabilité du code et à la qualité de l'intégration. Le développement a été réalisé dans une logique d'efficacité et de rapidité, tout en garantissant un rendu professionnel.</p>
+                    <h4 class="small-title">{t.h4_3}</h4>
+                    <p class="service-intro">{t.p6}</p>
                 </div>
 
                 <div class="section-group mt-xl">
-                    <h4 class="small-title">Résultats</h4>
-                    <p class="service-intro">Le projet a abouti à la livraison d'un site vitrine fonctionnel, cohérent et performant, répondant aux attentes du client tant sur le plan visuel que technique, et offrant une base solide pour sa communication digitale.</p>
+                    <h4 class="small-title">{t.h4_4}</h4>
+                    <p class="service-intro">{t.p7}</p>
                 </div>
             </div>
         </aside>

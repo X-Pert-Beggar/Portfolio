@@ -92,6 +92,49 @@ html.dark-mode .toggle-knob {
     left: 2px;
 }
 
+/* Sélecteur de langue (FR / EN), à côté du bouton clair / sombre */
+.lang-switch {
+    display: flex;
+    height: 18px;
+    border: 1px solid var(--line-color);
+}
+
+.lang-switch-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    padding: 0 5px;
+    font-size: 10px;
+    line-height: 1;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Agrandit la zone cliquable (44px de haut) sans changer l'aspect */
+.lang-switch-link::after {
+    content: '';
+    position: absolute;
+    inset: -13px 0;
+}
+
+.lang-switch-link:hover {
+    color: var(--text-main);
+}
+
+.lang-switch-link[aria-current="true"] {
+    background: var(--text-main);
+    color: var(--bg-page);
+}
+
+.lang-switch-link:focus-visible {
+    outline: 1px solid var(--text-main);
+    outline-offset: 2px;
+}
+
 .logo-box svg rect { fill: var(--text-main); transition: fill 0.3s ease; }
 .logo-box svg circle { 
     fill: var(--bg-page); 

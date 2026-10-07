@@ -12,28 +12,65 @@ import iolcepreImg from '../assets/Others/iolcepre.jpg';
 import goblinImg from '../assets/Others/goblin.jpg';
 import pikeImg from '../assets/Others/pike.jpg';
 import bookImg from '../assets/Others/book.jpg';
+
+import { getLang, localizePath, ui } from '../i18n';
+
+// --- Textes de la page, en français et en anglais ---
+const lang = getLang(Astro.url);
+const common = ui[lang];
+const homeHref = localizePath('/', lang);
+const t = {
+    fr: {
+        metaDescription: `Sélection de projets secondaires et explorations graphiques réalisés par Frédéric Vanhoolant.`,
+        h1_1: `Autres`,
+        alt1: `Affiche de design graphique - Sélection de projets secondaires`,
+        h3_1: `Description des projets`,
+        p1: `Voici quelques projets secondaires sur lesquels j'ai travaillé au cours des deux dernières années.`,
+        alt2: `Design d'un clavier personnalisé - Projet de modélisation`,
+        alt3: `Rendu 3D d'un clavier minimaliste`,
+        alt4: `Interface mobile de l'application Iolce`,
+        alt5: `Présentation visuelle du projet Iolce`,
+        alt6: `Illustration graphique Goblin - Art numérique`,
+        alt7: `Design graphique Pike - Exploration visuelle`,
+        alt8: `Maquette de livre - Edition et mise en page`,
+    },
+    en: {
+        metaDescription: `A selection of side projects and graphic explorations by Frédéric Vanhoolant.`,
+        h1_1: `Others`,
+        alt1: `Graphic design poster - Selection of side projects`,
+        h3_1: `Projects description`,
+        p1: `Here are a few side projects I have worked on over the past two years.`,
+        alt2: `Custom keyboard design - 3D modelling project`,
+        alt3: `3D render of a minimalist keyboard`,
+        alt4: `Mobile interface of the Iolce application`,
+        alt5: `Visual presentation of the Iolce project`,
+        alt6: `Goblin graphic illustration - Digital art`,
+        alt7: `Pike graphic design - Visual exploration`,
+        alt8: `Book mockup - Publishing and layout`,
+    },
+}[lang];
 ---
 
 <BaseLayout 
     title="Others" 
     isProjectPage={true}
-    description="Sélection de projets secondaires et explorations graphiques réalisés par Frédéric Vanhoolant."
+    description={t.metaDescription}
     ogImage="/Asset/Others/afficheb.jpg"
 >
     <div class="main-layout-wrapper">
         <!-- Flux CENTRAL: CONTENU CASE STUDY -->
         <main class="center-flow-project">
             <div class="case-study-content">
-                <a href="/" class="back-link scramble-text">← Retour</a>
+                <a href={homeHref} class="back-link scramble-text">{common.back}</a>
                 <!-- Title & Hero -->
-                <h1 class="project-large-title">Autres</h1>
+                <h1 class="project-large-title">{t.h1_1}</h1>
                 <span class="dot-separator">•</span>
                 
                 <div class="project-hero-media">
                     <div class="placeholder-img" style="height: 100%;">
                         <Image 
                             src={affichebImg} 
-                            alt="Affiche de design graphique - Sélection de projets secondaires" 
+                            alt={t.alt1} 
                             class="project-image" 
                             loading="eager" 
                             decoding="async" 
@@ -48,10 +85,10 @@ import bookImg from '../assets/Others/book.jpg';
                 <section id="description" class="case-description-section">
                     <div class="case-grid">
                         <div class="case-label">
-                            <h3 class="section-title">Description des projets</h3>
+                            <h3 class="section-title">{t.h3_1}</h3>
                         </div>
                         <div class="case-text">
-                            <p>Voici quelques projets secondaires sur lesquels j'ai travaillé au cours des deux dernières années.</p>
+                            <p>{t.p1}</p>
                         </div>
                     </div>
                 </section>
@@ -62,12 +99,12 @@ import bookImg from '../assets/Others/book.jpg';
                         <div class="media-grid-2">
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={clavierImg} alt="Design d'un clavier personnalisé - Projet de modélisation" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={clavierImg} alt={t.alt2} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={clavier2Img} alt="Rendu 3D d'un clavier minimaliste" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={clavier2Img} alt={t.alt3} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </div>
@@ -75,31 +112,31 @@ import bookImg from '../assets/Others/book.jpg';
                         <div class="media-grid-2">
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={iolcemobileImg} alt="Interface mobile de l'application Iolce" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={iolcemobileImg} alt={t.alt4} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={iolcepreImg} alt="Présentation visuelle du projet Iolce" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={iolcepreImg} alt={t.alt5} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </div>
 
                         <!-- Full width Image (Phone 1) -->
                         <div class="media-item">
-                            <Image src={goblinImg} alt="Illustration graphique Goblin - Art numérique" class="project-image" loading="lazy" decoding="async" />
+                            <Image src={goblinImg} alt={t.alt6} class="project-image" loading="lazy" decoding="async" />
                         </div>
 
                         <!-- 2-column Image Grid -->
                         <div class="media-grid-2">
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={pikeImg} alt="Design graphique Pike - Exploration visuelle" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={pikeImg} alt={t.alt7} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={bookImg} alt="Maquette de livre - Edition et mise en page" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={bookImg} alt={t.alt8} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </div>

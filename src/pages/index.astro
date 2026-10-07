@@ -1,83 +1,244 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectIndex from '../components/ProjectIndex.astro';
+import Dropdown from '../components/Dropdown.astro';
 import { Image } from 'astro:assets';
 
 // Import project images
 import groovsImg from '../assets/Groovs/introGroovs_.webp';
 import sarahImg from '../assets/Sarah Premz/Sarah2.jpg';
 import mrCleanImg from '../assets/Mr Clean/1.webp';
+
+import { getLang, localizePath, ui } from '../i18n';
+
+// --- Textes de la page, en français et en anglais ---
+const lang = getLang(Astro.url);
+const common = ui[lang];
+const t = {
+    fr: {
+        metaDescription: `Je vous invite à découvrir mon travail et mon approche. Je suis Frédéric Vanhoolant, UX/UI Designer et Développeur Web. J'accompagne mes clients dans la création de projets clairs, efficaces et durables, en alliant mon sens du design à mon expertise en accessibilité numérique et technique.`,
+        role: `Digital Designer`,
+        fields: `UX/UI · Web · Design visuel`,
+        lead: `Vous avez l’idée, j’ai les crayons.`,
+        text: `Je transforme vos idées en produits digitaux simples, intuitifs et désirables de la première esquisse jusqu’à l’expérience finale.`,
+        facts: [`4+ ans dans la tech`, `Mobile-first`, `Bruxelles / Remote`],
+        cta: `Démarrer un projet`,
+        servicesTitle: `Services`,
+        services: [
+            {
+                title: `UX/UI Design`,
+                tagline: `Des applications et des sites simples à utiliser.`,
+                text: `Je conçois des applications et des sites que l'on prend en main sans réfléchir. Je pars de vos utilisateurs, je structure les parcours, puis je dessine des interfaces lisibles sur tous les écrans.`,
+                items: [
+                    `Audit UX/UI de votre produit existant`,
+                    `Parcours utilisateurs et wireframes`,
+                    `Maquettes responsive, pensées mobile first`,
+                    `Prototype interactif sur Figma`,
+                    `Design system prêt à être transmis à vos développeurs`,
+                ],
+            },
+            {
+                title: `Branding et identité visuelle`,
+                tagline: `Une marque reconnaissable et cohérente.`,
+                text: `Je donne à votre marque une identité reconnaissable et cohérente, du logo à ses déclinaisons. Vous repartez avec des règles claires, utilisables par toute votre équipe.`,
+                items: [
+                    `Moodboard et direction artistique`,
+                    `Logo et ses variantes`,
+                    `Couleurs, typographies et éléments graphiques`,
+                    `Charte graphique`,
+                    `Mises en situation sur vos supports`,
+                ],
+            },
+            {
+                title: `Design graphique`,
+                tagline: `Vos supports de communication, imprimés et digitaux.`,
+                text: `Je crée vos supports de communication, imprimés ou digitaux, dans le respect de votre identité.`,
+                items: [
+                    `Affiches, flyers et cartes de visite`,
+                    `Packaging et mockups`,
+                    `Visuels pour les réseaux sociaux`,
+                    `Mise en page de documents : brochures, bons de commande, présentations`,
+                ],
+            },
+            {
+                title: `Création de sites web`,
+                tagline: `Un site sur mesure, mis en ligne rapidement.`,
+                text: `Je dessine votre site sur mesure, puis je le développe à l'aide d'outils d'intelligence artificielle. Vous obtenez un site à votre image, plus rapidement qu'avec un développement classique.`,
+                items: [
+                    `Site vitrine ou portfolio conçu sur mesure`,
+                    `Affichage adapté au mobile, à la tablette et à l'ordinateur`,
+                    `Bases du référencement et de l'accessibilité intégrées`,
+                    `Mise en ligne et prise en main du site`,
+                ],
+            },
+        ],
+        methodTitle: `Méthode de travail`,
+        methodIntro: `Un projet avance en trois temps. Vous validez chaque avancée, pour éviter les mauvaises surprises à la livraison.`,
+        methodSteps: [
+            {
+                title: `Audit`,
+                text: `Je commence par comprendre vos attentes, vos utilisateurs et les problèmes à résoudre. Nous clarifions s'il s'agit d'une création ou d'une refonte, et l'image que votre design doit transmettre.`,
+            },
+            {
+                title: `Conception et tests`,
+                text: `Je conçois votre projet étape par étape, avec un rendez-vous de validation à chacune. Les tests et les ajustements se font au fur et à mesure. Pour un produit vaste, nous avançons en mode agile, par cycles courts.`,
+            },
+            {
+                title: `Livraison et suivi`,
+                text: `Je vous remets les fichiers sources et la documentation, ou je mets votre site en ligne. Je reste disponible pour accompagner vos développeurs et répondre à vos questions.`,
+            },
+        ],
+        projectsTitle: `Quelques projets`,
+        projectsPill: `Curieux de connaître mon processus ? Explorez les projets ci-dessous.`,
+        altSarah: `Vignette du projet Sarah Prémont - Développement UI Design`,
+        altGroovs: `Vignette du projet Groovs - Design System et Web App`,
+        altMrClean: `Vignette du projet Mr Clean - Application mobile de réservation en laverie`,
+    },
+    en: {
+        metaDescription: `Discover my work and my approach. I'm Frédéric Vanhoolant, UX/UI Designer and Web Developer. I help my clients build clear, effective and lasting projects, combining my design sensibility with my expertise in digital accessibility and technology.`,
+        role: `Digital Designer`,
+        fields: `UX/UI · Web · Visual Design`,
+        lead: `You have the idea, I have the pencils.`,
+        text: `I turn your ideas into simple, intuitive and desirable digital products, from the first sketch to the final experience.`,
+        facts: [`4+ years in tech`, `Mobile-first`, `Brussels / Remote`],
+        cta: `Start a project`,
+        servicesTitle: `Services`,
+        services: [
+            {
+                title: `UX/UI Design`,
+                tagline: `Apps and websites that are simple to use.`,
+                text: `I design apps and websites that people pick up without thinking. I start from your users, structure the journeys, then design interfaces that are legible on every screen.`,
+                items: [
+                    `UX/UI audit of your existing product`,
+                    `User journeys and wireframes`,
+                    `Responsive mockups, designed mobile first`,
+                    `Interactive prototype in Figma`,
+                    `Design system ready to hand over to your developers`,
+                ],
+            },
+            {
+                title: `Branding and visual identity`,
+                tagline: `A recognisable, consistent brand.`,
+                text: `I give your brand a recognisable, consistent identity, from the logo to its variations. You leave with clear rules that your whole team can use.`,
+                items: [
+                    `Moodboard and art direction`,
+                    `Logo and its variants`,
+                    `Colours, typefaces and graphic elements`,
+                    `Brand guidelines`,
+                    `Mockups on your own materials`,
+                ],
+            },
+            {
+                title: `Graphic design`,
+                tagline: `Your communication materials, print and digital.`,
+                text: `I create your communication materials, print or digital, in keeping with your identity.`,
+                items: [
+                    `Posters, flyers and business cards`,
+                    `Packaging and mockups`,
+                    `Visuals for social media`,
+                    `Document layout: brochures, order forms, presentations`,
+                ],
+            },
+            {
+                title: `Website creation`,
+                tagline: `A bespoke website, online quickly.`,
+                text: `I design your website to measure, then build it using artificial intelligence tools. You get a website that reflects you, faster than with conventional development.`,
+                items: [
+                    `Bespoke showcase website or portfolio`,
+                    `Display adapted to mobile, tablet and desktop`,
+                    `SEO and accessibility basics built in`,
+                    `Launch and handover of the website`,
+                ],
+            },
+        ],
+        methodTitle: `Working method`,
+        methodIntro: `A project moves forward in three stages. You approve each step, to avoid unpleasant surprises at delivery.`,
+        methodSteps: [
+            {
+                title: `Audit`,
+                text: `I start by understanding your expectations, your users and the problems to solve. We clarify whether it is a new creation or a redesign, and the image your design should convey.`,
+            },
+            {
+                title: `Design and testing`,
+                text: `I design your project step by step, with a validation meeting at each one. Testing and adjustments happen along the way. For a large product, we work in agile mode, in short cycles.`,
+            },
+            {
+                title: `Delivery and follow-up`,
+                text: `I hand over the source files and the documentation, or I put your website online. I remain available to support your developers and answer your questions.`,
+            },
+        ],
+        projectsTitle: `Featured projects`,
+        projectsPill: `Curious about my process? Explore the projects below.`,
+        altSarah: `Thumbnail of the Sarah Prémont project - UI design and development`,
+        altGroovs: `Thumbnail of the Groovs project - Design system and web app`,
+        altMrClean: `Thumbnail of the Mr Clean project - Mobile app for booking laundrette machines`,
+    },
+}[lang];
 ---
 
 <BaseLayout 
     title="Portfolio"
-    description="Je vous invite à découvrir mon travail et mon approche. Je suis Frédéric Vanhoolant, UX/UI Designer et Développeur Web. J'accompagne mes clients dans la création de projets clairs, efficaces et durables, en alliant mon sens du design à mon expertise en accessibilité numérique et technique."
+    description={t.metaDescription}
 >
     <div class="main-layout-wrapper">
-        <!-- Colonne Gauche: IDENTITÉ & INFOS -->
+        <!-- Colonne Gauche: IDENTITÉ & OFFRE -->
         <aside class="side-panel left">
-            <div class="side-content">
-                <section class="hero-sidebar">
-                    <h1>Hello, i'm Frédéric</h1>
-                    <h2 class="hero-subtitle">Ma mission</h2>
-                    <p class="bio-text">
-                        Concevoir des projets inspirants et exigeants, performants aussi bien sur le plan visuel que sur celui de l'expérience utilisateur.
-                        Je crois en la création non seulement de produits esthétiques, mais surtout d'expériences utiles et durables, capables de stimuler l'imagination tout en restant intuitives et techniquement maîtrisées.</p>
-                </section>
+            <div class="side-content hero">
+                <header class="hero-head">
+                    <h1 class="hero-name">Frédéric Vanhoolant</h1>
+                    <p class="hero-role">{t.role}</p>
+                    <p class="hero-fields">{t.fields}</p>
+                </header>
 
-                <div class="info-sections">
-                    <!-- Capabilities -->
-                    <section class="section-group info-block">
-                        <h3 class="section-title">Compétences</h3>
-                        <div class="data-list">
-                            <div class="data-row"><span class="scramble-text">Bases JavaScript</span><span class="align-right scramble-text">++</span></div>
-                            <div class="data-row"><span class="scramble-text">Branding</span><span class="align-right scramble-text">++++</span></div>
-                            <div class="data-row"><span class="scramble-text">Connaissance Print</span><span class="align-right scramble-text">+++</span></div>
-                            <div class="data-row"><span class="scramble-text">Design Systems / UI Kits</span><span class="align-right scramble-text">+++++</span></div>
-                            <div class="data-row"><span class="scramble-text">Hand-off design</span><span class="align-right scramble-text">++</span></div>
-                            <div class="data-row"><span class="scramble-text">HTML/CSS (Flexbox, Grid)</span><span class="align-right scramble-text">+++</span></div>
-                            <div class="data-row"><span class="scramble-text">Mobile First</span><span class="align-right scramble-text">+++++</span></div>
-                            <div class="data-row"><span class="scramble-text">Mockups & Packaging</span><span class="align-right scramble-text">++++</span></div>
-                            <div class="data-row"><span class="scramble-text">Moodboarding</span><span class="align-right scramble-text">+++++</span></div>
-                            <div class="data-row"><span class="scramble-text">User research</span><span class="align-right scramble-text">++++</span></div>
-                            <div class="data-row"><span class="scramble-text">UX UI Design</span><span class="align-right scramble-text">+++++</span></div>
-                            <div class="data-row"><span class="scramble-text">Wireframing responsive & prototypage</span><span class="align-right scramble-text">+++++</span></div>
-                        </div>
-                    </section>
+                <p class="hero-lead">{t.lead}</p>
+                <p class="hero-text">{t.text}</p>
 
-                    <!-- Education -->
-                    <section class="section-group info-block mt-xl">
-                        <h3 class="section-title">Formation</h3>
-                        <div class="data-list">
-                            <div class="data-row"><span class="scramble-text">INRACI</span><span class="align-right scramble-text">Secondaire</span></div>
-                            <div class="data-row"><span class="scramble-text">HEAJ</span><span class="align-right scramble-text">Enseignement Supérieur</span></div>
-                        </div>
-                    </section>
+                <!-- Services & Méthode de travail : mêmes menus déroulants que la colonne de droite -->
+                <div class="section-group mt-xl">
+                    <Dropdown title={t.servicesTitle} count={t.services.length}>
+                        <ul class="work-list">
+                            {t.services.map((service, index) => (
+                                <li class={index > 0 ? 'mt-md' : undefined}>
+                                    <div class="work-item is-static">
+                                        <span class="work-item-name">{service.title}</span>
+                                        <span class="work-item-tags">{service.tagline}</span>
+                                        <div>
+                                            <p class="service-intro">{service.text}</p>
+                                            <ul class="check-list">
+                                                {service.items.map((item) => <li>{item}</li>)}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </Dropdown>
 
-                    <!-- Experience -->
-                    <section class="section-group info-block mt-xl">
-                        <h3 class="section-title">Expérience</h3>
-                        <div class="data-list">
-                            <div class="accordion-item">
-                                <div class="data-row accordion-header">
-                                    <span class="scramble-text">2023</span>
-                                    <span class="align-right scramble-text">IO Digital <span class="icon-plus"></span></span>
-                                </div>
-                                <div class="accordion-content">
-                                    <p>Lors de ma scolarité, j'ai réalisé un stage de trois mois en tant que stagiaire en UX Design au sein de l'entreprise Io digital.</p>
-                                </div>
-                            </div>
-                            <div class="accordion-item">
-                                <div class="data-row accordion-header">
-                                    <span class="scramble-text">2024</span>
-                                    <span class="align-right scramble-text">Proxiad Nord <span class="icon-plus"></span></span>
-                                </div>
-                                <div class="accordion-content">
-                                    <p>J'ai pu travailler chez Proxiade en tant qu'UX/UI designer sur un projet d'envergure, présentant de nombreux défis stimulants.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
+                    <Dropdown title={t.methodTitle} count={t.methodSteps.length}>
+                        <p class="service-intro">{t.methodIntro}</p>
+                        <ol class="work-list">
+                            {t.methodSteps.map((step, index) => (
+                                <li>
+                                    <div class="work-item is-static">
+                                        <span class="work-item-name">{step.title}</span>
+                                        <span class="work-item-arrow" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                                        <p class="service-intro">{step.text}</p>
+                                    </div>
+                                </li>
+                            ))}
+                        </ol>
+                    </Dropdown>
+                </div>
+
+                <div class="hero-foot">
+                    <ul class="hero-facts">
+                        {t.facts.map((fact) => <li>{fact}</li>)}
+                    </ul>
+
+                    <a href="mailto:vanhoolantfrederic@hotmail.com" class="hero-cta">
+                        <span class="scramble-text">{t.cta}</span>
+                        <span class="hero-cta-arrow" aria-hidden="true">→</span>
+                    </a>
                 </div>
             </div>
         </aside>
@@ -85,16 +246,16 @@ import mrCleanImg from '../assets/Mr Clean/1.webp';
         <!-- Flux CENTRAL: PROJETS -->
         <main class="center-flow">
             <div class="projects-main-content">
-                <h2 class="col-title">Quelques projets</h2>
-                <div class="orange-pill">Curieux de connaître mon processus ? Explorez les projets ci-dessous.</div>
+                <h2 class="col-title">{t.projectsTitle}</h2>
+                <div class="orange-pill">{t.projectsPill}</div>
                 
                 <div class="project-stack">
 
-                    <a href="/mr-clean" class="project-link">
+                    <a href={localizePath('/mr-clean', lang)} class="project-link">
                         <div class="project-video-card">
                             <Image
                                 src={mrCleanImg}
-                                alt="Vignette du projet Mr Clean - Application mobile de réservation en laverie"
+                                alt={t.altMrClean}
                                 class="project-image"
                                 loading="lazy"
                                 decoding="async"
@@ -107,11 +268,11 @@ import mrCleanImg from '../assets/Mr Clean/1.webp';
                         </div>
                     </a>
 
-                        <a href="/sarah" class="project-link">
+                        <a href={localizePath('/sarah', lang)} class="project-link">
                              <div class="project-video-card">
                          <Image 
                             src={sarahImg} 
-                            alt="Vignette du projet Sarah Prémont - Développement UI Design" 
+                            alt={t.altSarah} 
                             class="project-image" 
                             loading="lazy" 
                             decoding="async" 
@@ -126,11 +287,11 @@ import mrCleanImg from '../assets/Mr Clean/1.webp';
 
 
 
-                    <a href="/project-camera" class="project-link">
+                    <a href={localizePath('/project-camera', lang)} class="project-link">
                         <div class="project-video-card">
                             <video autoplay muted loop playsinline class="project-video">
                                 <source src="/Asset/camera/VidCamera.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la lecture de vidéos.
+                                {common.videoFallback}
                             </video>
                             <div class="video-overlay">
                                 <span class="badge badge-alpha">Camera XYZ-5000</span>
@@ -138,11 +299,11 @@ import mrCleanImg from '../assets/Mr Clean/1.webp';
                         </div>
                     </a>
                  
-                    <a href="/groovs" class="project-link">
+                    <a href={localizePath('/groovs', lang)} class="project-link">
                       <div class="project-video-card">
                         <Image 
                             src={groovsImg} 
-                            alt="Vignette du projet Groovs - Design System et Web App" 
+                            alt={t.altGroovs} 
                             class="project-image" 
                             loading="lazy" 
                             decoding="async" 
@@ -155,11 +316,11 @@ import mrCleanImg from '../assets/Mr Clean/1.webp';
                     </div>
                 </a>
 
-                <a href="/movento" class="project-link">
+                <a href={localizePath('/movento', lang)} class="project-link">
                     <div class="project-video-card">
                         <video autoplay muted loop playsinline class="project-video">
                             <source src="/Asset/Movento/65e8d6584d53eccf2f6e161d_movento.mp4" type="video/mp4">
-                            Votre navigateur ne supporte pas la lecture de vidéos.
+                            {common.videoFallback}
                         </video>
                         <div class="video-overlay">
                             <span class="badge badge-alpha">Movento</span>
@@ -172,38 +333,134 @@ import mrCleanImg from '../assets/Mr Clean/1.webp';
             </div>
         </main>
 
-        <!-- Colonne Droite: LISTE & CONTACT -->
+        <!-- Colonne Droite: PROJETS PAR DOSSIERS -->
         <aside class="side-panel right">
             <div class="side-content">
                 <ProjectIndex />
-
-                <div class="section-group mt-xl">
-                    <h4 class="small-title">Services</h4>
-                    <p class="service-intro">J'accompagne les marques dans la définition de leur identité numérique.</p>
-                    <ul class="check-list">
-                        <li>Design d'Expérience Utilisateur</li>
-                        <li>Prototypage Numérique</li>
-                        <li>Stratégie de Marque</li>
-                    </ul>
-                </div>
-
-                <div class="section-group mt-xl">
-                    <h4 class="small-title">Contact</h4>
-                    <div class="contact-box">
-                        <a href="mailto:vanhoolantfrederic@hotmail.com" class="contact-link">Email</a>
-                        <a href="#" class="contact-link">LinkedIn</a>
-                    </div>
-                </div>
             </div>
         </aside>
     </div>
 </BaseLayout>
 
 <style>
-    .small-title {
-        font-size: 12px;
-        margin-bottom: 15px;
+    /* --- Colonne gauche : identité & offre --- */
+    .hero {
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+    }
+
+    .hero-name {
+        font-family: 'Poppins', sans-serif;
+        font-size: clamp(28px, 2.6vw, 40px);
+        font-weight: 600;
+        line-height: 1;
+        letter-spacing: -1px;
+    }
+
+    .hero-role {
+        margin-top: 16px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 15px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .hero-fields {
+        margin-top: 4px;
+        font-size: 11px;
         text-transform: uppercase;
         letter-spacing: 1px;
+        color: var(--text-muted);
+    }
+
+    .hero-lead {
+        margin-top: 40px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 1.3;
+        letter-spacing: -0.3px;
+    }
+
+    .hero-text {
+        margin-top: 16px;
+        font-size: 12px;
+        line-height: 1.6;
+        color: var(--text-muted);
+    }
+
+    /* Bloc bas de colonne : repères + appel à l'action */
+    .hero-foot {
+        margin-top: auto;
+        padding-top: 40px;
+    }
+
+    .hero-facts {
+        list-style: none;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* Bloc d'informations : simple texte, sans lignes de séparation */
+    .hero-facts li {
+        padding: 3px 0;
+    }
+
+    .hero-cta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        min-height: 48px;
+        margin-top: 20px;
+        padding: 0 16px;
+        background: var(--text-main);
+        color: var(--bg-page);
+        border: 1px solid var(--text-main);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-decoration: none;
+        transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    }
+
+    .hero-cta-arrow {
+        transition: transform 0.3s ease;
+    }
+
+    .hero-cta:hover {
+        background: #FFB265;
+        border-color: #FFB265;
+        color: #1a1a1a;
+    }
+
+    .hero-cta:hover .hero-cta-arrow {
+        transform: translateX(4px);
+    }
+
+    .hero-cta:focus-visible {
+        outline: 1px solid var(--text-main);
+        outline-offset: 3px;
+    }
+
+    @media (max-width: 1100px) {
+        .hero-name {
+            font-size: clamp(32px, 9vw, 56px);
+        }
+
+        /* Évite que le footer fixe ne masque le dernier projet en bas de page */
+        .main-layout-wrapper {
+            padding-bottom: var(--footer-height);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .hero-cta,
+        .hero-cta-arrow {
+            transition: none;
+        }
     }
 </style>

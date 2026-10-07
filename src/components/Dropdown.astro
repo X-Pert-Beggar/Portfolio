@@ -1,0 +1,287 @@
+---
+/*
+ * Menu déroulant du site (colonne de droite : dossiers de projets ;
+ * colonne de gauche de la landing page : Services, Méthode de travail).
+ *
+ * Utilisation :
+ *   <Dropdown title="Services" count={4}>
+ *       <ul class="work-list"> ... </ul>
+ *   </Dropdown>
+ *
+ * - `title` : libellé du menu
+ * - `count` : nombre affiché à droite du libellé (facultatif)
+ * - `open`  : ouvert au chargement (fermé par défaut)
+ *
+ * Le contenu se place entre les balises. Les styles sont globaux (is:global) pour que
+ * ce contenu, écrit dans la page qui utilise le menu, reçoive bien les mêmes styles.
+ */
+interface Props {
+    title: string;
+    count?: number;
+    open?: boolean;
+}
+
+const { title, count, open = false } = Astro.props;
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+
+<details class="work-folder" open={open}>
+    <summary class="work-folder-summary">
+        <span class="work-folder-name">
+            <span class="work-folder-chevron" aria-hidden="true"></span>
+            {title}
+        </span>
+        {count !== undefined && <span class="work-folder-count" aria-hidden="true">{pad(count)}</span>}
+    </summary>
+
+    <div class="work-folder-body">
+        <slot />
+    </div>
+</details>
+
+<style is:global>
+    /* --- Dossier (drop down) --- */
+    .work-folder {
+        border-top: 1px solid var(--line-color);
+    }
+
+    .work-folder:last-of-type {
+        border-bottom: 1px solid var(--line-color);
+    }
+
+    .work-folder-summary {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        min-height: 44px;
+        padding: 0 2px;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        list-style: none;
+        user-select: none;
+        transition: color 0.3s ease;
+    }
+
+    .work-folder-summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .work-folder-name {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    /* Chevron : pointe à droite quand le dossier est fermé, vers le bas quand il est ouvert */
+    .work-folder-chevron {
+        width: 6px;
+        height: 6px;
+        margin-left: 2px;
+        border-right: 1px solid currentColor;
+        border-bottom: 1px solid currentColor;
+        transform: translateX(-2px) rotate(-45deg);
+        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); /* easeOutExpo */
+        flex-shrink: 0;
+    }
+
+    /* .is-closing : posé par le script pendant l'animation de fermeture */
+    .work-folder[open]:not(.is-closing) .work-folder-chevron {
+        transform: translateY(-2px) rotate(45deg);
+    }
+
+    .work-folder-count {
+        color: var(--text-muted);
+        font-size: 10px;
+    }
+
+    .work-folder:not([open]) .work-folder-summary,
+    .work-folder.is-closing .work-folder-summary {
+        color: var(--text-muted);
+    }
+
+    .work-folder:not([open]) .work-folder-summary:hover,
+    .work-folder.is-closing .work-folder-summary:hover {
+        color: var(--text-main);
+    }
+
+    .work-folder-summary:focus-visible,
+    .work-item:focus-visible {
+        outline: 1px solid var(--text-main);
+        outline-offset: 2px;
+    }
+
+    /* --- Projets du dossier --- */
+    .work-folder-body {
+        padding-bottom: 14px;
+    }
+
+    .work-list {
+        list-style: none;
+        margin: 0 0 0 5px;
+        border-left: 1px solid var(--line-color);
+    }
+
+    .work-item {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        column-gap: 10px;
+        row-gap: 2px;
+        align-items: baseline;
+        padding: 8px 8px 8px 14px;
+        font-size: 11px;
+        color: inherit;
+        text-decoration: none;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .work-item-name {
+        font-size: 12px;
+    }
+
+    .work-item-tags {
+        grid-column: 1 / -1;
+        font-size: 10px;
+        line-height: 1.5;
+        color: var(--text-muted);
+        transition: color 0.3s ease;
+    }
+
+    .work-item-arrow {
+        color: var(--text-muted);
+        transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    a.work-item:hover {
+        background-color: #FFB265;
+        color: #1a1a1a;
+    }
+
+    a.work-item:hover .work-item-tags,
+    a.work-item:hover .work-item-arrow {
+        color: #1a1a1a;
+    }
+
+    a.work-item:hover .work-item-arrow {
+        transform: translateX(3px);
+    }
+
+    /* Projet actuellement affiché */
+    a.work-item[aria-current="page"] {
+        box-shadow: inset 2px 0 0 var(--text-main);
+        margin-left: -1px;
+        padding-left: 15px;
+        background-color: var(--card-bg);
+    }
+
+    a.work-item[aria-current="page"]:hover {
+        background-color: #FFB265;
+    }
+
+    /* Projet sans page (pas de lien) */
+    .work-item.is-static {
+        cursor: default;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .work-folder-chevron,
+        .work-item,
+        .work-item-arrow {
+            transition: none;
+        }
+    }
+</style>
+
+<script>
+    /*
+     * Micro-animation des dossiers déroulants.
+     * - ouverture : la hauteur se déploie en easeOutExpo, les projets arrivent en léger décalé
+     * - fermeture : même courbe, plus courte
+     * Sans JavaScript, ou si l'utilisateur préfère réduire les animations, les dossiers
+     * s'ouvrent et se ferment normalement, sans animation.
+     */
+    const EASE_OUT_EXPO = 'cubic-bezier(0.16, 1, 0.3, 1)';
+    const OPEN_DURATION = 550; // ms
+    const CLOSE_DURATION = 380; // ms
+    const ITEM_STAGGER = 45; // ms entre deux projets
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    function setupFolder(folder: HTMLDetailsElement) {
+        const summary = folder.querySelector('summary');
+        const body = folder.querySelector<HTMLElement>('.work-folder-body');
+        if (!summary || !body || folder.dataset.animated) return;
+        folder.dataset.animated = 'true';
+
+        const stopRunningAnimations = () => {
+            body.getAnimations({ subtree: true }).forEach((animation) => animation.cancel());
+        };
+
+        const open = (fromHeight: number) => {
+            folder.classList.remove('is-closing');
+            folder.open = true;
+            body.style.overflow = 'hidden';
+
+            const height = body.animate(
+                { height: [`${fromHeight}px`, `${body.scrollHeight}px`] },
+                { duration: OPEN_DURATION, easing: EASE_OUT_EXPO }
+            );
+            height.onfinish = () => {
+                body.style.overflow = '';
+            };
+
+            body.querySelectorAll('.work-item').forEach((item, index) => {
+                item.animate(
+                    [
+                        { opacity: 0, transform: 'translateX(-14px)' },
+                        { opacity: 1, transform: 'translateX(0)' },
+                    ],
+                    {
+                        duration: OPEN_DURATION,
+                        delay: 30 + index * ITEM_STAGGER,
+                        easing: EASE_OUT_EXPO,
+                        fill: 'backwards',
+                    }
+                );
+            });
+        };
+
+        const close = (fromHeight: number) => {
+            folder.classList.add('is-closing');
+            body.style.overflow = 'hidden';
+
+            const height = body.animate(
+                { height: [`${fromHeight}px`, '0px'], opacity: [1, 0] },
+                { duration: CLOSE_DURATION, easing: EASE_OUT_EXPO }
+            );
+            height.onfinish = () => {
+                folder.open = false;
+                folder.classList.remove('is-closing');
+                body.style.overflow = '';
+            };
+        };
+
+        summary.addEventListener('click', (event) => {
+            if (reduceMotion.matches) return; // bascule native, sans animation
+            event.preventDefault();
+
+            const isOpen = folder.open && !folder.classList.contains('is-closing');
+            // Hauteur actuelle : permet de repartir proprement si on reclique en pleine animation
+            const currentHeight = folder.open ? body.getBoundingClientRect().height : 0;
+            stopRunningAnimations();
+
+            if (isOpen) close(currentHeight);
+            else open(currentHeight);
+        });
+    }
+
+    function setupFolders() {
+        document.querySelectorAll<HTMLDetailsElement>('details.work-folder').forEach(setupFolder);
+    }
+
+    // Au chargement, puis après chaque changement de page (navigation sans rechargement)
+    setupFolders();
+    document.addEventListener('astro:page-load', setupFolders);
+</script>

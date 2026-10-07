@@ -13,30 +13,81 @@ import frame5Img from '../assets/Sarah Premz/Frame5.webp';
 import frame6Img from '../assets/Sarah Premz/Frame6.webp';
 import frame7Img from '../assets/Sarah Premz/Frame7.webp';
 import frame8Img from '../assets/Sarah Premz/Frame8.webp';
+
+import { getLang, localizePath, ui } from '../i18n';
+
+// --- Textes de la page, en français et en anglais ---
+const lang = getLang(Astro.url);
+const common = ui[lang];
+const homeHref = localizePath('/', lang);
+const t = {
+    fr: {
+        metaDescription: `Design du site vitrine de Sarah Prémont, photographe professionnelle spécialisée dans le portrait et l'événementiel.`,
+        alt1: `Portrait photographique - Page d'accueil du site de Sarah Prémont`,
+        p1: `Sarah Prémont est une photographe professionnelle spécialisée dans le portrait et l'événementiel. Ce site vitrine a été conçu pour mettre en valeur son univers artistique unique et faciliter la prise de contact avec ses clients.`,
+        p2: `L'objectif était de créer une interface minimaliste qui s'efface devant la force de ses images, tout en offrant une navigation fluide et intuitive à travers ses différentes galeries.`,
+        alt2: `Mise en page de la galerie photo sur le site de Sarah Prémont`,
+        alt3: `Mockup épuré de l'interface portfolio de Sarah Prémont`,
+        alt4: `Détail de la navigation minimaliste du site`,
+        alt5: `Aperçu d'une galerie d'événements sur le site`,
+        alt6: `Mockup pleine largeur montrant l'univers visuel de Sarah Prémont`,
+        alt7: `Interface mobile du portfolio de Sarah Prémont`,
+        alt8: `Mise en valeur des portraits photographiques sur le site`,
+        alt9: `Structure globale du site vitrine Sarah Prémont`,
+        h4_1: `Sarah Prémont, c'est qui ?`,
+        p3: `Sarah Prémont est une photographe dont le travail explore la texture, la lumière et l'intimité du portrait.`,
+        li1: `Capturer l'essence authentique des sujets.`,
+        li2: `Créer des compositions visuelles fortes et épurées.`,
+        li3: `Offrir un regard singulier sur le monde qui nous entoure.`,
+        li4: `Nicolas Prémont / développer`,
+        li5: `Sarah Prémont / Photographe`,
+    },
+    en: {
+        metaDescription: `Design of the showcase website of Sarah Prémont, a professional photographer specialising in portraits and events.`,
+        alt1: `Photographic portrait - Home page of Sarah Prémont's website`,
+        p1: `Sarah Prémont is a professional photographer specialising in portraits and events. This showcase website was designed to highlight her unique artistic world and make it easier for clients to get in touch.`,
+        p2: `The goal was to create a minimalist interface that steps back in favour of the strength of her images, while offering smooth, intuitive navigation through her various galleries.`,
+        alt2: `Layout of the photo gallery on Sarah Prémont's website`,
+        alt3: `Clean mockup of Sarah Prémont's portfolio interface`,
+        alt4: `Detail of the website's minimalist navigation`,
+        alt5: `Preview of an events gallery on the website`,
+        alt6: `Full-width mockup showing Sarah Prémont's visual world`,
+        alt7: `Mobile interface of Sarah Prémont's portfolio`,
+        alt8: `Showcasing the photographic portraits on the website`,
+        alt9: `Overall structure of the Sarah Prémont showcase website`,
+        h4_1: `Who is Sarah Prémont?`,
+        p3: `Sarah Prémont is a photographer whose work explores texture, light and the intimacy of portraiture.`,
+        li1: `Capture the authentic essence of her subjects.`,
+        li2: `Create strong, clean visual compositions.`,
+        li3: `Offer a singular view of the world around us.`,
+        li4: `Nicolas Prémont / Developer`,
+        li5: `Sarah Prémont / Photographer`,
+    },
+}[lang];
 ---
 
 <BaseLayout 
     title="Sarah Prémontt" 
     isProjectPage={true}
-    description="Design du site vitrine de Sarah Prémont, photographe professionnelle spécialisée dans le portrait et l'événementiel."
+    description={t.metaDescription}
     ogImage="/Asset/Sarah Premz/Sarah.webp"
 >
     <div class="main-layout-wrapper">
         <!-- Flux CENTRAL: CONTENU CASE STUDY -->
         <main class="center-flow-project">
             <div class="case-study-content">
-                <a href="/" class="back-link scramble-text">← Retour</a>
+                <a href={homeHref} class="back-link scramble-text">{common.back}</a>
                 <!-- Title & Hero -->
                 <h1 class="project-large-title">Sarah Prémont</h1>
                 <a href="https://sarah-premont.be/" class="project-site-link scramble-text">
-                    <span class="dot-separator dot-separator--sarah">Lien vers le site</span>
+                    <span class="dot-separator dot-separator--sarah">{common.visitSite}</span>
                 </a>
                 
                 <div class="project-hero-media">
                     <div class="placeholder-img" style="height: 100%;">
                         <Image 
                             src={sarahMainImg} 
-                            alt="Portrait photographique - Page d'accueil du site de Sarah Prémont" 
+                            alt={t.alt1} 
                             class="project-image" 
                             loading="eager" 
                             decoding="async" 
@@ -51,11 +102,11 @@ import frame8Img from '../assets/Sarah Premz/Frame8.webp';
                 <section id="description" class="case-description-section">
                     <div class="case-grid">
                         <div class="case-label">
-                            <h3 class="section-title">Description du projet</h3>
+                            <h3 class="section-title">{common.projectDescription}</h3>
                         </div>
                         <div class="case-text">
-                            <p>Sarah Prémont est une photographe professionnelle spécialisée dans le portrait et l'événementiel. Ce site vitrine a été conçu pour mettre en valeur son univers artistique unique et faciliter la prise de contact avec ses clients.</p>
-                            <p>L'objectif était de créer une interface minimaliste qui s'efface devant la force de ses images, tout en offrant une navigation fluide et intuitive à travers ses différentes galeries.</p>
+                            <p>{t.p1}</p>
+                            <p>{t.p2}</p>
                         </div>
                     </div>
                 </section>
@@ -66,12 +117,12 @@ import frame8Img from '../assets/Sarah Premz/Frame8.webp';
                         <div class="media-grid-2">
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={frame1Img} alt="Mise en page de la galerie photo sur le site de Sarah Prémont" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={frame1Img} alt={t.alt2} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={frame2Img} alt="Mockup épuré de l'interface portfolio de Sarah Prémont" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={frame2Img} alt={t.alt3} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </div>
@@ -79,38 +130,38 @@ import frame8Img from '../assets/Sarah Premz/Frame8.webp';
                         <div class="media-grid-2">
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={frame3Img} alt="Détail de la navigation minimaliste du site" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={frame3Img} alt={t.alt4} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={frame4Img} alt="Aperçu d'une galerie d'événements sur le site" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={frame4Img} alt={t.alt5} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </div>
 
                         <!-- Full width Image (Phone 1) -->
                         <div class="media-item">
-                            <Image src={frame5Img} alt="Mockup pleine largeur montrant l'univers visuel de Sarah Prémont" class="project-image" loading="lazy" decoding="async" />
+                            <Image src={frame5Img} alt={t.alt6} class="project-image" loading="lazy" decoding="async" />
                         </div>
 
                         <!-- 2-column Image Grid -->
                         <div class="media-grid-2">
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={frame6Img} alt="Interface mobile du portfolio de Sarah Prémont" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={frame6Img} alt={t.alt7} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={frame7Img} alt="Mise en valeur des portraits photographiques sur le site" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={frame7Img} alt={t.alt8} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </div>
 
                         <!-- Flow row -->
                         <div class="media-item">
-                            <Image src={frame8Img} alt="Structure globale du site vitrine Sarah Prémont" class="project-image" loading="lazy" decoding="async" />
+                            <Image src={frame8Img} alt={t.alt9} class="project-image" loading="lazy" decoding="async" />
                         </div>
                     </div>
                 </section>
@@ -123,20 +174,20 @@ import frame8Img from '../assets/Sarah Premz/Frame8.webp';
                 <ProjectIndex />
 
                 <div class="section-group mt-xl">
-                    <h4 class="small-title">Sarah Prémont, c'est qui ?</h4>
-                    <p class="service-intro">Sarah Prémont est une photographe dont le travail explore la texture, la lumière et l'intimité du portrait.</p>
+                    <h4 class="small-title">{t.h4_1}</h4>
+                    <p class="service-intro">{t.p3}</p>
                     <ul class="check-list">
-                        <li>Capturer l'essence authentique des sujets.</li>
-                        <li>Créer des compositions visuelles fortes et épurées.</li>
-                        <li>Offrir un regard singulier sur le monde qui nous entoure.</li>
+                        <li>{t.li1}</li>
+                        <li>{t.li2}</li>
+                        <li>{t.li3}</li>
                     </ul>
                 </div>
 
                 <div class="section-group mt-xl">
-                    <h4 class="small-title">Crédits</h4>
+                    <h4 class="small-title">{common.credits}</h4>
                     <ul class="check-list">
-                        <li>Nicolas Prémont / développer</li>
-                        <li>Sarah Prémont / Photographe</li>
+                        <li>{t.li4}</li>
+                        <li>{t.li5}</li>
                     </ul>
                 </div>
             </div>

@@ -1,4 +1,6 @@
 ---
+import { getLang, stripLang, localizePath, languages, defaultLang, ui } from '../i18n';
+
 interface Props {
   // Essential meta
   title: string;
@@ -53,7 +55,7 @@ const {
   author,
   siteName = siteSettings.siteName,
   twitterSite = siteSettings.twitterSite,
-  locale = siteSettings.locale,
+  locale = ui[getLang(Astro.url)].ogLocale,
 } = Astro.props;
 
 // Build full title with template
@@ -70,6 +72,14 @@ const ogImageURL = ogImage
   : new URL(siteSettings.defaultOgImage, Astro.site).href;
 
 const resolvedOgImageAlt = ogImageAlt || siteSettings.defaultOgImageAlt;
+
+// Versions linguistiques de la page (balises hreflang)
+const basePath = stripLang(Astro.url.pathname);
+const alternates = languages.map((code) => ({
+  code,
+  href: new URL(localizePath(basePath, code), Astro.site).href,
+}));
+const defaultAlternate = new URL(localizePath(basePath, defaultLang), Astro.site).href;
 ---
 
 <!-- Essential Meta Tags -->
@@ -79,6 +89,10 @@ const resolvedOgImageAlt = ogImageAlt || siteSettings.defaultOgImageAlt;
 <meta name="description" content={description} />
 <meta name="robots" content={robots} />
 <link rel="canonical" href={canonicalURL} />
+{alternates.map((alt) => (
+  <link rel="alternate" hreflang={alt.code} href={alt.href} />
+))}
+<link rel="alternate" hreflang="x-default" href={defaultAlternate} />
 
 <!-- Open Graph -->
 <meta property="og:title" content={title} />

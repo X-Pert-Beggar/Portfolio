@@ -13,18 +13,75 @@ import screen7Img from '../assets/Mr Clean/7.webp';
 import screen8Img from '../assets/Mr Clean/8.webp';
 import screen9Img from '../assets/Mr Clean/9.webp';
 import screen10Img from '../assets/Mr Clean/10.webp';
+
+import { getLang, localizePath, ui } from '../i18n';
+
+// --- Textes de la page, en français et en anglais ---
+const lang = getLang(Astro.url);
+const common = ui[lang];
+const homeHref = localizePath('/', lang);
+const t = {
+    fr: {
+        metaDescription: `Mr Clean : application mobile de réservation de machines à laver et de sèche-linge en laverie.`,
+        alt1: `Aperçu principal de l'application mobile Mr Clean`,
+        p1: `Mr Clean est une application dédiée à la réservation en ligne de machines à laver et de sèche-linge. Son objectif est simple : fluidifier l'utilisation des laveries et permettre aux clients de réserver une machine à l'heure souhaitée, tout en préenregistrant le programme désiré.`,
+        p2: `Ce projet a été l'occasion de concevoir une application à l'esthétique cohérente et performante, tout en développant et enrichissant un design system pensé selon une approche only mobile. L'objectif est d'offrir une expérience utilisateur simple, intuitive et optimisée pour tous les âges.`,
+        alt2: `Composants d'interface de Mr Clean`,
+        alt3: `Mockup mobile de l'application Mr Clean`,
+        alt4: `Écran de réservation de machine dans Mr Clean`,
+        alt5: `Interface de sélection de programme dans Mr Clean`,
+        alt6: `Vue complète du parcours mobile Mr Clean`,
+        alt7: `Détail d'un écran fonctionnel de Mr Clean`,
+        alt8: `Aperçu d'un écran utilisateur de Mr Clean`,
+        alt9: `Écran mobile du design system Mr Clean`,
+        alt10: `Mockup final de l'application Mr Clean`,
+        side1Title: `Mr Clean, c'est quoi ?`,
+        side1P1: `Tout le monde connaît la scène : on arrive à la laverie avec son sac de linge, et toutes les machines tournent déjà. Mr Clean part de ce constat. L'application accompagne un réseau de laveries équipées de lave-linge et de sèche-linge connectés, et permet de réserver sa machine à distance, au jour et à l'heure qui conviennent. On ne se déplace plus au hasard, on vient quand sa machine est prête.`,
+        side2Title: `Du canapé au tambour`,
+        side2P1: `L'idée va plus loin que la simple réservation. Avant même de quitter son domicile, l'utilisateur prépare son programme : température, capacité, type de lavage, tout ce qu'il réglerait normalement devant la machine. Une fois sur place, il ne lui reste qu'à la débloquer et à lancer son cycle, en réglant à ce moment-là ou en ayant déjà payé au moment de réserver.`,
+        side2P2: `L'application prend ensuite le relais. Elle affiche le temps restant en direct, puis prévient quand le linge est prêt à être récupéré, ce qui laisse le temps de faire autre chose plutôt que de surveiller un hublot. Et si quelque chose se passe mal, un système de remboursement est prévu.`,
+        side3Title: `Une interface qui rassure`,
+        side3P1: `Mr Clean s'adresse à des utilisateurs de tous âges, pour un geste du quotidien. Le projet a donc été pensé mobile only et construit sur un design system cohérent, avec une priorité : que l'interface reste directe, lisible et rapide à prendre en main. Chaque étape du parcours, du choix de la machine au retrait du linge, correspond à un état clair dans l'application, pour que l'utilisateur sache toujours où il en est.`,
+        side4Title: `Et ceux qui viennent sans réserver ?`,
+        side4P1: `Une laverie accueille aussi des clients de passage, qui n'ont pas l'application. Leur cas a été intégré à la réflexion : ils doivent pouvoir payer et lancer une machine sur place, et ce paiement doit mettre à jour les disponibilités dans l'app en temps réel. Cette partie n'a pas été développée dans le MVP, volontairement centré sur l'application elle-même, mais elle fait partie du concept.`,
+    },
+    en: {
+        metaDescription: `Mr Clean: a mobile app for booking washing machines and tumble dryers in laundrettes.`,
+        alt1: `Main preview of the Mr Clean mobile app`,
+        p1: `Mr Clean is an application dedicated to booking washing machines and tumble dryers online. Its goal is simple: to make laundrettes easier to use and let customers book a machine at the time they want, while saving the desired programme in advance.`,
+        p2: `This project was an opportunity to design an application with a consistent and effective aesthetic, while developing and expanding a design system built around a mobile-only approach. The goal is to offer a simple, intuitive and optimised user experience for all ages.`,
+        alt2: `Interface components of Mr Clean`,
+        alt3: `Mobile mockup of the Mr Clean app`,
+        alt4: `Machine booking screen in Mr Clean`,
+        alt5: `Programme selection interface in Mr Clean`,
+        alt6: `Full view of the Mr Clean mobile journey`,
+        alt7: `Detail of a functional screen in Mr Clean`,
+        alt8: `Preview of a user screen in Mr Clean`,
+        alt9: `Mobile screen from the Mr Clean design system`,
+        alt10: `Final mockup of the Mr Clean app`,
+        side1Title: `What is Mr Clean?`,
+        side1P1: `Everyone knows the scene: you arrive at the laundrette with your bag of laundry, and every machine is already running. Mr Clean starts from that observation. The app supports a network of laundrettes equipped with connected washing machines and tumble dryers, and lets you book your machine remotely, on the day and at the time that suit you. No more turning up on the off chance: you come when your machine is ready.`,
+        side2Title: `From sofa to drum`,
+        side2P1: `The idea goes further than simple booking. Before even leaving home, users set up their programme: temperature, load capacity, type of wash, everything they would normally set standing in front of the machine. Once on site, all that is left is to unlock it and start the cycle, paying at that point or having already paid when booking.`,
+        side2P2: `The app then takes over. It shows the remaining time live, then sends a notification when the laundry is ready to collect, leaving time to do something else rather than watch a porthole. And if something goes wrong, a refund system is in place.`,
+        side3Title: `A reassuring interface`,
+        side3P1: `Mr Clean is aimed at users of all ages, for an everyday task. The project was therefore designed as mobile-only and built on a consistent design system, with one priority: keeping the interface direct, legible and quick to pick up. Each step of the journey, from choosing the machine to collecting the laundry, corresponds to a clear state in the app, so users always know where they stand.`,
+        side4Title: `And those who come without booking?`,
+        side4P1: `A laundrette also welcomes walk-in customers who don't have the app. Their case was built into the thinking: they must be able to pay and start a machine on site, and that payment must update availability in the app in real time. This part was not developed in the MVP, which deliberately focuses on the app itself, but it is part of the concept.`,
+    },
+}[lang];
 ---
 
 <BaseLayout
     title="Mr Clean"
     isProjectPage={true}
-    description="Mr Clean : application mobile de réservation de machines à laver et de sèche-linge en laverie."
+    description={t.metaDescription}
     ogImage="/Asset/Mr Clean/1.webp"
 >
     <div class="main-layout-wrapper">
         <main class="center-flow-project">
             <div class="case-study-content">
-                <a href="/" class="back-link scramble-text">← Retour</a>
+                <a href={homeHref} class="back-link scramble-text">{common.back}</a>
 
                 <h1 class="project-large-title">Mr Clean</h1>
                 <span class="dot-separator">•</span>
@@ -33,7 +90,7 @@ import screen10Img from '../assets/Mr Clean/10.webp';
                     <div class="placeholder-img" style="height: 100%;">
                         <Image
                             src={heroImg}
-                            alt="Aperçu principal de l'application mobile Mr Clean"
+                            alt={t.alt1}
                             class="project-image"
                             loading="eager"
                             decoding="async"
@@ -47,11 +104,11 @@ import screen10Img from '../assets/Mr Clean/10.webp';
                 <section id="description" class="case-description-section">
                     <div class="case-grid">
                         <div class="case-label">
-                            <h3 class="section-title">Description du projet</h3>
+                            <h3 class="section-title">{common.projectDescription}</h3>
                         </div>
                         <div class="case-text">
-                            <p>Mr Clean est une application dédiée à la réservation en ligne de machines à laver et de sèche-linge. Son objectif est simple : fluidifier l'utilisation des laveries et permettre aux clients de réserver une machine à l'heure souhaitée, tout en préenregistrant le programme désiré.</p>
-                            <p>Ce projet a été l'occasion de concevoir une application à l'esthétique cohérente et performante, tout en développant et enrichissant un design system pensé selon une approche only mobile. L'objectif est d'offrir une expérience utilisateur simple, intuitive et optimisée pour tous les âges.</p>
+                            <p>{t.p1}</p>
+                            <p>{t.p2}</p>
                         </div>
                     </div>
                 </section>
@@ -61,12 +118,12 @@ import screen10Img from '../assets/Mr Clean/10.webp';
                         <div class="media-grid-2">
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={screen2Img} alt="Composants d'interface de Mr Clean" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={screen2Img} alt={t.alt2} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={screen3Img} alt="Mockup mobile de l'application Mr Clean" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={screen3Img} alt={t.alt3} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </div>
@@ -74,29 +131,29 @@ import screen10Img from '../assets/Mr Clean/10.webp';
                         <div class="media-grid-2">
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={screen4Img} alt="Écran de réservation de machine dans Mr Clean" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={screen4Img} alt={t.alt4} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={screen5Img} alt="Interface de sélection de programme dans Mr Clean" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={screen5Img} alt={t.alt5} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </div>
 
                         <div class="media-item">
-                            <Image src={screen6Img} alt="Vue complète du parcours mobile Mr Clean" class="project-image" loading="lazy" decoding="async" />
+                            <Image src={screen6Img} alt={t.alt6} class="project-image" loading="lazy" decoding="async" />
                         </div>
 
                         <div class="media-grid-2">
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={screen7Img} alt="Détail d'un écran fonctionnel de Mr Clean" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={screen7Img} alt={t.alt7} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={screen8Img} alt="Aperçu d'un écran utilisateur de Mr Clean" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={screen8Img} alt={t.alt8} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </div>
@@ -104,12 +161,12 @@ import screen10Img from '../assets/Mr Clean/10.webp';
                         <div class="media-grid-2">
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={screen9Img} alt="Écran mobile du design system Mr Clean" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={screen9Img} alt={t.alt9} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={screen10Img} alt="Mockup final de l'application Mr Clean" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={screen10Img} alt={t.alt10} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </div>
@@ -123,27 +180,24 @@ import screen10Img from '../assets/Mr Clean/10.webp';
                 <ProjectIndex />
 
                 <div class="section-group mt-xl">
-                    <h4 class="small-title">Mr Clean c'est quoi ?</h4>
-                    <p class="service-intro">Mr Clean est une application mobile pensée pour simplifier la réservation de machines en laverie.</p>
-                    <ul class="check-list">
-                        <li>Réserver un lave-linge ou un sèche-linge à un horaire précis.</li>
-                        <li>Préenregistrer le programme souhaité avant l'arrivée en laverie.</li>
-                        <li>Rendre l'expérience plus claire pour des utilisateurs de tous âges.</li>
-                    </ul>
+                    <h4 class="small-title">{t.side1Title}</h4>
+                    <p class="service-intro">{t.side1P1}</p>
                 </div>
 
                 <div class="section-group mt-xl">
-                    <h4 class="small-title">Approche design</h4>
-                    <p class="service-intro">Le projet s'appuie sur une logique only mobile et sur un design system cohérent, afin de garder une interface directe, lisible et rapide à prendre en main.</p>
+                    <h4 class="small-title">{t.side2Title}</h4>
+                    <p class="service-intro">{t.side2P1}</p>
+                    <p class="service-intro">{t.side2P2}</p>
                 </div>
 
                 <div class="section-group mt-xl">
-                    <h4 class="small-title">Objectifs UX</h4>
-                    <ul class="check-list">
-                        <li>Limiter les frictions lors du choix d'une machine disponible.</li>
-                        <li>Clarifier le parcours de réservation et de programmation.</li>
-                        <li>Créer une interface rassurante pour un usage quotidien.</li>
-                    </ul>
+                    <h4 class="small-title">{t.side3Title}</h4>
+                    <p class="service-intro">{t.side3P1}</p>
+                </div>
+
+                <div class="section-group mt-xl">
+                    <h4 class="small-title">{t.side4Title}</h4>
+                    <p class="service-intro">{t.side4P1}</p>
                 </div>
             </div>
         </aside>

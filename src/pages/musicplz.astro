@@ -8,19 +8,48 @@ import musicMainImg from '../assets/Music plz/music.jpg';
 import mockupImg from '../assets/Music plz/Mockup.jpg';
 import mockup2Img from '../assets/Music plz/Mockup2.jpg';
 import mockup3Img from '../assets/Music plz/Mockup3.jpg';
+
+import { getLang, localizePath, ui } from '../i18n';
+
+// --- Textes de la page, en français et en anglais ---
+const lang = getLang(Astro.url);
+const common = ui[lang];
+const homeHref = localizePath('/', lang);
+const t = {
+    fr: {
+        metaDescription: `Projet Music Please : conception d'un site web brutaliste pour le groupe rock expérimental The Garden.`,
+        alt1: `Design brutaliste pour le site du groupe The Garden`,
+        p1: `Le projet visait à créer un site web dédié à un artiste de notre choix. J'ai opté pour le groupe "The Garden" afin d'explorer une approche de design brutaliste en harmonie avec leur esthétique chaotique, tout en rappelant le style de pochettes emblématique du punk.`,
+        p2: `"The Garden" est un groupe de rock expérimental américain formé en 2011 par les frères jumeaux Wyatt et Fletcher Shears. Leur premier album, "The Life and Times of a Paperclip", est sorti en 2013, suivi de plusieurs singles.`,
+        p3: `Récemment, ils ont publié un nouvel album intitulé "Horseshit on Route 66", où transparaît nettement une esthétique punk, que ce soit à travers leurs affiches ou leurs tenues. De plus, leur maquillage scénique évoque des influences de divers genres tels que l'industrial metal et le black metal.C'est ainsi que le brutalisme trouve sa légitimité au sein du groupe "The Garden", en parfait accord avec leur quête d'une esthétique brute et excentrique. J'ai donc pu redessiner une pochette d'album et créer un site ephemere qui reflète leur identité visuelle.`,
+        alt2: `Mockup desktop du site Music Please avec esthétique punk`,
+        alt3: `Détail de la typographie et du design brut du site`,
+        alt4: `Mockup montrant les visuels d'albums sur Music Please`,
+    },
+    en: {
+        metaDescription: `Music Please project: design of a brutalist website for the experimental rock band The Garden.`,
+        alt1: `Brutalist design for the website of the band The Garden`,
+        p1: `The project aimed to create a website dedicated to an artist of our choice. I chose the band "The Garden" in order to explore a brutalist design approach in harmony with their chaotic aesthetic, while recalling the iconic style of punk record sleeves.`,
+        p2: `"The Garden" is an American experimental rock band formed in 2011 by twin brothers Wyatt and Fletcher Shears. Their first album, "The Life and Times of a Paperclip", was released in 2013, followed by several singles.`,
+        p3: `They recently released a new album entitled "Horseshit on Route 66", in which a punk aesthetic clearly comes through, whether in their posters or their outfits. In addition, their stage make-up evokes influences from various genres such as industrial metal and black metal. This is how brutalism finds its legitimacy with "The Garden", in perfect keeping with their pursuit of a raw and eccentric aesthetic. I was therefore able to redesign an album cover and create a temporary website that reflects their visual identity.`,
+        alt2: `Desktop mockup of the Music Please website with a punk aesthetic`,
+        alt3: `Detail of the website's typography and raw design`,
+        alt4: `Mockup showing the album artwork on Music Please`,
+    },
+}[lang];
 ---
 
 <BaseLayout 
     title="Music Please" 
     isProjectPage={true}
-    description="Projet Music Please : conception d'un site web brutaliste pour le groupe rock expérimental The Garden."
+    description={t.metaDescription}
     ogImage="/Asset/Music plz/music.jpg"
 >
     <div class="main-layout-wrapper">
         <!-- Flux CENTRAL: CONTENU CASE STUDY -->
         <main class="center-flow-project">
             <div class="case-study-content">
-                <a href="/" class="back-link scramble-text">← Retour</a>
+                <a href={homeHref} class="back-link scramble-text">{common.back}</a>
                 <!-- Title & Hero -->
                 <h1 class="project-large-title">Music Please</h1>
                 <span class="dot-separator">•</span>
@@ -29,7 +58,7 @@ import mockup3Img from '../assets/Music plz/Mockup3.jpg';
                     <div class="placeholder-img" style="height: 100%;">
                         <Image 
                             src={musicMainImg} 
-                            alt="Design brutaliste pour le site du groupe The Garden" 
+                            alt={t.alt1} 
                             class="project-image" 
                             loading="eager" 
                             decoding="async" 
@@ -44,12 +73,12 @@ import mockup3Img from '../assets/Music plz/Mockup3.jpg';
                 <section id="description" class="case-description-section">
                     <div class="case-grid">
                         <div class="case-label">
-                            <h3 class="section-title">Description du projet</h3>
+                            <h3 class="section-title">{common.projectDescription}</h3>
                         </div>
                         <div class="case-text">
-                            <p>Le projet visait à créer un site web dédié à un artiste de notre choix. J'ai opté pour le groupe "The Garden" afin d'explorer une approche de design brutaliste en harmonie avec leur esthétique chaotique, tout en rappelant le style de pochettes emblématique du punk.</p>
-                            <p>"The Garden" est un groupe de rock expérimental américain formé en 2011 par les frères jumeaux Wyatt et Fletcher Shears. Leur premier album, "The Life and Times of a Paperclip", est sorti en 2013, suivi de plusieurs singles.</p>
-                            <p>Récemment, ils ont publié un nouvel album intitulé "Horseshit on Route 66", où transparaît nettement une esthétique punk, que ce soit à travers leurs affiches ou leurs tenues. De plus, leur maquillage scénique évoque des influences de divers genres tels que l'industrial metal et le black metal.C'est ainsi que le brutalisme trouve sa légitimité au sein du groupe "The Garden", en parfait accord avec leur quête d'une esthétique brute et excentrique. J'ai donc pu redessiner une pochette d'album et créer un site ephemere qui reflète leur identité visuelle.</p>
+                            <p>{t.p1}</p>
+                            <p>{t.p2}</p>
+                            <p>{t.p3}</p>
                         </div>
                     </div>
                 </section>
@@ -60,12 +89,12 @@ import mockup3Img from '../assets/Music plz/Mockup3.jpg';
                         <div class="media-grid-2">
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={mockupImg} alt="Mockup desktop du site Music Please avec esthétique punk" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={mockupImg} alt={t.alt2} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={mockup2Img} alt="Détail de la typographie et du design brut du site" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={mockup2Img} alt={t.alt3} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </div>
@@ -73,14 +102,14 @@ import mockup3Img from '../assets/Music plz/Mockup3.jpg';
                         <div class="media-grid-2">
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={mockup3Img} alt="Mockup montrant les visuels d'albums sur Music Please" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={mockup3Img} alt={t.alt4} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
                                     <video autoplay muted loop playsinline class="project-video">
                                         <source src="/Asset/Music plz/Composition.mp4" type="video/mp4">
-                                        Votre navigateur ne supporte pas la lecture de vidéos.
+                                        {common.videoFallback}
                                     </video>
                                 </div>
                             </div>
