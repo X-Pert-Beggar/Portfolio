@@ -1,38 +1,169 @@
 ---
+/*
+ * Index des projets, rangés par dossiers déroulants (FR / EN).
+ * Le menu déroulant lui-même (styles + animation) est dans Dropdown.astro.
+ *
+ * Pour ajouter / déplacer un projet : modifier la liste `folders` ci-dessous.
+ * - `name` : un texte, ou { fr, en } si le nom change selon la langue
+ * - `tags` : affichés sous le nom, séparés par « · », dans chaque langue
+ * - `href` : chemin de la page projet, toujours écrit SANS préfixe de langue ("/groovs").
+ *            Absent => le projet s'affiche sans lien (page projet pas encore créée)
+ */
+import Dropdown from './Dropdown.astro';
+import { getLang, stripLang, localizePath, type Lang } from '../i18n';
+
+type Localized<T> = Record<Lang, T>;
+
 interface Project {
-    href: string;
-    name: string;
-    type: string;
+    name: string | Localized<string>;
+    tags: Localized<string[]>;
+    href?: string;
 }
 
-const projects: Project[] = [
-    { href: '/mr-clean', name: 'Mr Clean', type: 'UX/UI 🔗' },
-    { href: '/project-camera', name: 'Caméra XYZ-5000', type: 'UX/UI 🔗' },
-    { href: '/groovs', name: 'Groovs', type: 'Design System 🔗' },
-    { href: '/iolce', name: 'Kosta mitoussis', type: 'Frontend 🔗' },
-    { href: '/movento', name: 'Movento', type: 'UX Design 🔗' },
-    { href: '/musicplz', name: 'Music Please', type: 'Frontend 🔗' },
-    { href: '/rqr', name: 'RQR', type: 'UX/UI 🔗' },
-    { href: '/sarah', name: 'Sarah Prémont', type: 'UX/UI 🔗' },
-    { href: '/others', name: 'Others', type: 'Graphic design 🔗' },
+interface Folder {
+    name: Localized<string>;
+    projects: Project[];
+}
+
+const title: Localized<string> = { fr: 'Projets sélectionnés', en: 'Selected Work' };
+
+const folders: Folder[] = [
+    {
+        name: { fr: 'Product Design', en: 'Product Design' },
+        projects: [
+            {
+                name: 'Groovs',
+                href: '/groovs',
+                tags: {
+                    fr: ['Marketplace', 'UX/UI', 'Design System'],
+                    en: ['Marketplace', 'UX/UI', 'Design System'],
+                },
+            },
+            {
+                name: 'Mr Clean',
+                href: '/mr-clean',
+                tags: {
+                    fr: ['App mobile', 'UX/UI', 'Product Design'],
+                    en: ['Mobile App', 'UX/UI', 'Product Design'],
+                },
+            },
+            {
+                name: 'Movento',
+                href: '/movento',
+                tags: {
+                    fr: ['Mobile', 'UX/UI', 'Prototypage'],
+                    en: ['Mobile', 'UX/UI', 'Prototyping'],
+                },
+            },
+        ],
+    },
+    {
+        name: { fr: 'Web', en: 'Web' },
+        projects: [
+            {
+                name: 'Sarah Prémont',
+                href: '/sarah',
+                tags: {
+                    fr: ['Création web', 'UX/UI', 'Web Design'],
+                    en: ['Web Creation', 'UX/UI', 'Web Design'],
+                },
+            },
+            {
+                name: 'Sarah Prémont',
+                href: '/sarah',
+                tags: {
+                    fr: ['Création web', 'UX/UI', 'Web Design', 'Branding'],
+                    en: ['Web Creation', 'UX/UI', 'Web Design', 'Branding'],
+                },
+            },
+        ],
+    },
+    {
+        name: { fr: 'Visuel & Marque', en: 'Visual & Brand' },
+        projects: [
+            {
+                name: 'Music Please',
+                href: '/musicplz',
+                tags: {
+                    fr: ["Projet d'école", 'Frontend', 'Design graphique'],
+                    en: ['School Project', 'Frontend', 'Graphic Design'],
+                },
+            },
+            {
+                name: 'RQR',
+                href: '/rqr',
+                tags: {
+                    fr: ["Projet d'école", 'UX/UI Design', 'Recherche de données'],
+                    en: ['School Project', 'UX/UI Design', 'Data Research'],
+                },
+            },
+        ],
+    },
+    {
+        name: { fr: 'Expérimentations', en: 'Experiments' },
+        projects: [
+            {
+                name: { fr: 'Caméra XYZ-5000', en: 'Camera XYZ-5000' },
+                href: '/project-camera',
+                tags: {
+                    fr: ['UX/UI', 'Animation', 'Design graphique'],
+                    en: ['UX/UI', 'Animation', 'Graphic Design'],
+                },
+            },
+            {
+                name: { fr: 'Autres', en: 'Others' },
+                href: '/others',
+                tags: {
+                    fr: ['Projets personnels', 'Design graphique', 'Print', 'Design 3D'],
+                    en: ['Personal Projects', 'Graphic Design', 'Print', '3D Design'],
+                },
+            },
+        ],
+    },
 ];
+
+const lang = getLang(Astro.url);
+const text = (value: string | Localized<string>) => (typeof value === 'string' ? value : value[lang]);
+
+// Page courante, sans préfixe de langue ("/en/sarah/" et "/sarah" donnent "/sarah")
+const currentPath = stripLang(Astro.url.pathname);
+const isCurrent = (project: Project) => project.href === currentPath;
+const onProjectPage = folders.some((folder) => folder.projects.some(isCurrent));
+
+// Accueil : seul le premier dossier (Product Design) est ouvert. Page projet : seul le dossier du projet affiché est ouvert.
+const isOpen = (folder: Folder, index: number) => (onProjectPage ? folder.projects.some(isCurrent) : index === 0);
 ---
 
-<div class="section-group">
-    <h4 class="small-title">Index</h4>
-    <div class="data-row header-row">
-        <span>Projet</span>
-        <span class="align-right">Type</span>
-    </div>
-    <div class="data-list compact">
-        {projects.map((project) => (
-            <div class="data-row" onclick={`window.location.href='${project.href}'`}>
-                <span class="scramble-text">{project.name}</span>
-                <span class="align-right">{project.type}</span>
-            </div>
-        ))}
-    </div>
-</div>
+<nav class="section-group work-index" aria-labelledby="work-index-title">
+    <h2 class="small-title" id="work-index-title">{title[lang]}</h2>
+
+    {folders.map((folder, index) => (
+        <Dropdown title={folder.name[lang]} count={folder.projects.length} open={isOpen(folder, index)}>
+            <ul class="work-list">
+                {folder.projects.map((project) => (
+                    <li>
+                        {project.href ? (
+                            <a
+                                class="work-item"
+                                href={localizePath(project.href, lang)}
+                                aria-current={isCurrent(project) ? 'page' : undefined}
+                            >
+                                <span class="work-item-name scramble-text">{text(project.name)}</span>
+                                <span class="work-item-arrow" aria-hidden="true">→</span>
+                                <span class="work-item-tags">{project.tags[lang].join(' · ')}</span>
+                            </a>
+                        ) : (
+                            <div class="work-item is-static">
+                                <span class="work-item-name">{text(project.name)}</span>
+                                <span class="work-item-tags">{project.tags[lang].join(' · ')}</span>
+                            </div>
+                        )}
+                    </li>
+                ))}
+            </ul>
+        </Dropdown>
+    ))}
+</nav>
 
 <style>
     .small-title {

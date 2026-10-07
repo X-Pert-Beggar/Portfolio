@@ -1,6 +1,7 @@
 ---
 import { ClientRouter } from 'astro:transitions';
 import SEO from '../components/SEO.astro';
+import { getLang, stripLang, localizePath, languages, ui } from '../i18n';
 
 interface Props {
     title: string;
@@ -9,18 +10,31 @@ interface Props {
     isProjectPage?: boolean;
 }
 
+// Langue de la page (déduite de l'URL) et textes communs associés
+const lang = getLang(Astro.url);
+const t = ui[lang];
+
 const { 
     title, 
-    description = "Portfolio de Frédéric Vanhoolant, UX/UI Designer et Développeur Web.", 
+    description = t.defaultDescription, 
     ogImage = "/Asset/Logo/macd.jpg",
     isProjectPage = false 
 } = Astro.props;
+
+// Liens : accueil dans la langue courante + même page dans chaque langue (bouton FR / EN)
+const homeHref = localizePath('/', lang);
+const currentPath = stripLang(Astro.url.pathname);
+const langLinks = languages.map((code) => ({
+    code,
+    href: localizePath(currentPath, code),
+    current: code === lang,
+}));
 ---
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang={lang}>
 <head>
-    <SEO title={title} description={description} ogImage={ogImage} />
+    <SEO title={title} description={description} ogImage={ogImage} locale={t.ogLocale} />
     <!-- Preload fonts critiques -->
     <link rel="preload" href="/fonts/jetbrains-mono-regular.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/poppins-600.woff2" as="font" type="font/woff2" crossorigin>
@@ -56,7 +70,7 @@ const {
         <div class="container navbar">
             <div class="logo">
                 {isProjectPage ? (
-                    <a href="/" style="text-decoration: none; display: flex; align-items: center; gap: 10px; color: inherit;">
+                    <a href={homeHref} style="text-decoration: none; display: flex; align-items: center; gap: 10px; color: inherit;">
                         <div class="logo-box">
                             <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect width="32" height="32" fill="black"/>
@@ -78,6 +92,17 @@ const {
                 )}
             </div>
             <div class="header-right">
+                <nav class="lang-switch" aria-label={t.langSwitchLabel}>
+                    {langLinks.map((link) => (
+                        <a
+                            href={link.href}
+                            class="lang-switch-link"
+                            hreflang={link.code}
+                            lang={link.code}
+                            aria-current={link.current ? 'true' : undefined}
+                        >{link.code.toUpperCase()}</a>
+                    ))}
+                </nav>
                 <div class="toggle-switch">
                     <div class="toggle-knob"></div>
                 </div>
@@ -93,13 +118,13 @@ const {
             <div class="footer-nav">
                 {isProjectPage ? (
                     <>
-                        <a href="/" class="btn-footer scramble-text">Accueil</a>
-                        <a href="#" class="btn-footer scramble-text">Haut ↑</a>
+                        <a href={homeHref} class="btn-footer scramble-text">{t.footerHome}</a>
+                        <a href="#" class="btn-footer scramble-text">{t.footerTop}</a>
                     </>
                 ) : (
                     <>
-                        <a href="#" class="btn-footer scramble-text">Archives</a>
-                        <a href="#" class="btn-footer scramble-text">Confidentialité</a>
+                        <a href="#" class="btn-footer scramble-text">{t.footerArchives}</a>
+                        <a href="#" class="btn-footer scramble-text">{t.footerPrivacy}</a>
                     </>
                 )}
             </div>
@@ -127,11 +152,14 @@ const {
         function initCursor() {
             if (document.querySelector('.custom-cursor')) return;
 
+            // Libellé du curseur selon la langue de la page (<html lang>)
+            const cursorLabel = document.documentElement.lang === 'en' ? 'explore' : 'explorer';
+
             cursor = document.createElement('div');
             cursor.className = 'custom-cursor';
             cursor.innerHTML = `
                 <div class="cursor-cross"></div>
-                <div class="cursor-text">explorer</div>
+                <div class="cursor-text">${cursorLabel}</div>
             `;
             document.body.appendChild(cursor);
 
@@ -249,7 +277,7 @@ const {
                 }
 
                 setText(newText: string) {
-                    const oldText = this.el.innerText;
+                    const oldText = this.el.textContent ?? '';
                     const length = Math.max(oldText.length, newText.length);
                     const promise = new Promise<void>((resolve) => this.resolve = resolve);
                     this.queue = [];
@@ -299,7 +327,10 @@ const {
                     el.setAttribute('data-scramble-init', 'true');
                     const element = el as HTMLElement;
                     const fx = new TextScramble(element);
-                    const originalText = element.innerText;
+                    // textContent et non innerText : innerText renvoie une chaîne vide pour un élément
+                    // masqué au chargement (par exemple un projet dans un dossier déroulant fermé),
+                    // ce qui effaçait le titre au survol.
+                    const originalText = (element.textContent ?? '').replace(/\s+/g, ' ').trim();
                     element.addEventListener('mouseenter', () => fx.setText(originalText));
                 }
             });

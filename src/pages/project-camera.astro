@@ -11,19 +11,72 @@ import mockup1Img from '../assets/camera/mockup1.webp';
 import window1Img from '../assets/camera/Window1.jpg';
 import window2Img from '../assets/camera/Window2.jpg';
 import claImg from '../assets/camera/Cla.webp';
+
+import { getLang, localizePath, ui } from '../i18n';
+
+// --- Textes de la page, en français et en anglais ---
+const lang = getLang(Astro.url);
+const common = ui[lang];
+const homeHref = localizePath('/', lang);
+const t = {
+    fr: {
+        metaDescription: `Exploration de l'interface utilisateur pour une caméra professionnelle de nouvelle génération - Camera XYZ-5000.`,
+        p1: `Le projet Camera XYZ-5000 explore l'interface utilisateur des caméras professionnelles de nouvelle génération. L'objectif était de simplifier les contrôles complexes tout en conservant une précision chirurgicale pour les vidéastes.`,
+        p2: `Nous avons travaillé sur une hiérarchie visuelle stricte, utilisant des contrastes élevés et une typographie monospace pour une lisibilité maximale en conditions de tournage difficiles. Chaque interaction a été pensée pour être accessible même avec des gants, privilégiant des zones de contact larges et des retours visuels instantanés.`,
+        alt1: `Mockup principal de l'interface Camera XYZ-5000 sur écran professionnel`,
+        alt2: `Détail des composants de contrôle et réglages de la caméra`,
+        alt3: `Interface utilisateur montrant l'animation des réglages de focus`,
+        alt4: `Flux de navigation complet de l'interface utilisateur XYZ-5000`,
+        alt5: `Clavier de contrôle et interface de saisie de la caméra`,
+        alt6: `Fenêtre de configuration avancée de l'interface caméra`,
+        alt7: `Mockup des contrôles d'exposition et de colorimétrie`,
+        h4_1: `Le but du projet`,
+        p3: `Cette étude de cas a pour but d'expérimenter ces différents point afin de créer des projets de plus en plus ambitieux :`,
+        li1: `Animation 3D sur Figma : Intégrer une animation 3D en frame by frame sur Figma pour enrichir le processus de conception.`,
+        li2: `Landing Page Caméra Imaginaire : Créer une page illustrative pour un produit fictif de caméra, mettant en avant les fonctionnalités 3D.`,
+        li3: `Acquisition Compétences 3D : Se familiariser avec les logiciels de modélisation et d'animation 3D pour renforcer les compétences pratiques.`,
+        h4_2: `Transformer une Animation Blender en Composant Figma`,
+        p4: `Après avoir sélectionné un modèle 3D et appliqué sa texture, j'ai entamé la phase d'animation. Une fois fini, l'étape suivante consistait à importer cette animation sur Figma, dans le but de réaliser une animation similaire à celle des AirPods d'Apple.`,
+        h4_3: `On passe au reste du design ?`,
+        p6: `L'objectif premier est d'établir une hiérarchie claire et lisible pour une expérience utilisateur (UX) optimale. Rendre le scroll dynamique par l'intermédiaire de micro animations.`,
+        p7: `Afin d'ajouter d'avantage de personnalité à ce projet, j'ai décidé d'incorporer la couleur mauve. Celle-ci est notamment liée à la créativité et aux rêves tout en fournissant un contraste supplémentaire. L'utilisation du noir et blanc souligne l'aspect professionnel du produit.`,
+    },
+    en: {
+        metaDescription: `Exploration of the user interface for a next-generation professional camera - Camera XYZ-5000.`,
+        p1: `The Camera XYZ-5000 project explores the user interface of next-generation professional cameras. The goal was to simplify complex controls while maintaining surgical precision for videographers.`,
+        p2: `We worked on a strict visual hierarchy, using high contrast and monospace typography for maximum legibility in difficult shooting conditions. Every interaction was designed to be accessible even with gloves, favouring large touch areas and instant visual feedback.`,
+        alt1: `Main mockup of the Camera XYZ-5000 interface on a professional screen`,
+        alt2: `Detail of the camera's control components and settings`,
+        alt3: `User interface showing the animation of the focus settings`,
+        alt4: `Complete navigation flow of the XYZ-5000 user interface`,
+        alt5: `Control keyboard and input interface of the camera`,
+        alt6: `Advanced configuration window of the camera interface`,
+        alt7: `Mockup of the exposure and colour controls`,
+        h4_1: `The purpose of the project`,
+        p3: `This case study aims to experiment with the following points in order to create increasingly ambitious projects:`,
+        li1: `3D animation in Figma: Integrate a frame-by-frame 3D animation in Figma to enrich the design process.`,
+        li2: `Imaginary camera landing page: Create an illustrative page for a fictional camera product, highlighting the 3D features.`,
+        li3: `Acquiring 3D skills: Get familiar with 3D modelling and animation software to strengthen practical skills.`,
+        h4_2: `Turning a Blender animation into a Figma component`,
+        p4: `After selecting a 3D model and applying its texture, I started the animation phase. Once that was done, the next step was to import this animation into Figma, with the aim of creating an animation similar to the one for Apple's AirPods.`,
+        h4_3: `On to the rest of the design?`,
+        p6: `The primary goal is to establish a clear and legible hierarchy for an optimal user experience (UX), and to make scrolling dynamic through micro-animations.`,
+        p7: `To add more personality to this project, I decided to incorporate the colour purple. It is notably associated with creativity and dreams, while providing additional contrast. The use of black and white underlines the professional nature of the product.`,
+    },
+}[lang];
 ---
 
 <BaseLayout 
     title="Camera XYZ-5000" 
     isProjectPage={true}
-    description="Exploration de l'interface utilisateur pour une caméra professionnelle de nouvelle génération - Camera XYZ-5000."
+    description={t.metaDescription}
     ogImage="/Asset/camera/mockup0.webp"
 >
     <div class="main-layout-wrapper">
         <!-- Flux CENTRAL: CONTENU CASE STUDY -->
         <main class="center-flow-project">
             <div class="case-study-content">
-                <a href="/" class="back-link scramble-text">← Retour</a>
+                <a href={homeHref} class="back-link scramble-text">{common.back}</a>
                 <!-- Title & Hero -->
                 <h1 class="project-large-title">CAMERA XYZ-5000</h1>
                 <span class="dot-separator">•</span>
@@ -32,7 +85,7 @@ import claImg from '../assets/camera/Cla.webp';
                     <div class="placeholder-img" style="height: 100%;">
                         <video autoplay muted loop playsinline class="project-video">
                             <source src="/Asset/camera/VidCamera.mp4" type="video/mp4">
-                            Votre navigateur ne supporte pas la lecture de vidéos.
+                            {common.videoFallback}
                         </video>
                     </div>
                 </div>
@@ -41,11 +94,11 @@ import claImg from '../assets/camera/Cla.webp';
                 <section id="description" class="case-description-section">
                     <div class="case-grid">
                         <div class="case-label">
-                            <h3 class="section-title">Description du projet</h3>
+                            <h3 class="section-title">{common.projectDescription}</h3>
                         </div>
                         <div class="case-text">
-                            <p>Le projet Camera XYZ-5000 explore l'interface utilisateur des caméras professionnelles de nouvelle génération. L'objectif était de simplifier les contrôles complexes tout en conservant une précision chirurgicale pour les vidéastes.</p>
-                            <p>Nous avons travaillé sur une hiérarchie visuelle stricte, utilisant des contrastes élevés et une typographie monospace pour une lisibilité maximale en conditions de tournage difficiles. Chaque interaction a été pensée pour être accessible même avec des gants, privilégiant des zones de contact larges et des retours visuels instantanés.</p>
+                            <p>{t.p1}</p>
+                            <p>{t.p2}</p>
                         </div>
                     </div>
                 </section>
@@ -58,7 +111,7 @@ import claImg from '../assets/camera/Cla.webp';
                             <div class="placeholder-img" style="height: auto;">
                                 <Image 
                                     src={mockup0Img} 
-                                    alt="Mockup principal de l'interface Camera XYZ-5000 sur écran professionnel" 
+                                    alt={t.alt1} 
                                     class="project-image" 
                                     loading="eager" 
                                     decoding="async" 
@@ -73,12 +126,12 @@ import claImg from '../assets/camera/Cla.webp';
                         <div class="media-grid-2">
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={composantImg} alt="Détail des composants de contrôle et réglages de la caméra" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={composantImg} alt={t.alt2} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={animImg} alt="Interface utilisateur montrant l'animation des réglages de focus" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={animImg} alt={t.alt3} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </div>
@@ -86,26 +139,26 @@ import claImg from '../assets/camera/Cla.webp';
                         <!-- Flow row -->
                         <div class="media-item">
                             <div class="placeholder-img" style="height: auto;">
-                                <Image src={mockup1Img} alt="Flux de navigation complet de l'interface utilisateur XYZ-5000" class="project-image" loading="lazy" decoding="async" />
+                                <Image src={mockup1Img} alt={t.alt4} class="project-image" loading="lazy" decoding="async" />
                             </div>
                         </div>
 
                         <div class="media-grid-2">
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={claImg} alt="Clavier de contrôle et interface de saisie de la caméra" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={claImg} alt={t.alt5} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={window1Img} alt="Fenêtre de configuration avancée de l'interface caméra" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={window1Img} alt={t.alt6} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </div>
 
                         <div class="media-item">
                             <div class="placeholder-img" style="height: 400px;">
-                                <Image src={window2Img} alt="Mockup des contrôles d'exposition et de colorimétrie" class="project-image" loading="lazy" decoding="async" />
+                                <Image src={window2Img} alt={t.alt7} class="project-image" loading="lazy" decoding="async" />
                             </div>
                         </div>
                     </div>
@@ -119,34 +172,32 @@ import claImg from '../assets/camera/Cla.webp';
                 <ProjectIndex />
 
                 <div class="section-group mt-xl">
-                    <h4 class="small-title">Le but du projet</h4>
-                    <p class="service-intro">Cette étude de cas a pour but d'expérimenter ces différents point afin de créer des projets de plus en plus ambitieux :</p>
+                    <h4 class="small-title">{t.h4_1}</h4>
+                    <p class="service-intro">{t.p3}</p>
                     <ul class="check-list">
-                        <li>Animation 3D sur Figma : Intégrer une animation 3D en frame by frame sur Figma pour enrichir le processus de conception.</li>
-                        <li>Landing Page Caméra Imaginaire : Créer une page illustrative pour un produit fictif de caméra, mettant en avant les fonctionnalités 3D.</li>
-                        <li>Acquisition Compétences 3D : Se familiariser avec les logiciels de modélisation et d'animation 3D pour renforcer les compétences pratiques.</li>
+                        <li>{t.li1}</li>
+                        <li>{t.li2}</li>
+                        <li>{t.li3}</li>
                     </ul>
                 </div>
 
                 <div class="section-group mt-xl">
-                    <h4 class="small-title">Transformer une Animation Blender en Composant Figma</h4>
+                    <h4 class="small-title">{t.h4_2}</h4>
                     <div class="contact-box">
-                        <p>Après avoir sélectionné un modèle 3D et appliqué sa texture, j'ai entamé la phase d'animation. Une fois fini, l'étape suivante consistait à importer cette animation sur Figma, dans le but de réaliser une animation similaire à celle des AirPods d'Apple.</p>
-                        <p>Après avoir sélectionné un modèle 3D et appliqué sa texture, j'ai entamé la phase d'animation. Une fois fini, l'étape suivante consistait à importer cette animation sur Figma, dans le but de réaliser une animation similaire à celle des AirPods d'Apple.</p>
+                        <p>{t.p4}</p>
                     </div>
                 </div>
 
                 <div class="section-group mt-xl">
-                    <h4 class="small-title">On passe au reste du design ?</h4>
+                    <h4 class="small-title">{t.h4_3}</h4>
                     <div class="contact-box">
-                        <p>L'objectif premier est d'établir une hiérarchie claire et lisible pour une expérience utilisateur (UX) optimale. Rendre le scroll dynamique par l'intermédiaire de micro animations.</p>
-                        <p>Afin d'ajouter d'avantage de personnalité à ce projet, j'ai décidé d'incorporer la couleur mauve. Celle-ci est notamment  liée à la créativité et aux rêves tout en fournissant un contraste supplémentaire. L'utilisation du noir et blanc souligne l'aspect professionnel du produit.</p>
-                        <p>Afin d'ajouter d'avantage de personnalité à ce projet, j'ai décidé d'incorporer la couleur mauve. Celle-ci est notamment  liée à la créativité et aux rêves tout en fournissant un contraste supplémentaire. L'utilisation du noir et blanc souligne l'aspect professionnel du produit.</p>
+                        <p>{t.p6}</p>
+                        <p>{t.p7}</p>
                     </div>
                 </div>
 
                 <div class="section-group mt-xl">
-                    <h4 class="small-title">Crédits</h4>
+                    <h4 class="small-title">{common.credits}</h4>
                     <ul class="check-list">
                         <li>Oladimeji Odunsi</li>
                         <li>Aleksandr Popov</li>

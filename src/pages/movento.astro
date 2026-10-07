@@ -13,19 +13,102 @@ import mobileImg from '../assets/Movento/mobile.jpg';
 
 // Import research and process images
 import capture1Img from '../assets/Movento/caputre-1.jpg';
+
+import { getLang, localizePath, ui } from '../i18n';
+
+// --- Textes de la page, en français et en anglais ---
+const lang = getLang(Astro.url);
+const common = ui[lang];
+const homeHref = localizePath('/', lang);
+const t = {
+    fr: {
+        metaDescription: `Movento : application mobile de sensibilisation à la kinésithérapie et à la prévention des blessures sportives.`,
+        p1: `Movento est une application mobile qui se consacre à la sensibilisation de la population au bon fonctionnement du corps. Elle propose une vulgarisation de la kinésithérapie.`,
+        p2: `Elle n'a pas un objectif curatif, mais vise plutôt l'auto-évaluation afin de déterminer si l'on présente ou non un trouble musculo-squelettique lors d'une activité sportive. L'objectif est donc de prévenir l'utilisateur avant l'aggravation d'un trouble, en sensibilisant à la kinésithérapie.`,
+        alt1: `Écran d'accueil de l'application mobile Movento`,
+        alt2: `Interface de l'application Movento montrant les exercices de kinésithérapie`,
+        alt3: `Détail d'une fiche exercice dans l'application Movento`,
+        alt4: `Mockup de l'application Movento sur iPhone`,
+        alt5: `Interface de suivi de progression dans Movento`,
+        alt6: `Capture d'écran du processus de conception de Movento`,
+        alt7: `Aperçu global des écrans de l'application mobile Movento`,
+        h4_1: `Le but de Movento`,
+        p3: `L'application Movento a pour objectif de sensibiliser les sportifs à l'importance de s'échauffer correctement et de mieux comprendre la douleur qui peut survenir en cas de mauvaise réalisation d'un exercice sportif. Son but est d'aider les utilisateurs à comprendre les origines de cette douleur et les risques potentiels qui y sont associés.`,
+        p4: `Pourquoi avoir choisi ce sujet ? En tant que sportif amateur, j'ai malheureusement subi plusieurs blessures lors de séances de sport. Suite à ces blessures, j'ai cherché à comprendre leurs causes en visionnant des vidéos, en consultant les avis d'autres sportifs plus expérimentés que moi, en échangeant avec mon coach, ainsi qu'en recourant aux conseils de kinésithérapeutes et d'ostéopathes.`,
+        p5: `C'est ainsi, après ces riches conversations, que j'ai pris conscience de l'importance d'écouter son corps, et donc de ne plus adopter l'approche "no pain, no gain" qui est assez répandue dans certains milieux sportifs. Il est évident que j'aurais aimé disposer de tous ces précieux conseils avant le début de ma pratique sportive, c'est pourquoi j'ai tenu à développer cette application.`,
+        h4_2: `Mes recherches`,
+        p6: `Le public ciblé, sont les sportifs débutants de tous âges.`,
+        p7: `En effet, ceux qui ont le plus de chances de se blesser sont généralement les débutants en raison de leur manque d'expérience et de technique dans les mouvements.`,
+        p8: `J'ai pu dès lors interviewer différents profils de débutants sportifs, ce qui m'a permis de constater que 60 % du public cible est prêt à effectuer préventivement des exercices plutôt que de traiter une douleur chez un professionnel. Comme dis précédement j'ai pu déja parlé avec quelques kinésitérapeute qui on pu affirmé que les jeunes et les hommes comptent parmi les groupes les plus à risque de se blesser. Le taux global de blessés est significativement plus élevé chez les hommes que chez les femmes.`,
+        h4_3: `Création de fonctionnalité et ces différentes problematiques.`,
+        p9: `Suite a ces recherches il est temps d'imaginer quelques fonctionalités ainsi que des croquis et les mettres à l'épreuve par l'utlisation de persona.`,
+        li1: `Filtres d'activitées et exercices`,
+        li2: `Pages parlant de la technique de l'exercice`,
+        li3: `Dropdown parlant des douleurs et blessures potentielles`,
+        li4: `Dropdown présentant une liste d'étirements`,
+        li5: `Dropdown présentant une liste d'échauffement`,
+        p10: `Après analyse, j'ai pu constater plusieurs problématiques qui m'ont amenée à remettre en question l'avancement de mon projet. Celui-ci manquait principalement de clarté. De plus, le sujet des douleurs, qui devrait normalement être notre problématique principale, est trop reléguée en annexe, et l'attention se concentre d'avantage sur la technique, ce qui est certes une bonne chose, mais il y a clairement un manque d'explication sur pourquoi cette technique peut être douloureuse.`,
+        p11: `Pour résoudre ce problème, j'ai continué mes recherches et mes entretiens avec différents kinésithérapeutes. J'ai trouvé une solution en développant un questionnaire intelligent similaire à un QSM. Grâce à des séries de tests, il peut déterminer les éventuelles lacunes biomécaniques du corps de l'utilisateur. De ce fait par cette modification je me devais de modifier mes suivantes que voici :`,
+        li6: `Questionnaire sur l'exercice problématique`,
+        li7: `Questionnaire sur la douleurs recentie`,
+        li8: `Système d'épingle et création de programmes personnels`,
+        li9: `Dropdown présentant des programmes d'étirements, de mobilités et d'échauffements`,
+        li10: `Explication des causes potentielles`,
+        h4_5: `Ma conclusion`,
+        p13: `J'ai trouvé l'expérience du TFA enrichissante, car elle m'a mis en contact avec un public et m'a permis de comprendre leurs attentes. Recevoir des retours de ce public cible m'a aidé à concevoir une application plus pertinente tout en économisant des efforts. L'obtention de ces retours permet également une meilleure évaluation de la pertinence de nos fonctionnalités proposées.`,
+        p14: `Ce projet m'a également permis de me familiariser avec Figma, un outil qui était nouveau pour moi à l'époque. J'y ai découvert les bases des composants, des groupes, ainsi que quelques notions de prototypage, que j'ai ensuite pu développer davantage.`,
+    },
+    en: {
+        metaDescription: `Movento: a mobile app raising awareness of physiotherapy and the prevention of sports injuries.`,
+        p1: `Movento is a mobile application dedicated to raising public awareness of how the body works. It makes physiotherapy accessible to everyone.`,
+        p2: `It is not intended as a treatment; instead it focuses on self-assessment, to determine whether or not you show signs of a musculoskeletal disorder during physical activity. The goal is therefore to alert users before a problem gets worse, by raising awareness of physiotherapy.`,
+        alt1: `Home screen of the Movento mobile app`,
+        alt2: `Movento app interface showing physiotherapy exercises`,
+        alt3: `Detail of an exercise sheet in the Movento app`,
+        alt4: `Mockup of the Movento app on iPhone`,
+        alt5: `Progress tracking interface in Movento`,
+        alt6: `Screenshot of the Movento design process`,
+        alt7: `Overview of the Movento mobile app screens`,
+        h4_1: `The purpose of Movento`,
+        p3: `The Movento app aims to make athletes aware of the importance of warming up properly and to help them better understand the pain that can occur when an exercise is performed incorrectly. Its goal is to help users understand where this pain comes from and the potential risks associated with it.`,
+        p4: `Why this topic? As an amateur athlete, I have unfortunately suffered several injuries during training sessions. Following these injuries, I tried to understand their causes by watching videos, reading the opinions of athletes more experienced than me, talking with my coach, and seeking advice from physiotherapists and osteopaths.`,
+        p5: `It was after these valuable conversations that I realised how important it is to listen to your body, and therefore to stop following the "no pain, no gain" approach that is quite common in some sporting circles. I obviously wish I had had all this valuable advice before I started training, which is why I wanted to develop this application.`,
+        h4_2: `My research`,
+        p6: `The target audience is beginner athletes of all ages.`,
+        p7: `Indeed, those most likely to get injured are generally beginners, due to their lack of experience and technique in their movements.`,
+        p8: `I was then able to interview various beginner athlete profiles, which showed me that 60% of the target audience is willing to do preventive exercises rather than have pain treated by a professional. As mentioned earlier, I had also already spoken with a few physiotherapists, who confirmed that young people and men are among the groups most at risk of injury. The overall injury rate is significantly higher among men than among women.`,
+        h4_3: `Feature design and the issues it raised.`,
+        p9: `Following this research, it was time to imagine a few features and sketches, and to put them to the test using personas.`,
+        li1: `Activity and exercise filters`,
+        li2: `Pages explaining the technique of each exercise`,
+        li3: `Dropdown covering potential pains and injuries`,
+        li4: `Dropdown listing stretches`,
+        li5: `Dropdown listing warm-ups`,
+        p10: `After analysis, I identified several issues that led me to question the direction of my project. Above all, it lacked clarity. In addition, the topic of pain, which should have been our main focus, was relegated too far into the background, and attention was concentrated more on technique. That is certainly a good thing, but there was a clear lack of explanation as to why a given technique can be painful.`,
+        p11: `To solve this problem, I continued my research and my interviews with various physiotherapists. I found a solution by developing a smart questionnaire similar to a multiple-choice quiz. Through a series of tests, it can identify possible biomechanical weaknesses in the user's body. As a result of this change, I had to revise my features as follows:`,
+        li6: `Questionnaire about the problematic exercise`,
+        li7: `Questionnaire about the pain felt`,
+        li8: `Pinning system and creation of personal programmes`,
+        li9: `Dropdown presenting stretching, mobility and warm-up programmes`,
+        li10: `Explanation of potential causes`,
+        h4_5: `My conclusion`,
+        p13: `I found the end-of-year project experience rewarding, as it put me in contact with an audience and helped me understand their expectations. Receiving feedback from this target audience helped me design a more relevant application while saving effort. This feedback also allows a better assessment of the relevance of the features we propose.`,
+        p14: `This project also allowed me to get to grips with Figma, a tool that was new to me at the time. I learned the basics of components and groups, as well as some prototyping concepts, which I was later able to develop further.`,
+    },
+}[lang];
 ---
 
 <BaseLayout 
     title="Movento" 
     isProjectPage={true}
-    description="Movento : application mobile de sensibilisation à la kinésithérapie et à la prévention des blessures sportives."
+    description={t.metaDescription}
     ogImage="/Asset/Movento/intro.webp"
 >
     <div class="main-layout-wrapper">
         <!-- Flux CENTRAL: CONTENU CASE STUDY -->
         <main class="center-flow-project">
             <div class="case-study-content">
-                <a href="/" class="back-link scramble-text">← Retour</a>
+                <a href={homeHref} class="back-link scramble-text">{common.back}</a>
                 <!-- Title & Hero -->
                 <h1 class="project-large-title">Movento</h1>
                 <span class="dot-separator">•</span>
@@ -34,7 +117,7 @@ import capture1Img from '../assets/Movento/caputre-1.jpg';
                     <div class="placeholder-img" style="height: 100%;">
                         <video autoplay muted loop playsinline class="project-video">
                             <source src="/Asset/Movento/65e8d6584d53eccf2f6e161d_movento.mp4" type="video/mp4">
-                            Votre navigateur ne supporte pas la lecture de vidéos.
+                            {common.videoFallback}
                         </video>
                     </div>
                 </div>
@@ -43,11 +126,11 @@ import capture1Img from '../assets/Movento/caputre-1.jpg';
                 <section id="description" class="case-description-section">
                     <div class="case-grid">
                         <div class="case-label">
-                            <h3 class="section-title">Description du projet</h3>
+                            <h3 class="section-title">{common.projectDescription}</h3>
                         </div>
                         <div class="case-text">
-                            <p>Movento est une application mobile qui se consacre à la sensibilisation de la population au bon fonctionnement du corps. Elle propose une vulgarisation de la kinésithérapie.</p>
-                            <p>Elle n'a pas un objectif curatif, mais vise plutôt l'auto-évaluation afin de déterminer si l'on présente ou non un trouble musculo-squelettique lors d'une activité sportive. L'objectif est donc de prévenir l'utilisateur avant l'aggravation d'un trouble, en sensibilisant à la kinésithérapie.</p>
+                            <p>{t.p1}</p>
+                            <p>{t.p2}</p>
                         </div>
                     </div>
                 </section>
@@ -58,25 +141,12 @@ import capture1Img from '../assets/Movento/caputre-1.jpg';
                         <div class="media-grid-2">
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={introImg} alt="Écran d'accueil de l'application mobile Movento" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={introImg} alt={t.alt1} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={number2Img} alt="Interface de l'application Movento montrant les exercices de kinésithérapie" class="project-image" loading="lazy" decoding="async" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="media-grid-2">
-                            <div class="media-item">
-                                <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={number3Img} alt="Détail d'une fiche exercice dans l'application Movento" class="project-image" loading="lazy" decoding="async" />
-                                </div>
-                            </div>
-                            <div class="media-item">
-                                <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={number4Img} alt="Mockup de l'application Movento sur iPhone" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={number2Img} alt={t.alt2} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </div>
@@ -84,19 +154,32 @@ import capture1Img from '../assets/Movento/caputre-1.jpg';
                         <div class="media-grid-2">
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={number5Img} alt="Interface de suivi de progression dans Movento" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={number3Img} alt={t.alt3} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
-                                    <Image src={capture1Img} alt="Capture d'écran du processus de conception de Movento" class="project-image" loading="lazy" decoding="async" />
+                                    <Image src={number4Img} alt={t.alt4} class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="media-grid-2">
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={number5Img} alt={t.alt5} class="project-image" loading="lazy" decoding="async" />
+                                </div>
+                            </div>
+                            <div class="media-item">
+                                <div class="placeholder-img" style="height: 400px;">
+                                    <Image src={capture1Img} alt={t.alt6} class="project-image" loading="lazy" decoding="async" />
                                 </div>
                             </div>
                         </div>
 
                         <!-- Full width Image (Phone 1) -->
                         <div class="media-item">
-                            <Image src={mobileImg} alt="Aperçu global des écrans de l'application mobile Movento" class="project-image" loading="lazy" decoding="async" />
+                            <Image src={mobileImg} alt={t.alt7} class="project-image" loading="lazy" decoding="async" />
                         </div>
                     </div>
                 </section>
@@ -109,56 +192,45 @@ import capture1Img from '../assets/Movento/caputre-1.jpg';
                 <ProjectIndex />
 
                 <div class="section-group mt-xl">
-                    <h4 class="small-title">Le but de Movento</h4>
-                    <p class="service-intro">L'application Movento a pour objectif de sensibiliser les sportifs à l'importance de s'échauffer correctement et de mieux comprendre la douleur qui peut survenir en cas de mauvaise réalisation d'un exercice sportif. Son but est d'aider les utilisateurs à comprendre les origines de cette douleur et les risques potentiels qui y sont associés.</p>
-                    <p class="service-intro">Pourquoi avoir choisi ce sujet ? En tant que sportif amateur, j'ai malheureusement subi plusieurs blessures lors de séances de sport. Suite à ces blessures, j'ai cherché à comprendre leurs causes en visionnant des vidéos, en consultant les avis d'autres sportifs plus expérimentés que moi, en échangeant avec mon coach, ainsi qu'en recourant aux conseils de kinésithérapeutes et d'ostéopathes.</p>
-                    <p class="service-intro">C'est ainsi, après ces riches conversations, que j'ai pris conscience de l'importance d'écouter son corps, et donc de ne plus adopter l'approche "no pain, no gain" qui est assez répandue dans certains milieux sportifs. Il est évident que j'aurais aimé disposer de tous ces précieux conseils avant le début de ma pratique sportive, c'est pourquoi j'ai tenu à développer cette application.</p>
+                    <h4 class="small-title">{t.h4_1}</h4>
+                    <p class="service-intro">{t.p3}</p>
+                    <p class="service-intro">{t.p4}</p>
+                    <p class="service-intro">{t.p5}</p>
                 </div>
 
                 <div class="section-group mt-xl">
-                    <h4 class="small-title">Mes recherches</h4>
-                    <p class="service-intro">Le public ciblé, sont les sportifs débutants de tous âges.</p>
-                    <p class="service-intro">En effet, ceux qui ont le plus de chances de se blesser sont généralement les débutants en raison de leur manque d'expérience et de technique dans les mouvements.</p>
-                    <p class="service-intro">J'ai pu dès lors interviewer différents profils de débutants sportifs, ce qui m'a permis de constater que 60 % du public cible est prêt à effectuer préventivement des exercices plutôt que de traiter une douleur chez un professionnel. Comme dis précédement j'ai pu déja parlé avec quelques kinésitérapeute qui on pu affirmé que les jeunes et les hommes comptent parmi les groupes les plus à risque de se blesser. Le taux global de blessés est significativement plus élevé chez les hommes que chez les femmes.</p>
+                    <h4 class="small-title">{t.h4_2}</h4>
+                    <p class="service-intro">{t.p6}</p>
+                    <p class="service-intro">{t.p7}</p>
+                    <p class="service-intro">{t.p8}</p>
                 </div>
 
                 <div class="section-group mt-xl">
-                    <h4 class="small-title">Création de fonctionnalité et ces différentes problematiques.</h4>
-                    <p class="service-intro">Suite a ces recherches il est temps d'imaginer quelques fonctionalités ainsi que des croquis et les mettres à l'épreuve par l'utlisation de persona.</p>
+                    <h4 class="small-title">{t.h4_3}</h4>
+                    <p class="service-intro">{t.p9}</p>
                     <ul class="check-list">
-                        <li>Filtres d'activitées et exercices</li>
-                        <li>Pages parlant de la technique de l'exercice</li>
-                        <li>Dropdown parlant des douleurs et blessures potentielles</li>
-                        <li>Dropdown présentant une liste d'étirements</li>
-                        <li>Dropdown présentant une liste d'échauffement</li>
+                        <li>{t.li1}</li>
+                        <li>{t.li2}</li>
+                        <li>{t.li3}</li>
+                        <li>{t.li4}</li>
+                        <li>{t.li5}</li>
                     </ul>
 
-                    <p class="service-intro">Après analyse, j'ai pu constater plusieurs problématiques qui m'ont amenée à remettre en question l'avancement de mon projet. Celui-ci manquait principalement de clarté. De plus, le sujet des douleurs, qui devrait normalement être notre problématique principale, est trop reléguée en annexe, et l'attention se concentre d'avantage sur la technique, ce qui est certes une bonne chose, mais il y a clairement un manque d'explication sur pourquoi cette technique peut être douloureuse.</p>
-                    <p class="service-intro">Pour résoudre ce problème, j'ai continué mes recherches et mes entretiens avec différents kinésithérapeutes. J'ai trouvé une solution en développant un questionnaire intelligent similaire à un QSM. Grâce à des séries de tests, il peut déterminer les éventuelles lacunes biomécaniques du corps de l'utilisateur. De ce fait par cette modification je me devais de modifier mes suivantes que voici :</p>
+                    <p class="service-intro">{t.p10}</p>
+                    <p class="service-intro">{t.p11}</p>
                     <ul class="check-list">
-                        <li>Questionnaire sur l'exercice problématique</li>
-                        <li>Questionnaire sur la douleurs recentie</li>
-                        <li>Système d'épingle et création de programmes personnels</li>
-                        <li>Dropdown présentant des programmes d'étirements, de mobilités et d'échauffements</li>
-                        <li>Explication des causes potentielles</li>
-                    </ul>
-                </div>
-
-                <div class="section-group mt-xl">
-                    <h4 class="small-title">Parlons de nos premières fonctionnalités</h4>
-                    <p class="service-intro">Pour son mvp groovs propose une liste de fonctionnalité primordiale dans le monde de la seconde mains.</p>
-                    <ul class="check-list">
-                        <li>Un large choix de filtre : Comme indiqué, cette fonctionnalité serait le cœur de notre projet, visant à simplifier en quelques clics la complexité du choix d'instruments. Prenons l'exemple de la guitare : outre le fait que nous pouvons proposer des guitares électriques ou acoustiques, celles-ci possèdent également différents styles, tels que le style ST pour les guitares électriques et le style Jumbo pour les acoustiques, et bien d'autres. De plus, nos filtres pourraient inclure des accessoires liés à nos instruments, tels que des amplificateurs, des cordes, des médiators, des sangles, etc.</li>
-                        <li>Un espace de contact : Celui-ci vise à ressembler autant que possible aux interfaces de nos réseaux sociaux les plus utilisés, dans le but de simplifier l'expérience utilisateur et de permettre aux clients de rester dans leurs habitudes, améliorant ainsi la communication entre les utilisateurs.</li>
-                        <li>La possibilité d'enregistrer ces coups de coeur : Cette fonctionnalité vise à améliorer l'ergonomie de l'application. Grâce à celle-ci, l'expérience utilisateur ne sera pas compromise par des allers-retours incessants. La création d'un espace d'enregistrement offre à l'utilisateur la possibilité d'approfondir sa sélection, lui permettant de trier les éléments par ordre d'intérêt.</li>
-                        <li>Son propre espace de vente : Bien évidemment, chaque utilisateur disposera de son propre espace de vente où il trouvera le formulaire de vente permettant d'encoder son article. Ce formulaire a pour objectif de guider l'utilisateur afin d'optimiser la vente de son produit, en fournissant des conseils et des cases à remplir afin de donner un maximum d'informations. C'est également à cet endroit que l'utilisateur pourra définir son mode de paiement et de livraison selon ses préférences.s</li>
+                        <li>{t.li6}</li>
+                        <li>{t.li7}</li>
+                        <li>{t.li8}</li>
+                        <li>{t.li9}</li>
+                        <li>{t.li10}</li>
                     </ul>
                 </div>
 
                 <div class="section-group mt-xl">
-                    <h4 class="small-title">Ma conclusion</h4>
-                    <p class="service-intro">J'ai trouvé l'expérience du TFA enrichissante, car elle m'a mis en contact avec un public et m'a permis de comprendre leurs attentes. Recevoir des retours de ce public cible m'a aidé à concevoir une application plus pertinente tout en économisant des efforts. L'obtention de ces retours permet également une meilleure évaluation de la pertinence de nos fonctionnalités proposées.</p>
-                    <p class="service-intro">Ce projet m'a également permis de me familiariser avec Figma, un outil qui était nouveau pour moi à l'époque. J'y ai découvert les bases des composants, des groupes, ainsi que quelques notions de prototypage, que j'ai ensuite pu développer davantage.</p>
+                    <h4 class="small-title">{t.h4_5}</h4>
+                    <p class="service-intro">{t.p13}</p>
+                    <p class="service-intro">{t.p14}</p>
                 </div>
             </div>
         </aside>
