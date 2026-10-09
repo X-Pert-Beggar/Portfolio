@@ -23,7 +23,7 @@ const homeHref = localizePath('/', lang);
 const t = {
     fr: {
         metaDescription: `Mr Clean : application mobile de réservation de machines à laver et de sèche-linge en laverie.`,
-        alt1: `Aperçu principal de l'application mobile Mr Clean`,
+        altGallery1: `Vue d'ensemble de l'application mobile Mr Clean`,
         p1: `Mr Clean est une application dédiée à la réservation en ligne de machines à laver et de sèche-linge. Son objectif est simple : fluidifier l'utilisation des laveries et permettre aux clients de réserver une machine à l'heure souhaitée, tout en préenregistrant le programme désiré.`,
         p2: `Ce projet a été l'occasion de concevoir une application à l'esthétique cohérente et performante, tout en développant et enrichissant un design system pensé selon une approche only mobile. L'objectif est d'offrir une expérience utilisateur simple, intuitive et optimisée pour tous les âges.`,
         alt2: `Composants d'interface de Mr Clean`,
@@ -47,7 +47,7 @@ const t = {
     },
     en: {
         metaDescription: `Mr Clean: a mobile app for booking washing machines and tumble dryers in laundrettes.`,
-        alt1: `Main preview of the Mr Clean mobile app`,
+        altGallery1: `Overview of the Mr Clean mobile app`,
         p1: `Mr Clean is an application dedicated to booking washing machines and tumble dryers online. Its goal is simple: to make laundrettes easier to use and let customers book a machine at the time they want, while saving the desired programme in advance.`,
         p2: `This project was an opportunity to design an application with a consistent and effective aesthetic, while developing and expanding a design system built around a mobile-only approach. The goal is to offer a simple, intuitive and optimised user experience for all ages.`,
         alt2: `Interface components of Mr Clean`,
@@ -88,16 +88,10 @@ const t = {
 
                 <div class="project-hero-media">
                     <div class="placeholder-img" style="height: 100%;">
-                        <Image
-                            src={heroImg}
-                            alt={t.alt1}
-                            class="project-image"
-                            loading="eager"
-                            decoding="async"
-                            fetchpriority="high"
-                            width={1600}
-                            quality={80}
-                        />
+                        <video autoplay muted loop playsinline class="project-video">
+                            <source src="/Asset/Mr Clean/Logo_anim.mp4" type="video/mp4">
+                            {common.videoFallback}
+                        </video>
                     </div>
                 </div>
 
@@ -115,6 +109,11 @@ const t = {
 
                 <section id="gallery" class="gallery-section">
                     <div class="media-stack">
+                        <!-- Image 1.webp avec les réglages width 1600 / quality 80 : Astro génère le fichier /_astro/1.…webp -->
+                        <div class="media-item">
+                            <Image src={heroImg} alt={t.altGallery1} class="project-image" loading="lazy" decoding="async" width={1600} quality={80} />
+                        </div>
+
                         <div class="media-grid-2">
                             <div class="media-item">
                                 <div class="placeholder-img" style="height: 400px;">
